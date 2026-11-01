@@ -12,13 +12,16 @@
 code{font-family:ui-monospace,Consolas,monospace;font-size:11px;font-weight:700}
 .note{font-size:12px;opacity:.85;margin-top:8px;max-width:110ch}
 .sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 10px}
-.sum div{border:1px solid #8886;border-top:4px solid var(--c);border-radius:8px;padding:7px 10px;font-size:12px}
+.sum div{border:1px solid #8886;border-top:4px solid var(--c);border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer}
+.sum div.on{border-color:var(--c);box-shadow:0 0 0 2px var(--c);background:color-mix(in srgb,var(--c) 10%,transparent)}
+.sum div.off{opacity:.45}
 .sum b{font-size:14px}
 .fl{display:flex;gap:6px;margin:0 0 8px;flex-wrap:wrap}
 .fl button{padding:4px 10px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px}
 .fl button.on{font-weight:700;border-width:2px;border-color:currentColor}
 tr.no td{background:#A23B2A0f}tr.pt td{background:#C77B0A0d}
 td.ds{font-weight:600;white-space:nowrap}</style>
+<div class="tabs" id="tabs"></div>
 <div class="sum" id="sum"></div>
 <div class="fl" id="fl"></div>
 <div class="tw"><table id="t"></table></div>
@@ -66,14 +69,18 @@ const ST={G1:["ok",""],G2:["ok","⚠ сверить"],G3:["pt","концепту
 const LBL={ok:"есть",pt:"частично",no:"нет"};
 let cur="all",F="all";
 const all=DIR.flatMap(D=>D.d.map((x,j)=>({D,x,code:D.k+(j+1)})));
-sum.innerHTML=DIR.map(D=>{const r=D.d.map((_,j)=>ST[D.k+(j+1)][0]);return `<div style="--c:${D.c}"><b>${D.n}</b><br>есть: ${r.filter(v=>v=="ok").length} · частично: ${r.filter(v=>v=="pt").length} · нет: ${r.filter(v=>v=="no").length}</div>`}).join("");
+// cur — выбранное направление (код G/R/B/I) или "all"
 function draw(){
- fl.innerHTML=[["all","Все дизайны"],["ok","Аналог есть"],["pt","Частично"],["no","Аналога нет"]].map(([k,t])=>`<button data-f="${k}" class="${F==k?"on":""}">${t} · ${k=="all"?all.length:all.filter(a=>ST[a.code][0]==k).length}</button>`).join("");
+ tabs.innerHTML=`<button data-k="all" style="--bc:#5A6662" class="${cur=="all"?"on":""}">Все направления</button>`+DIR.map(D=>`<button data-k="${D.k}" style="--bc:${D.c}" class="${cur==D.k?"on":""}">${D.k} · ${D.n}</button>`).join("");
+ sum.innerHTML=DIR.map(D=>{const r=D.d.map((_,j)=>ST[D.k+(j+1)][0]);return `<div data-k="${D.k}" class="${cur==D.k?"on":cur!="all"?"off":""}" style="--c:${D.c}"><b>${D.n}</b><br>есть: ${r.filter(v=>v=="ok").length} · частично: ${r.filter(v=>v=="pt").length} · нет: ${r.filter(v=>v=="no").length}</div>`}).join("");
+ const vis=all.filter(a=>cur=="all"||a.D.k==cur);
+ fl.innerHTML=[["all","Все дизайны"],["ok","Аналог есть"],["pt","Частично"],["no","Аналога нет"]].map(([k,t])=>`<button data-f="${k}" class="${F==k?"on":""}">${t} · ${k=="all"?vis.length:vis.filter(a=>ST[a.code][0]==k).length}</button>`).join("");
  t.innerHTML=`<thead><tr><th>Код</th><th>Дизайн</th><th>Расчёты</th><th>🌐 Зарубежный софт</th><th>🇷🇺 Российский софт</th><th>Аналог</th><th>Чего не хватает</th></tr></thead><tbody>`+
-  DIR.map(D=>{const rows=D.d.map((x,j)=>({x,code:D.k+(j+1)})).filter(r=>F=="all"||ST[r.code][0]==F);
+  DIR.filter(D=>cur=="all"||D.k==cur).map(D=>{const rows=D.d.map((x,j)=>({x,code:D.k+(j+1)})).filter(r=>F=="all"||ST[r.code][0]==F);
    return rows.length?`<tr><td colspan="7" style="background:${D.c};color:#fff;font-weight:700">${D.n}</td></tr>`+rows.map(({x,code})=>{const [s,g]=ST[code];
     return `<tr class="${s}"><td><code>${code}</code></td><td class="ds">${x[0]}</td><td>${x[1].join(", ")}</td><td>${x[2]}</td><td>${x[3]}</td><td><span class="b ${s}">${LBL[s]}</span></td><td>${g||"—"}</td></tr>`}).join(""):""}).join("")+`</tbody>`;
 }
 fl.onclick=e=>{const b=e.target.closest("button");if(b){F=b.dataset.f;draw()}};
+tabs.onclick=sum.onclick=e=>{const b=e.target.closest("[data-k]");if(b){cur=cur==b.dataset.k&&b.parentElement===sum?"all":b.dataset.k;draw()}};
 draw();
 </script>
