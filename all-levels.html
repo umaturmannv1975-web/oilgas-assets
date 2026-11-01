@@ -2666,8 +2666,31 @@ tot.textContent=`Итого: 4 направления · 28 дизайнов · 
 .ct td.n{width:70px}
 .ty{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10.5px;font-weight:700;color:#fff;background:var(--cc)}
 .sum{margin-top:10px;font-size:13px;max-width:100ch}
+.big{border:1px solid #8885;border-radius:10px;padding:10px;margin:0 0 12px}
+.big svg{width:100%;height:auto;display:block;max-height:380px}
+.big text{font:600 13px system-ui,sans-serif;text-anchor:middle;fill:currentColor}
+.big text.t{font-size:14px;font-weight:800;letter-spacing:.03em}
+.big text.w{fill:#fff}
+.big .fd rect{fill:color-mix(in srgb,var(--c) 10%,transparent);stroke:var(--c);stroke-width:2}
+.big .ln line,.big .ln path{stroke:currentColor;stroke-width:1.8;fill:none;opacity:.65}
+.big .lb text{font-size:12px;font-weight:600;opacity:.75}
+.big .gp rect{fill:none;stroke:#C77B0A;stroke-width:1.5;stroke-dasharray:5 4}
+.big .gp text{font-size:12.5px}
+.big .gp tspan.o{fill:#C77B0A;font-weight:800}.big .gp tspan.b{fill:#0E7C86;font-weight:800}
 </style>
 <div class=&quot;cf&quot;>
+<div class=&quot;big&quot;><svg viewBox=&quot;0 0 1000 340&quot; role=&quot;img&quot; aria-label=&quot;Общая схема: расчёты в документах&quot;>
+<defs><marker id=&quot;ar&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;9&quot; refY=&quot;5&quot; markerWidth=&quot;7&quot; markerHeight=&quot;7&quot; orient=&quot;auto-start-reverse&quot;><path d=&quot;M0,0L10,5L0,10z&quot; style=&quot;fill:currentColor&quot;/></marker></defs>
+<text x=&quot;100&quot; y=&quot;16&quot; class=&quot;t&quot;>РАСЧЁТЫ · СКИЛЛЫ</text><text x=&quot;365&quot; y=&quot;16&quot; class=&quot;t&quot;>Ф · ДОКУМЕНТЫ НАПРАВЛЕНИЯ</text><text x=&quot;645&quot; y=&quot;16&quot; class=&quot;t&quot;>КФ·2 · МЕСТОРОЖДЕНИЕ</text><text x=&quot;890&quot; y=&quot;16&quot; class=&quot;t&quot;>КФ·3 · АКТИВ</text>
+<g id=&quot;sv-dirs&quot;></g>
+<g class=&quot;ln&quot; id=&quot;sv-ln&quot;></g>
+<g><rect x=&quot;545&quot; y=&quot;40&quot; width=&quot;200&quot; height=&quot;225&quot; rx=&quot;12&quot; style=&quot;fill:#8a6fd0&quot;/><text x=&quot;645&quot; y=&quot;70&quot; class=&quot;t w&quot;>Кросс-функциональные</text><text x=&quot;645&quot; y=&quot;90&quot; class=&quot;w&quot;>документы этапов</text><text x=&quot;645&quot; y=&quot;108&quot; class=&quot;w&quot;>месторождения</text>
+<text x=&quot;645&quot; y=&quot;145&quot; class=&quot;w&quot;>ТСР · ТПР · ОТР</text><text x=&quot;645&quot; y=&quot;167&quot; class=&quot;w&quot;>КПРА · бизнес-кейсы</text><text x=&quot;645&quot; y=&quot;189&quot; class=&quot;w&quot;>бизнес-план · FID</text><text x=&quot;645&quot; y=&quot;235&quot; class=&quot;w&quot; id=&quot;sv-x2&quot;></text></g>
+<g><rect x=&quot;790&quot; y=&quot;40&quot; width=&quot;200&quot; height=&quot;225&quot; rx=&quot;12&quot; style=&quot;fill:#2F6B4F&quot;/><text x=&quot;890&quot; y=&quot;70&quot; class=&quot;t w&quot;>Документы актива</text><text x=&quot;890&quot; y=&quot;90&quot; class=&quot;w&quot;>этапы жизни актива</text>
+<text x=&quot;890&quot; y=&quot;145&quot; class=&quot;w&quot;>лицензия · запасы + ГКЗ</text><text x=&quot;890&quot; y=&quot;167&quot; class=&quot;w&quot;>FDP / PDO · ОВОС</text><text x=&quot;890&quot; y=&quot;189&quot; class=&quot;w&quot;>ликвидация, вывод</text><text x=&quot;890&quot; y=&quot;235&quot; class=&quot;w&quot; id=&quot;sv-x3&quot;></text></g>
+<g class=&quot;lb&quot;><text x=&quot;232&quot; y=&quot;34&quot;>только своё</text><text x=&quot;510&quot; y=&quot;34&quot;>сводят несколько направлений</text></g>
+<g class=&quot;gp&quot;><rect x=&quot;10&quot; y=&quot;285&quot; width=&quot;980&quot; height=&quot;44&quot; rx=&quot;8&quot;/><text x=&quot;500&quot; y=&quot;312&quot; id=&quot;sv-gap&quot;></text></g>
+</svg></div>
 <div class=&quot;tb&quot; id=&quot;fl&quot;></div>
 <div class=&quot;lg&quot;><span><span class=&quot;ch&quot; style=&quot;--cc:#9A5B1E&quot;><b>Ф</b>документ направления</span> функциональный · только одно направление</span><span><span class=&quot;ch x&quot; style=&quot;--cc:var(--kf2)&quot;><b>КФ·2</b>документ месторождения</span> кросс-функциональный, уровень 2</span><span><span class=&quot;ch x&quot; style=&quot;--cc:var(--kf3)&quot;><b>КФ·3</b>документ актива</span> кросс-функциональный, уровень 3</span></div>
 <div class=&quot;lg&quot;><b>В каждом документе:</b> верхняя строка — документ РФ, нижняя — мировой аналог. Несоответствие: <span class=&quot;ch wo&quot; style=&quot;--cc:#C77B0A&quot;><span class=&quot;ru&quot;><em class=&quot;no&quot;>✕ нет в РФ</em></span><span class=&quot;en&quot;>есть только в мире</span></span> <span class=&quot;ch ro&quot; style=&quot;--cc:#0E7C86&quot;><span class=&quot;ru&quot;>есть только в РФ</span><span class=&quot;en&quot;><em class=&quot;no&quot;>✕ нет в мире</em></span></span></div>
@@ -2955,6 +2978,18 @@ function render(){
  sum.innerHTML=sum.dataset.g+`Показано расчётов: <b>${cnt}</b>. В функциональных документах — <b>${nf}</b>, в кросс-функциональных — <b>${nx}</b>; только в функциональных (не доходят до документов месторождения и актива) — <b>${only}</b>; ни в одном документе — <b>${none}</b>. Кросс-функциональных документов с расчётами: ${xd} из ${XDOCS.length}; остальные — правовые и организационные (лицензии, соглашения, акты) без собственных расчётов. «эт. N» — номер этапа, на котором выпускается документ.`;
 }
 fl.onclick=e=>{const b=e.target.closest(&quot;button&quot;);if(!b)return;if(b.dataset.k)fk=b.dataset.k;if(b.dataset.v)fv=b.dataset.v;render()};
+// общая схема: числа считаются из тех же данных, что и таблица
+(()=>{const ns=&quot;http://www.w3.org/2000/svg&quot;,Y=[40,100,160,220],H=48;let g=&quot;&quot;,l=&quot;&quot;;
+ ORDER.forEach((k,i)=>{const x=D[k],y=Y[i],n=ALLC.filter(c=>c.k==k).length,fd=x.docs.flat(),nx=ALLC.filter(c=>c.k==k&amp;&amp;USE[c.code].x.length).length;
+  g+=`<g><rect x=&quot;10&quot; y=&quot;${y}&quot; width=&quot;180&quot; height=&quot;${H}&quot; rx=&quot;9&quot; style=&quot;fill:${x.c}&quot;/><text x=&quot;100&quot; y=&quot;${y+20}&quot; class=&quot;t w&quot;>${KEY[k]} · ${x.n}</text><text x=&quot;100&quot; y=&quot;${y+38}&quot; class=&quot;w&quot;>${n} расчётов · ${nx} → КФ</text></g>`+
+     `<g class=&quot;fd&quot; style=&quot;--c:${x.c}&quot;><rect x=&quot;275&quot; y=&quot;${y}&quot; width=&quot;180&quot; height=&quot;${H}&quot; rx=&quot;9&quot;/><text x=&quot;365&quot; y=&quot;${y+20}&quot;>Ф · ${fd.length} документов</text><text x=&quot;365&quot; y=&quot;${y+38}&quot; style=&quot;font-size:11.5px;opacity:.8&quot;>только ${x.n.toLowerCase()}</text></g>`;
+  l+=`<line x1=&quot;190&quot; y1=&quot;${y+H/2}&quot; x2=&quot;272&quot; y2=&quot;${y+H/2}&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;455&quot; y1=&quot;${y+H/2}&quot; x2=&quot;542&quot; y2=&quot;${152}&quot; marker-end=&quot;url(#ar)&quot;/>`});
+ l+=`<line x1=&quot;745&quot; y1=&quot;152&quot; x2=&quot;787&quot; y2=&quot;152&quot; marker-end=&quot;url(#ar)&quot;/>`;
+ document.getElementById(&quot;sv-dirs&quot;).innerHTML=g;document.getElementById(&quot;sv-ln&quot;).innerHTML=l;
+ const x2=XDOCS.filter(o=>o.lv==2),x3=XDOCS.filter(o=>o.lv==3);
+ document.getElementById(&quot;sv-x2&quot;).textContent=`${x2.length} документов`;document.getElementById(&quot;sv-x3&quot;).textContent=`${x3.length} документов`;
+ const F=ORDER.flatMap(k=>D[k].docs.flat()),X=XDOCS.map(o=>o.d),w=a=>a.filter(d=>gap(d)==&quot;wo&quot;).length,r=a=>a.filter(d=>gap(d)==&quot;ro&quot;).length;
+ document.getElementById(&quot;sv-gap&quot;).innerHTML=`РФ ↔ мир:  Ф — <tspan class=&quot;o&quot;>${w(F)} нет в РФ</tspan>, <tspan class=&quot;b&quot;>${r(F)} нет в мире</tspan>   ·   КФ — <tspan class=&quot;o&quot;>${w(X)} нет в РФ</tspan>, <tspan class=&quot;b&quot;>${r(X)} нет в мире</tspan>   ·   нет документа → нет процесса`})();
 render();
 </script>
 
