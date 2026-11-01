@@ -5,13 +5,13 @@
 <script>
 (()=>{const C3="#2F6B4F",C2="#8a6fd0",C1="#0F6E62",C0="#A23B2A";let h=`<defs><marker id="au" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#888"/></marker></defs>`;
  const box=(x,y,w,hh,c,title,sub,agent)=>`<rect x="${x}" y="${y}" width="${w}" height="${hh}" rx="14" fill="${c}" fill-opacity=".07" stroke="${c}" stroke-width="2.5"/><text x="${x+16}" y="${y+26}" font-size="15" font-weight="700" style="fill:${c}">${title}</text><text x="${x+16}" y="${y+44}" font-size="11.5" opacity=".75">${sub}</text><text x="${x+w-14}" y="${y+26}" text-anchor="end" font-size="11.5" font-weight="600" style="fill:${c}">${agent}</text>`;
- const chips=(x,y,w,c,arr)=>{const cw=w/arr.length;return arr.map((t,i)=>`<rect x="${x+i*cw+2}" y="${y}" width="${cw-4}" height="22" rx="5" fill="${c}" fill-opacity="${.55+i*.45/arr.length}"/><text x="${x+i*cw+cw/2}" y="${y+15}" text-anchor="middle" font-size="10.5" font-weight="600" style="fill:#fff">${t}</text>`).join("")};
+ const chips=(x,y,w,c,arr)=>{const cw=w/arr.length;return arr.map((t,i)=>`<rect x="${x+i*cw+2}" y="${y}" width="${cw-4}" height="22" rx="5" fill="${c}" fill-opacity="${.55+i*.45/arr.length}"/>${(L=>L.length>1?L.map((s,k)=>`<text x="${x+i*cw+cw/2}" y="${y+9.5+k*9}" text-anchor="middle" font-size="8.6" font-weight="600" style="fill:#fff">${s}</text>`).join(""):`<text x="${x+i*cw+cw/2}" y="${y+15}" text-anchor="middle" font-size="10.5" font-weight="600" style="fill:#fff">${t}</text>`)(t.split("|"))}`).join("")};
  // уровень 0
  h+=box(140,20,720,620,C3,"Уровень 0 · Этапы жизни актива","8 этапов · ГРР → гринфилд → браунфилд → ликвидация · документы актива (FDP/PDO, FID, бизнес-план)","🤖 агент актива");
  h+=chips(156,70,688,C3,["Вход","ГРР","Доразведка","Проект","Стройка","Добыча","Зрелый","Вывод"]);
  // уровень 1
  h+=box(170,106,660,514,C2,"Уровень 1 · Этапы жизни месторождения","в каждом этапе актива — полный или укороченный цикл · ТСР, КПРА, бизнес-кейсы, ТПР","🤖 агент месторождения");
- h+=chips(186,162,628,C2,["Поиск возможности","Оценка ценности","Выбор концепции","Проект и инвестиционное решение","Строительство и ввод","Эксплуатация"]);
+ h+=chips(186,162,628,C2,["Поиск|возможности","Оценка|ценности","Выбор|концепции","Проект и|инвест. решение","Строительство|и ввод","Эксплуатация"]);
  // уровень 2
  h+=box(200,202,600,398,C1,"Уровень 2 · Этапы формирования объекта","в каждом этапе месторождения — цикл объекта · геология → разработка → скважина → инфраструктура","🤖 агент объекта");
  const F=[["Геология","#9A5B1E"],["Разработка","#0F6E62"],["Скважина","#A23B2A"],["Инфраструктура","#3D5A8A"]];
