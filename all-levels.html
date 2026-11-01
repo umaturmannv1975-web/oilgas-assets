@@ -3221,6 +3221,10 @@ render();
 .big .ln line,.big .ln path{stroke:currentColor;stroke-width:1.8;fill:none;opacity:.7}
 .big .ln .fb{stroke-dasharray:6 5;stroke:var(--bz);opacity:1}
 .big .fbt{text-anchor:start;font-size:12.5px;fill:var(--bz)}
+.big .up rect{fill:color-mix(in srgb,var(--bz) 10%,transparent);stroke:var(--bz);stroke-width:2;stroke-dasharray:6 4}
+.big .up text{fill:currentColor;text-anchor:start;font-size:12.5px;font-weight:500}
+.big .up text.t{fill:var(--bz);font-size:13.5px;font-weight:800}
+.big .up text.s{fill:var(--bz);font-weight:700}
 .big .ds rect{fill:none;stroke:var(--ct);stroke-width:2.5}
 .big .ds text{fill:currentColor}
 @media (max-width:900px){.flow,.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.st::after{display:none}.pp{grid-template-columns:1fr}}
@@ -3241,10 +3245,15 @@ render();
 <g class=&quot;ln&quot;><line x1=&quot;185&quot; y1=&quot;90&quot; x2=&quot;218&quot; y2=&quot;90&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;395&quot; y1=&quot;90&quot; x2=&quot;428&quot; y2=&quot;90&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;605&quot; y1=&quot;90&quot; x2=&quot;638&quot; y2=&quot;90&quot; marker-end=&quot;url(#ar)&quot;/>
 <line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;32&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;74&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;116&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;158&quot; marker-end=&quot;url(#ar)&quot;/>
 <line x1=&quot;900&quot; y1=&quot;178&quot; x2=&quot;900&quot; y2=&quot;228&quot; marker-end=&quot;url(#ar)&quot;/>
-<path d=&quot;M600,262 H97 V139&quot; class=&quot;fb&quot; marker-end=&quot;url(#ar)&quot;/></g>
+<path d=&quot;M600,265 H566&quot; class=&quot;fb&quot; marker-end=&quot;url(#ar)&quot;/><path d=&quot;M228,245 H97 V139&quot; class=&quot;fb&quot; marker-end=&quot;url(#ar)&quot;/></g>
+<g class=&quot;up&quot;><rect x=&quot;230&quot; y=&quot;178&quot; width=&quot;334&quot; height=&quot;134&quot; rx=&quot;10&quot;/><text x=&quot;246&quot; y=&quot;200&quot; class=&quot;t&quot;>↺ ОБНОВЛЕНИЕ СКИЛЛА</text>
+<text x=&quot;246&quot; y=&quot;222&quot;>• Статьи РФ и мир: SPE, «Нефтяное хозяйство»</text>
+<text x=&quot;246&quot; y=&quot;242&quot;>• Конкурентная разведка (открытые источники)</text>
+<text x=&quot;246&quot; y=&quot;262&quot;>• Извлечённые уроки: план/факт, NPT, аварии</text>
+<text x=&quot;246&quot; y=&quot;282&quot;>• Новые стандарты, методики, версии софта</text>
+<text x=&quot;246&quot; y=&quot;302&quot; class=&quot;s&quot;>→ новая версия: снова проверка и допуск</text></g>
 <g class=&quot;lb&quot;><text x=&quot;202&quot; y=&quot;156&quot;>методика</text><text x=&quot;412&quot; y=&quot;156&quot;>скилл v0</text><text x=&quot;622&quot; y=&quot;156&quot;>допущен v1.0</text><text x=&quot;790&quot; y=&quot;200&quot; style=&quot;text-anchor:end&quot;>вызов по адресу</text></g>
 <g class=&quot;ds&quot;><rect x=&quot;600&quot; y=&quot;230&quot; width=&quot;390&quot; height=&quot;70&quot; rx=&quot;10&quot;/><text x=&quot;795&quot; y=&quot;256&quot; class=&quot;t&quot;>ДОКУМЕНТ → ПОДПИСЬ ЧЕЛОВЕКА</text><text x=&quot;795&quot; y=&quot;280&quot;>отвечает роль «О», не ИИ · адрес, версия, данные</text></g>
-<text x=&quot;110&quot; y=&quot;252&quot; class=&quot;fbt&quot;>↺ сопровождение: план/факт → новая версия методики</text>
 </svg></div>
 <h3>1. Жизненный цикл скилла: 8 шагов</h3>
 <div class=&quot;flow&quot; id=&quot;flow&quot;></div>
@@ -3315,7 +3324,7 @@ const STEPS=[
  [&quot;Проверка&quot;,&quot;ct&quot;,&quot;Независимый эксперт функции (роль «У») &quot;,&quot;Сравнение с эталонным расчётом в софте на 5–10 реальных кейсах, граничные случаи, ошибки&quot;,&quot;Протокол верификации&quot;,&quot;расхождение в пределах допуска&quot;],
  [&quot;Допуск&quot;,&quot;ct&quot;,&quot;Комиссия: руководитель функции, ИТ-безопасность, юрист&quot;,&quot;Решение о допуске, уровень доверия: «черновик для инженера» или «в документ после подписи»&quot;,&quot;Запись в реестре скиллов, версия 1.0&quot;,&quot;допуск подписан, владелец назначен&quot;],
  [&quot;Использование&quot;,&quot;us&quot;,&quot;Агенты уровней 1–3 и инженеры&quot;,&quot;Агент вызывает скилл по адресу; результат проверяет и подписывает роль «О»&quot;,&quot;Расчёт в документе&quot;,&quot;подпись ответственного лица&quot;],
- [&quot;Сопровождение&quot;,&quot;bz&quot;,&quot;Владелец скилла + центр компетенций ИИ&quot;,&quot;План/факт, обратная связь, обновление при смене методики или софта, вывод устаревших версий&quot;,&quot;Новая версия или вывод из реестра&quot;,&quot;ежегодный пересмотр&quot;]];
+ [&quot;Сопровождение&quot;,&quot;bz&quot;,&quot;Владелец скилла + центр компетенций ИИ&quot;,&quot;Источники обновления: статьи РФ и мир (SPE/OnePetro, «Нефтяное хозяйство»), конкурентная разведка по открытым источникам, извлечённые уроки (план/факт, NPT, аварии), новые стандарты и софт. Вывод устаревших версий&quot;,&quot;Новая версия или вывод из реестра&quot;,&quot;ежегодный пересмотр&quot;]];
 const CL={bz:&quot;var(--bz)&quot;,ai:&quot;var(--ai)&quot;,ct:&quot;var(--ct)&quot;,us:&quot;var(--us)&quot;};
 flow.innerHTML=STEPS.map(([t,k,w,d,r,g])=>`<div class=&quot;st&quot; style=&quot;--c:${CL[k]}&quot;><b class=&quot;t&quot;>${t}</b><span class=&quot;who&quot;>${w}</span><div>${d}</div><div class=&quot;r&quot;><i>результат:</i> ${r}</div>${g!=&quot;—&quot;?`<div class=&quot;g&quot;>${g}</div>`:&quot;&quot;}</div>`).join(&quot;&quot;);
 cols.innerHTML=[
