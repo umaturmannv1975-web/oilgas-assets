@@ -44,7 +44,7 @@ iframe[hidden]{display:none}
 <p class="lead">Четыре уровня, вложенные один в другой: актив → месторождение → объект → расчёт. Каждый расчёт имеет адрес в матрице и становится скиллом ИИ, а агенты собирают из скиллов официальные документы на своём уровне.</p></header>
 <nav id="nav"><button data-p="ov" class="on" style="--c:#5A6662">Архитектура<small>уровни и блоки</small></button><button data-p="how" style="--c:#5A6662">Как работать<small>очередность действий</small></button><button data-p="bp" style="--c:#3D5A8A">Бизнес-процессы<small>как работает подход</small></button><button data-p="l0" style="--c:#A23B2A">Уровень 0<small>Перечень расчётов дизайна</small></button><button data-p="l1" style="--c:#0F6E62">Уровень 1<small>Этапы формирования объекта</small></button><button data-p="l2" style="--c:#8a6fd0">Уровень 2<small>Этапы жизни месторождения</small></button><button data-p="lv3" style="--c:#2F6B4F">Уровень 3<small>Этапы жизни актива</small></button></nav>
 <main>
-<section class="panel" id="ov"><div class="sub"><button class="on" data-f="ov-0">Уровни</button><button data-f="ov-3">Интерактивный каскад</button><button data-f="ov-1">Матрёшка уровней</button></div>
+<section class="panel" id="ov"><div class="sub"><button class="on" data-f="ov-0">Уровни</button><button data-f="ov-3">Интерактивный каскад</button><button data-f="ov-4">Каскад + документы</button><button data-f="ov-1">Матрёшка уровней</button></div>
 <div class="ovp" id="ov-0"><div class="stack">
 <div class="lv" data-p="lv3" style="--c:#2F6B4F"><div><b>Уровень 3</b><span>Этапы жизни актива</span></div><p>Этапы жизни актива — 8 этапов от входа в актив до вывода из эксплуатации (ГРР → гринфилд → браунфилд → ликвидация). В каждом этапе актива выполняются этапы жизни месторождения — полным или укороченным циклом. Официальные документы РФ ↔ мир и пробелы.</p><div class="go">открыть →</div></div><div class="arrow">▲ состоит из ▼</div><div class="lv" data-p="l2" style="--c:#8a6fd0"><div><b>Уровень 2</b><span>Этапы жизни месторождения</span></div><p>Этапы жизни месторождения — идентификация → оценка → выбор → определение → реализация → эксплуатация. В каждом этапе месторождения цикл объекта проходит полностью или частью. Кросс-функциональные документы и барабаны направлений.</p><div class="go">открыть →</div></div><div class="arrow">▲ состоит из ▼</div><div class="lv" data-p="l1" style="--c:#0F6E62"><div><b>Уровень 1</b><span>Этапы формирования объекта</span></div><p>Этапы формирования объекта — замысел → концепт → базовый дизайн → проектирование → подготовка → строительство → эксплуатация → ликвидация, всегда в очередности геология → разработка → скважина → инфраструктура. Расчёты в документах РФ и мира.</p><div class="go">открыть →</div></div><div class="arrow">▲ состоит из ▼</div><div class="lv" data-p="l0" style="--c:#A23B2A"><div><b>Уровень 0</b><span>Перечень расчётов дизайна</span></div><p>Перечень расчётов дизайна по направлениям: 28 дизайнов и 77 расчётов с кодами (G4.1, B1.3 …). Каждый расчёт — это скилл ИИ. Софт: зарубежный и отечественный.</p><div class="go">открыть →</div></div>
 </div>
@@ -448,6 +448,538 @@ function draw(){
  s0.textContent=`внутри «${OS[o]}»: выполняется ${tot} расчётов`;
  path.innerHTML=`${AS[a][0]} → ${FS[f][0]} → ${OS[o]} → ${tot} расчётов по четырём направлениям<small>Документы собираются обратно снизу вверх: расчёты → документы объекта → кросс-функциональные документы месторождения → документы актива.</small>`;
 }
+r3.onclick=e=>{const b=e.target.closest(&quot;button&quot;);if(b){a=+b.dataset.i;f=AF[a].indexOf(1);o=99;draw()}};
+r2.onclick=e=>{const b=e.target.closest(&quot;button:not(.off)&quot;);if(b){f=+b.dataset.i;o=99;draw()}};
+r1.onclick=e=>{const b=e.target.closest(&quot;button:not(.off)&quot;);if(b){o=+b.dataset.i;draw()}};
+draw();
+</script>
+
+    </div>
+  </div>
+
+</body>
+</html>
+"></iframe><iframe id="ov-4" hidden srcdoc="<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=&quot;utf-8&quot;>
+  <title>Superpowers Brainstorming</title>
+  <style>
+    /*
+     * BRAINSTORM COMPANION FRAME TEMPLATE
+     *
+     * This template provides a consistent frame with:
+     * - OS-aware light/dark theming
+     * - Header branding and connection status
+     * - Scrollable main content area
+     * - CSS helpers for common UI patterns
+     *
+     * Content is injected via placeholder comment in #frame-content.
+     */
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+
+    /* ===== THEME VARIABLES ===== */
+    :root {
+      --bg-primary: #f5f5f7;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #e5e5e7;
+      --border: #d1d1d6;
+      --text-primary: #1d1d1f;
+      --text-secondary: #86868b;
+      --text-tertiary: #aeaeb2;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --success: #34c759;
+      --warning: #ff9f0a;
+      --error: #ff3b30;
+      --selected-bg: #e8f4fd;
+      --selected-border: #0071e3;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #1d1d1f;
+        --bg-secondary: #2d2d2f;
+        --bg-tertiary: #3d3d3f;
+        --border: #424245;
+        --text-primary: #f5f5f7;
+        --text-secondary: #86868b;
+        --text-tertiary: #636366;
+        --accent: #0a84ff;
+        --accent-hover: #409cff;
+        --selected-bg: rgba(10, 132, 255, 0.15);
+        --selected-border: #0a84ff;
+      }
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    /* ===== FRAME STRUCTURE ===== */
+    .brand { display: flex; align-items: center; min-width: 0; overflow: hidden; color: var(--text-secondary); line-height: 1; }
+    .brand a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; min-width: 0; max-width: 100%; line-height: 1; }
+    .brand-copy { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1; transform: translateY(-1px); }
+    .brand-logo { display: block; height: 1em; width: auto; max-width: 180px; flex-shrink: 0; filter: invert(1); }
+    @media (prefers-color-scheme: dark) {
+      .brand-logo { filter: none; }
+    }
+    .status { font-size: 0.7rem; color: var(--status-color, var(--success)); display: flex; align-items: center; gap: 0.4rem; justify-self: end; white-space: nowrap; line-height: 1; }
+    .status::before { content: ''; width: 6px; height: 6px; background: var(--status-color, var(--success)); border-radius: 50%; }
+
+    .main { flex: 1; overflow-y: auto; }
+    #frame-content { padding: 2rem; min-height: 100%; }
+
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 1.5rem;
+      flex-shrink: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 1rem;
+      min-height: 42px;
+    }
+    .header .brand { justify-self: start; width: 100%; font-size: 0.75rem; line-height: 1; }
+    .header .status { grid-column: 2; line-height: 1; }
+    .header span {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .header .selected-text {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+    h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--text-secondary); margin-bottom: 1.5rem; }
+    .section { margin-bottom: 2rem; }
+    .label { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+
+    /* ===== OPTIONS (for A/B/C choices) ===== */
+    .options { display: flex; flex-direction: column; gap: 0.75rem; }
+    .option {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .option:hover { border-color: var(--accent); }
+    .option.selected { background: var(--selected-bg); border-color: var(--selected-border); }
+    .option .letter {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      width: 1.75rem; height: 1.75rem;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .option.selected .letter { background: var(--accent); color: white; }
+    .option .content { flex: 1; }
+    .option .content h3 { font-size: 0.95rem; margin-bottom: 0.15rem; }
+    .option .content p { color: var(--text-secondary); font-size: 0.85rem; margin: 0; }
+
+    /* ===== CARDS (for showing designs/mockups) ===== */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .card.selected { border-color: var(--selected-border); border-width: 2px; }
+    .card-image { background: var(--bg-tertiary); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; }
+    .card-body { padding: 1rem; }
+    .card-body h3 { margin-bottom: 0.25rem; }
+    .card-body p { color: var(--text-secondary); font-size: 0.85rem; }
+
+    /* ===== MOCKUP CONTAINER ===== */
+    .mockup {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .mockup-header {
+      background: var(--bg-tertiary);
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .mockup-body { padding: 1.5rem; }
+
+    /* ===== SPLIT VIEW (side-by-side comparison) ===== */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 700px) { .split { grid-template-columns: 1fr; } }
+
+    /* ===== PROS/CONS ===== */
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    .pros, .cons { background: var(--bg-secondary); border-radius: 8px; padding: 1rem; }
+    .pros h4 { color: var(--success); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .cons h4 { color: var(--error); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .pros ul, .cons ul { margin-left: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); }
+    .pros li, .cons li { margin-bottom: 0.25rem; }
+
+    /* ===== PLACEHOLDER (for mockup areas) ===== */
+    .placeholder {
+      background: var(--bg-tertiary);
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-tertiary);
+    }
+
+    /* ===== INLINE MOCKUP ELEMENTS ===== */
+    .mock-nav { background: var(--accent); color: white; padding: 0.75rem 1rem; display: flex; gap: 1.5rem; font-size: 0.9rem; }
+    .mock-sidebar { background: var(--bg-tertiary); padding: 1rem; min-width: 180px; }
+    .mock-content { padding: 1.5rem; flex: 1; }
+    .mock-button { background: var(--accent); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; }
+    .mock-input { background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; width: 100%; }
+  </style>
+<style>html,body{height:auto!important;overflow:visible!important}.main{overflow:visible!important}.header{display:none!important}</style></head>
+<body>
+  <div class=&quot;header&quot;>
+    
+    <div class=&quot;status&quot;>Connecting…</div>
+  </div>
+
+  <div class=&quot;main&quot;>
+    <div id=&quot;frame-content&quot;>
+      <h2>Архитектура · Каскад с документами</h2>
+<p class=&quot;subtitle&quot;>Тот же каскад, но под каждым уровнем — официальные документы выбранного этапа: российский документ ↔ мировой аналог. Выберите этап актива → увидите документы актива; этап месторождения → кросс-функциональные документы; этап объекта → документы объекта по четырём направлениям и расчёты, из которых они собираются. Оранжевым — есть в мире, нет в РФ; бирюзовым — есть в РФ, нет в мире. Черновик, ⚠ — сверить.</p>
+<style>
+.cz{--l3:#2F6B4F;--l2:#8a6fd0;--l1:#0F6E62;--l0:#A23B2A}
+.lv{margin:0 0 6px}
+.lh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 5px}
+.lh b{font-size:14px}.lh span{font-size:11.5px;opacity:.75}
+.row{display:grid;gap:5px}
+.row button{position:relative;padding:9px 4px;border-radius:7px;border:1.5px solid var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);color:inherit;cursor:pointer;font:inherit;font-size:12px;font-weight:600;line-height:1.2}
+.row button small{display:block;font-weight:400;font-size:10px;opacity:.75}
+.row button.act{background:color-mix(in srgb,var(--c) 42%,transparent)}
+.row button.off{opacity:.35;cursor:default;border-style:dashed}
+.row button.on{background:var(--c);color:#fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 30%,transparent)}
+.row button.on::after{content:&quot;&quot;;position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--c)}
+.zoom{height:20px;margin:2px 0 4px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 14%,transparent),transparent);clip-path:var(--clip)}
+.ph{display:grid;grid-template-columns:3fr 2fr 2fr 1fr;gap:5px;margin:0 0 4px;font-size:11px;font-weight:700;color:#fff;text-align:center}
+.ph div{padding:2px;border-radius:4px}
+.l0{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.fn{border:1.5px solid var(--fc);border-radius:9px;overflow:hidden}
+.fn.off{opacity:.4;border-style:dashed}
+.fh{background:var(--fc);color:#fff;padding:6px 9px;font-weight:700;font-size:13px}
+.fh small{display:block;font-weight:400;font-size:10.5px;opacity:.9}
+.ds{padding:5px 8px;border-top:1px solid #8883;font-size:11.5px}
+.ds .dn{display:flex;justify-content:space-between;gap:6px}
+.ds .dn code{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;font-weight:700;color:var(--fc)}
+.ds .dn i{font-style:normal;font-size:10px;opacity:.7;white-space:nowrap}
+.cc{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+.cc span{font-family:ui-monospace,Consolas,monospace;font-size:9.5px;padding:1px 4px;border-radius:3px;border:1px solid var(--fc);color:var(--fc)}
+.cc span.on{background:var(--fc);color:#fff}
+.fs{padding:5px 9px;font-size:11px;background:#8881}
+.path{margin:10px 0 0;font-size:13px;font-weight:600}
+.path small{display:block;font-weight:400;opacity:.75;margin-top:2px}
+@media (max-width:900px){.l0{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.dk{margin:8px 0 6px;border:1px solid var(--c);border-left:5px solid var(--c);border-radius:8px;overflow-x:auto}
+.dk .dh{padding:5px 10px;font-size:12px;font-weight:700;color:var(--c);background:color-mix(in srgb,var(--c) 8%,transparent)}
+.dk .dh span{font-weight:400;opacity:.75;margin-left:6px}
+.dk table{border-collapse:collapse;width:100%;min-width:820px;font-size:11.5px}
+.dk th,.dk td{border-top:1px solid #8884;padding:4px 8px;vertical-align:top;text-align:left;line-height:1.3}
+.dk thead th{font-size:10.5px;font-weight:600;opacity:.75}
+.dk td.ru{font-weight:600;width:26%}.dk td.en{font-style:italic;width:28%}
+.dk td.fd{font-weight:700;color:var(--fc);white-space:nowrap;width:110px}
+.dk tr.wo td{background:repeating-linear-gradient(135deg,#C77B0A14 0 6px,transparent 6px 12px)}
+.dk tr.wo td:first-child{box-shadow:inset 3px 0 #C77B0A}
+.dk tr.ro td{background:#0E7C8614}
+.dk tr.ro td:first-child{box-shadow:inset 3px 0 #0E7C86}
+.dk tr.skip td{opacity:.4}
+.no{font-style:normal;font-weight:700;font-size:11px}
+tr.wo .no{color:#C77B0A}tr.ro .no{color:#0E7C86}
+.b{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;border:1px solid #8886;white-space:nowrap}
+.b.z{background:#0F6E6230}.b.k{background:#3D5A8A30}
+</style>
+<div class=&quot;cz&quot;>
+ <div class=&quot;lv&quot; style=&quot;--c:var(--l3)&quot;><div class=&quot;lh&quot;><b style=&quot;color:var(--l3)&quot;>Уровень 3 · Этапы жизни актива</b><span>нажмите на этап</span></div><div class=&quot;ph&quot; id=&quot;ph&quot;></div><div class=&quot;row&quot; id=&quot;r3&quot; style=&quot;grid-template-columns:repeat(8,1fr)&quot;></div></div>
+ <div class=&quot;dk&quot; id=&quot;d3&quot; style=&quot;--c:var(--l3)&quot;></div>
+ <div class=&quot;zoom&quot; id=&quot;z3&quot; style=&quot;--c:var(--l3)&quot;></div>
+ <div class=&quot;lv&quot; style=&quot;--c:var(--l2)&quot;><div class=&quot;lh&quot;><b style=&quot;color:var(--l2)&quot;>Уровень 2 · Этапы жизни месторождения</b><span id=&quot;s2&quot;></span></div><div class=&quot;row&quot; id=&quot;r2&quot; style=&quot;grid-template-columns:repeat(6,1fr)&quot;></div></div>
+ <div class=&quot;dk&quot; id=&quot;d2&quot; style=&quot;--c:var(--l2)&quot;></div>
+ <div class=&quot;zoom&quot; id=&quot;z2&quot; style=&quot;--c:var(--l2)&quot;></div>
+ <div class=&quot;lv&quot; style=&quot;--c:var(--l1)&quot;><div class=&quot;lh&quot;><b style=&quot;color:var(--l1)&quot;>Уровень 1 · Этапы формирования объекта</b><span id=&quot;s1&quot;></span></div><div class=&quot;row&quot; id=&quot;r1&quot; style=&quot;grid-template-columns:repeat(8,1fr)&quot;></div></div>
+ <div class=&quot;dk&quot; id=&quot;d1&quot; style=&quot;--c:var(--l1)&quot;></div>
+ <div class=&quot;zoom&quot; id=&quot;z1&quot; style=&quot;--c:var(--l1)&quot;></div>
+ <div class=&quot;lv&quot;><div class=&quot;lh&quot;><b style=&quot;color:var(--l0)&quot;>Уровень 0 · Расчёты по направлениям</b><span id=&quot;s0&quot;></span></div><div class=&quot;l0&quot; id=&quot;r0&quot;></div></div>
+ <p class=&quot;path&quot; id=&quot;path&quot;></p>
+</div>
+<script>
+const ST=[&quot;Замысел&quot;,&quot;Концептуальный&quot;,&quot;Базовый дизайн (BoD)&quot;,&quot;Проектирование&quot;,&quot;5.1 Подготовка&quot;,&quot;5.2 Строительство&quot;,&quot;Эксплуатация&quot;,&quot;Ликвидация&quot;];
+const DEPTH=[&quot;не выполняется&quot;,&quot;по аналогам&quot;,&quot;укрупнённый расчёт&quot;,&quot;инженерный расчёт&quot;,&quot;проектный (детальный)&quot;,&quot;рабочий / по факту&quot;];
+const Z='<span class=&quot;b z&quot;>закон</span>',K='<span class=&quot;b k&quot;>корп.</span>';
+const D={
+w:{n:&quot;Скважина&quot;,c:&quot;#A23B2A&quot;,
+ data:[&quot;Аналоги&quot;,&quot;Сейсмика, поисковые скважины&quot;,&quot;Геомодель, ГДМ, керн, ГИС&quot;,&quot;Утверждённые модели, график давлений&quot;,&quot;Проект, данные соседних скважин&quot;,&quot;ГТИ, LWD/MWD&quot;,&quot;Промысловые данные&quot;,&quot;История скважины&quot;],
+ who:[&quot;Центр компетенций&quot;,&quot;Инженер НИПИ&quot;,&quot;Проектная команда + НИПИ&quot;,&quot;Проектный институт&quot;,&quot;Технолог бурения, супервайзер&quot;,&quot;Подрядчик, центр сопровождения&quot;,&quot;Технолог ЦДНГ, КРС&quot;,&quot;Инженер КРС, проектировщик&quot;],
+ comp:[
+  [&quot;Конструкция&quot;,[1,2,3,4,5,5,2,2],[&quot;Совмещённый график давлений&quot;,&quot;Глубины спуска колонн&quot;,&quot;Прочность ОК&quot;,&quot;Цементирование&quot;],&quot;Landmark StressCheck, WellCat; SLB DrillPlan&quot;,&quot;Бурсофтпроект&quot;],
+  [&quot;Заканчивание&quot;,[1,1,3,4,5,5,3,1],[&quot;Узловой анализ&quot;,&quot;Дизайн ГРП/МГРП&quot;,&quot;Подбор ГНО&quot;],&quot;PROSPER, PIPESIM, FracPro, Kinetix&quot;,&quot;РН-ГРИД, Автотехнолог, tNavigator&quot;],
+  [&quot;Траектория&quot;,[1,2,3,4,5,5,1,1],[&quot;Профиль&quot;,&quot;Антиколлизия&quot;,&quot;Кустование&quot;,&quot;Геонавигация&quot;],&quot;Landmark Compass, Petrel, StarSteer&quot;,&quot;Бурсофтпроект&quot;],
+  [&quot;Буровая установка (грузоподъёмность)&quot;,[1,2,2,4,5,5,2,2],[&quot;Нагрузка на крюк&quot;,&quot;Torque &amp; drag&quot;,&quot;Класс БУ&quot;],&quot;WellPlan, Drillbench&quot;,&quot;Бурсофтпроект&quot;],
+  [&quot;Технология строительства&quot;,[1,2,2,4,5,5,1,1],[&quot;Гидравлика&quot;,&quot;Растворы&quot;,&quot;КНБК&quot;,&quot;Цикл и стоимость&quot;],&quot;WellPlan, Drillbench, DrillPlan&quot;,&quot;Бурсофтпроект&quot;],
+  [&quot;Эксплуатация&quot;,[1,1,2,3,4,4,5,2],[&quot;Техрежим&quot;,&quot;Целостность&quot;,&quot;ГТМ&quot;],&quot;PROSPER, OFM&quot;,&quot;Автотехнолог&quot;],
+  [&quot;Ликвидация&quot;,[1,1,1,2,2,2,3,5],[&quot;Мосты и барьеры&quot;,&quot;Затраты&quot;],&quot;WellCat&quot;,&quot;Корп. методики&quot;]],
+ docs:[
+  [[&quot;Паспорт идеи / заявка на скважину&quot;,&quot;Well Proposal&quot;,&quot;Цель, объект, ориентир по аналогам&quot;,&quot;Центр компетенций&quot;,K]],
+  [[&quot;Концепция скважины&quot;,&quot;Well Concept Select Report&quot;,&quot;Сравнение вариантов&quot;,&quot;Проектная команда, НИПИ&quot;,K],[&quot;Раздел фонда скважин в ТСР/ТПР/ППЭ&quot;,&quot;FDP — wells section&quot;,&quot;Число, тип, размещение&quot;,&quot;НИПИ → ЦКР Роснедр&quot;,Z]],
+  [[&quot;Базовый дизайн скважины&quot;,&quot;Basis of Well Design (ISO 16530-1)&quot;,&quot;Давления, риски, барьеры, принципиальные решения&quot;,&quot;Проектная команда → техсовет&quot;,K],[&quot;ТЗ на проектирование&quot;,&quot;Statement of Requirements&quot;,&quot;Требования заказчика&quot;,&quot;Недропользователь&quot;,K]],
+  [[&quot;Проектная документация на строительство скважины&quot;,&quot;Detailed Well Design&quot;,&quot;Конструкция, профиль, растворы, ОВОС, ПБ&quot;,&quot;Проектный институт&quot;,Z+&quot; ⚠&quot;]],
+  [[&quot;Акт о заложении скважины&quot;,&quot;Spud location approval&quot;,&quot;Координаты устья&quot;,&quot;Геолог, маркшейдер&quot;,Z+&quot; ⚠&quot;],[&quot;Программа бурения&quot;,&quot;Drilling Programme&quot;,&quot;Операции по интервалам&quot;,&quot;Технолог бурения&quot;,K],[&quot;ГТН&quot;,&quot;Geological prognosis / Well plan&quot;,&quot;Разрез, осложнения, режимы&quot;,&quot;Геолог + технолог&quot;,Z],[&quot;Программа заканчивания и освоения&quot;,&quot;Completion Programme&quot;,&quot;Хвостовик, ГРП, ГНО&quot;,&quot;Служба заканчивания&quot;,K],[&quot;Схема барьеров&quot;,&quot;Well Barrier Schematic (NORSOK D-010)&quot;,&quot;Барьеры по фазам&quot;,&quot;Инженер по целостности&quot;,K],[&quot;DWOP&quot;,&quot;Drill the Well on Paper&quot;,&quot;Риски, меры&quot;,&quot;Команда + подрядчики&quot;,K],[&quot;Уведомление надзора&quot;,&quot;Well Notification&quot;,&quot;Регистрация в ОПО&quot;,&quot;→ Ростехнадзор&quot;,Z+&quot; ⚠&quot;],[&quot;Акт готовности БУ к пуску&quot;,&quot;Rig acceptance&quot;,&quot;Готовность оборудования&quot;,&quot;Пусковая комиссия&quot;,Z]],
+  [[&quot;Суточный рапорт, буровой журнал&quot;,&quot;IADC DDR&quot;,&quot;Операции, параметры&quot;,&quot;Мастер, супервайзер&quot;,Z],[&quot;Акты на крепление и опрессовку&quot;,&quot;Casing &amp; Cement reports&quot;,&quot;Качество крепи&quot;,&quot;Подрядчик&quot;,Z],[&quot;Разрешение на вскрытие пласта&quot;,&quot;Reservoir entry checklist&quot;,&quot;Готовность ПВО&quot;,&quot;Комиссия, ПФС&quot;,Z+&quot; ⚠&quot;],[&quot;Акт окончания бурения, акт испытания&quot;,&quot;Rig release, Well test&quot;,&quot;Итоги строительства&quot;,&quot;Подрядчик → заказчик&quot;,Z],[&quot;Дело и паспорт скважины&quot;,&quot;Well File, As-built&quot;,&quot;Вся история&quot;,&quot;Недропользователь&quot;,Z],[&quot;Акт передачи в эксплуатацию&quot;,&quot;Well Handover Package&quot;,&quot;Передача со статусом барьеров&quot;,&quot;Бурение → добыча&quot;,Z],[&quot;Отчёт по итогам строительства&quot;,&quot;End of Well Report&quot;,&quot;План/факт, уроки&quot;,&quot;Проектная команда&quot;,K]],
+  [[&quot;Техрежим скважины&quot;,&quot;Operating Envelope&quot;,&quot;Режимы, ограничения&quot;,&quot;Технолог ЦДНГ&quot;,K],[&quot;Планы КРС/ГТМ, акты&quot;,&quot;Intervention Programme&quot;,&quot;Ремонты, ГРП, ЗБС&quot;,&quot;Инженер КРС&quot;,Z],[&quot;Учёт целостности&quot;,&quot;Well Integrity records&quot;,&quot;Статус барьеров&quot;,&quot;Служба целостности&quot;,K]],
+  [[&quot;Проект ликвидации/консервации&quot;,&quot;Abandonment Programme&quot;,&quot;Мосты, барьеры, устье&quot;,&quot;Проектировщик&quot;,Z],[&quot;Заключение ЭПБ&quot;,&quot;Independent examination&quot;,&quot;Допуск к ликвидации&quot;,&quot;Экспертная организация&quot;,Z],[&quot;Акт ликвидации/консервации&quot;,&quot;Final Abandonment Report&quot;,&quot;Факт выполнения&quot;,&quot;Комиссия с надзором&quot;,Z]]]},
+
+g:{n:&quot;Геология&quot;,c:&quot;#9A5B1E&quot;,
+ data:[&quot;Региональная геология, аналоги&quot;,&quot;2D/3D сейсмика, поисковые скважины&quot;,&quot;Разведочные скважины, керн, ГИС, испытания&quot;,&quot;Полный набор + пробная эксплуатация&quot;,&quot;Проект, план бурения&quot;,&quot;ГИС/керн бурящихся скважин&quot;,&quot;История добычи, ГИС-контроль&quot;,&quot;Остаточные запасы&quot;],
+ who:[&quot;Центр компетенций по ГРР&quot;,&quot;Геолог НИПИ, сейсмик&quot;,&quot;Команда подсчёта запасов&quot;,&quot;Геолог-модельер НИПИ&quot;,&quot;Геолог актива&quot;,&quot;Геолог сопровождения бурения&quot;,&quot;Геолог промысла, НИПИ&quot;,&quot;Геолог актива&quot;],
+ comp:[
+  [&quot;Структурная модель (сейсмика)&quot;,[1,3,4,4,4,5,4,1],[&quot;Интерпретация сейсмики&quot;,&quot;Скоростная модель&quot;,&quot;Структурные карты&quot;],&quot;Petrel, Kingdom, Paradigm&quot;,&quot;tNavigator, РН-ГЕОСИМ ⚠&quot;],
+  [&quot;Петрофизика&quot;,[1,2,4,4,3,5,4,1],[&quot;Интерпретация ГИС&quot;,&quot;Кп, Кн, Кпр&quot;,&quot;Граничные значения&quot;],&quot;Techlog, IP&quot;,&quot;Прайм, Соната ⚠&quot;],
+  [&quot;Седиментология, концепция&quot;,[1,3,4,4,2,3,3,1],[&quot;Фациальный анализ&quot;,&quot;Концептуальная модель&quot;],&quot;Petrel&quot;,&quot;tNavigator&quot;],
+  [&quot;3D геологическая модель&quot;,[0,2,4,5,3,5,5,2],[&quot;Литология&quot;,&quot;Распределение свойств&quot;,&quot;Реализации&quot;],&quot;Petrel, RMS, SKUA&quot;,&quot;tNavigator, РН-ГЕОСИМ ⚠&quot;],
+  [&quot;Подсчёт запасов&quot;,[1,2,5,4,2,3,5,4],[&quot;Объёмный метод&quot;,&quot;Категоризация&quot;,&quot;PRMS&quot;],&quot;Petrel, GeoX&quot;,&quot;tNavigator, РН-ГЕОСИМ ⚠&quot;],
+  [&quot;Неопределённости и риски&quot;,[2,3,4,3,2,2,3,1],[&quot;Pg&quot;,&quot;Монте-Карло&quot;,&quot;P90/P50/P10&quot;],&quot;GeoX, Crystal Ball&quot;,&quot;tNavigator AHM ⚠&quot;],
+  [&quot;Программа доизучения&quot;,[2,3,3,3,4,3,3,0],[&quot;Ценность информации&quot;,&quot;Программа ГИС/керна&quot;],&quot;Excel, корп. инструменты&quot;,&quot;Корп. инструменты&quot;]],
+ docs:[
+  [[&quot;Программа ГРР, заявка/аукцион на лицензию&quot;,&quot;Exploration Strategy, Play assessment&quot;,&quot;Ресурсы, приоритеты&quot;,&quot;Центр ГРР&quot;,K],[&quot;Лицензия на пользование недрами&quot;,&quot;Licence / PSC&quot;,&quot;Право на участок&quot;,&quot;Роснедра&quot;,Z]],
+  [[&quot;Проект поисково-оценочных работ&quot;,&quot;Exploration / Appraisal Plan&quot;,&quot;Объём ГРР, скважины, сейсмика&quot;,&quot;НИПИ → экспертиза Роснедр&quot;,Z+&quot; ⚠&quot;],[&quot;Оперативный подсчёт запасов&quot;,&quot;Discovery report, Contingent resources&quot;,&quot;Постановка на госбаланс&quot;,&quot;НИПИ → ГКЗ/ТКЗ&quot;,Z]],
+  [[&quot;Отчёт о подсчёте запасов + протокол ГКЗ&quot;,&quot;Reserves Report (PRMS), Subsurface BoD&quot;,&quot;Запасы по категориям&quot;,&quot;НИПИ → ФБУ ГКЗ&quot;,Z]],
+  [[&quot;Геологическая модель (раздел ТСР/ТПР)&quot;,&quot;Static Model Report&quot;,&quot;Основа проекта разработки&quot;,&quot;НИПИ → ЦКР&quot;,Z]],
+  [[&quot;Геологическая часть ГТН, программа ГИС и керна&quot;,&quot;Formation Evaluation Programme&quot;,&quot;Что и где исследовать&quot;,&quot;Геолог актива&quot;,K]],
+  [[&quot;Заключения по ГИС, отчёт геонавигации&quot;,&quot;Well Evaluation Report&quot;,&quot;Фактический разрез&quot;,&quot;Геолог сопровождения&quot;,K],[&quot;Оперативное изменение запасов&quot;,&quot;Reserves update&quot;,&quot;Прирост/списание по бурению&quot;,&quot;→ ГКЗ/ТКЗ&quot;,Z]],
+  [[&quot;Пересчёт запасов, форма 6-гр&quot;,&quot;Annual Reserves Report (PRMS/SEC)&quot;,&quot;Госбаланс, аудит&quot;,&quot;НИПИ → ГКЗ&quot;,Z]],
+  [[&quot;Обоснование списания запасов&quot;,&quot;Reserves write-off&quot;,&quot;Остаточные запасы&quot;,&quot;→ ГКЗ&quot;,Z],[&quot;Сдача геологической информации&quot;,&quot;Data submission&quot;,&quot;В фонд геоинформации&quot;,&quot;→ Росгеолфонд&quot;,Z]]]},
+
+d:{n:&quot;Разработка&quot;,c:&quot;#0F6E62&quot;,
+ data:[&quot;Аналоги&quot;,&quot;Данные поисковых скважин, тесты&quot;,&quot;Керн, PVT, пробная эксплуатация&quot;,&quot;Геомодель, утверждённые запасы&quot;,&quot;Проект, график ввода&quot;,&quot;Фактические дебиты новых скважин&quot;,&quot;История добычи, исследования&quot;,&quot;Остаточные запасы, экономика&quot;],
+ who:[&quot;Центр компетенций&quot;,&quot;Разработчик НИПИ&quot;,&quot;Команда проекта разработки&quot;,&quot;НИПИ&quot;,&quot;Геолог/разработчик актива&quot;,&quot;Разработчик актива&quot;,&quot;Разработчик промысла, НИПИ&quot;,&quot;Разработчик, экономист&quot;],
+ comp:[
+  [&quot;PVT и свойства флюидов&quot;,[1,2,4,4,2,3,3,0],[&quot;PVT-модель&quot;,&quot;Уравнение состояния&quot;],&quot;PVTsim, PVTi&quot;,&quot;tNavigator PVT ⚠&quot;],
+  [&quot;Вытеснение и КИН&quot;,[1,2,4,4,2,2,3,2],[&quot;ОФП&quot;,&quot;К_выт, К_охв&quot;,&quot;КИН&quot;],&quot;SCAL, Eclipse&quot;,&quot;tNavigator, РН-КИМ ⚠&quot;],
+  [&quot;Гидродинамическая модель&quot;,[0,2,4,5,3,4,5,3],[&quot;Апскейлинг&quot;,&quot;Адаптация&quot;,&quot;Прогноз&quot;],&quot;Eclipse, Intersect, CMG&quot;,&quot;tNavigator, РН-КИМ&quot;],
+  [&quot;Система разработки и сетка&quot;,[1,2,4,5,4,3,4,1],[&quot;Сетка&quot;,&quot;Размещение забоев&quot;,&quot;Тип скважин&quot;],&quot;Petrel, Eclipse&quot;,&quot;tNavigator&quot;],
+  [&quot;Профили добычи&quot;,[1,2,4,5,4,5,5,3],[&quot;Арпс&quot;,&quot;МБ&quot;,&quot;Профиль по фонду&quot;],&quot;OFM, MBAL&quot;,&quot;tNavigator, корп. ИС&quot;],
+  [&quot;Система ППД&quot;,[0,1,3,4,4,4,5,1],[&quot;Компенсация&quot;,&quot;Приёмистость&quot;],&quot;Eclipse, OFM&quot;,&quot;tNavigator&quot;],
+  [&quot;Мониторинг и ГТМ&quot;,[0,1,2,3,4,4,5,2],[&quot;Программа исследований&quot;,&quot;Подбор ГТМ&quot;],&quot;OFM, Petrel&quot;,&quot;корп. ИС ⚠&quot;]],
+ docs:[
+  [[&quot;Концепция разработки по аналогам&quot;,&quot;Development Concept&quot;,&quot;Ориентир КИН, фонд&quot;,&quot;Центр компетенций&quot;,K]],
+  [[&quot;Проект пробной эксплуатации (ППЭ)&quot;,&quot;Appraisal / Early Production Plan&quot;,&quot;Пробная добыча, исследования&quot;,&quot;НИПИ → ЦКР Роснедр&quot;,Z]],
+  [[&quot;Технологическая схема разработки (ТСР)&quot;,&quot;Field Development Plan (FDP)&quot;,&quot;Система, фонд, профили, КИН&quot;,&quot;НИПИ → ЦКР Роснедр&quot;,Z]],
+  [[&quot;Технологический проект разработки (ТПР) / дополнение&quot;,&quot;Revised FDP&quot;,&quot;Уточнение под проект обустройства&quot;,&quot;НИПИ → ЦКР Роснедр&quot;,Z+&quot; ⚠&quot;]],
+  [[&quot;Программа ввода скважин и исследований&quot;,&quot;Start-up &amp; Surveillance Plan&quot;,&quot;Очерёдность, исследования&quot;,&quot;Разработчик актива&quot;,K]],
+  [[&quot;Авторский надзор за реализацией проекта&quot;,&quot;Project follow-up / Lookback&quot;,&quot;Соответствие проекту&quot;,&quot;НИПИ&quot;,Z]],
+  [[&quot;Анализ разработки, дополнения к ТПР&quot;,&quot;Reservoir Management Plan&quot;,&quot;Мониторинг, ГТМ&quot;,&quot;НИПИ → ЦКР&quot;,Z]],
+  [[&quot;Обоснование завершения разработки&quot;,&quot;End-of-field-life plan&quot;,&quot;Предельная рентабельность&quot;,&quot;НИПИ → ЦКР&quot;,Z+&quot; ⚠&quot;]]]},
+
+i:{n:&quot;Инфраструктура&quot;,c:&quot;#3D5A8A&quot;,
+ data:[&quot;Аналоги, точки сдачи&quot;,&quot;Профили-варианты, карта&quot;,&quot;Профили ТСР, изыскания (предв.)&quot;,&quot;Инженерные изыскания, профили ТПР&quot;,&quot;ПД/РД, участок&quot;,&quot;РД, поставки&quot;,&quot;Режимы, диагностика&quot;,&quot;Состояние объектов&quot;],
+ who:[&quot;Центр компетенций&quot;,&quot;Концептуальный инжиниринг&quot;,&quot;Проектная команда&quot;,&quot;Генпроектировщик&quot;,&quot;Заказчик-застройщик&quot;,&quot;EPC-подрядчик, стройконтроль&quot;,&quot;Служба эксплуатации&quot;,&quot;Проектировщик, подрядчик&quot;],
+ comp:[
+  [&quot;Нагрузки и мощности&quot;,[1,2,4,5,4,4,4,1],[&quot;Пиковые нагрузки&quot;,&quot;Поэтапный ввод&quot;],&quot;Excel, HYSYS&quot;,&quot;РН-СИМТЕП ⚠&quot;],
+  [&quot;Сбор и транспорт (трассы, гидравлика)&quot;,[1,2,4,5,5,5,4,2],[&quot;Трассировка&quot;,&quot;Многофазная гидравлика&quot;,&quot;Тепловой расчёт&quot;],&quot;PIPESIM, OLGA, Civil 3D&quot;,&quot;РН-СИМТЕП, Кредо ⚠&quot;],
+  [&quot;Подготовка продукции (УПН, газ)&quot;,[1,2,4,5,5,5,4,2],[&quot;Материальный баланс&quot;,&quot;Сепарация&quot;,&quot;Утилизация ПНГ&quot;],&quot;HYSYS, UniSim&quot;,&quot;РН-СИМТЕП ⚠&quot;],
+  [&quot;ППД (КНС, водоводы)&quot;,[1,2,3,5,5,5,4,2],[&quot;Гидравлика водоводов&quot;,&quot;Насосы&quot;],&quot;PIPESIM&quot;,&quot;РН-СИМТЕП ⚠&quot;],
+  [&quot;Энергоснабжение&quot;,[1,2,3,5,5,5,4,2],[&quot;Нагрузки&quot;,&quot;Схема: ГТЭС/сеть&quot;],&quot;ETAP&quot;,&quot;RastrWin&quot;],
+  [&quot;Генплан, площадки, дороги&quot;,[0,1,3,5,5,5,3,3],[&quot;Компоновка&quot;,&quot;Объёмы работ&quot;],&quot;AutoCAD Plant 3D, AVEVA&quot;,&quot;nanoCAD, Model Studio CS, Renga&quot;],
+  [&quot;Вывод из эксплуатации&quot;,[0,1,1,2,2,2,3,5],[&quot;Демонтаж&quot;,&quot;Рекультивация&quot;,&quot;Затраты&quot;],&quot;Excel&quot;,&quot;ГРАНД-Смета&quot;]],
+ docs:[
+  [[&quot;Концепция обустройства по аналогам&quot;,&quot;Opportunity Framing&quot;,&quot;Точки сдачи, ориентир CAPEX&quot;,&quot;Центр компетенций&quot;,K]],
+  [[&quot;Предпроектное исследование, варианты схем&quot;,&quot;Concept Select / Pre-FEED&quot;,&quot;Сравнение схем обустройства&quot;,&quot;Концептуальный инжиниринг&quot;,K]],
+  [[&quot;Концепция обустройства / ОТР&quot;,&quot;FEED, Basis of Design&quot;,&quot;Выбранная схема, мощности&quot;,&quot;Проектная команда → техсовет&quot;,K]],
+  [[&quot;Проектная документация + экспертиза&quot;,&quot;Detailed Engineering&quot;,&quot;Разделы ПД, ОВОС, ПБ&quot;,&quot;Генпроектировщик → Главгосэкспертиза/ЭПБ&quot;,Z+&quot; ГрК РФ ст. 48–49&quot;],[&quot;Рабочая документация&quot;,&quot;IFC drawings&quot;,&quot;Чертежи для стройки&quot;,&quot;Генпроектировщик&quot;,Z]],
+  [[&quot;Разрешение на строительство, землеотвод&quot;,&quot;Permits&quot;,&quot;Право начать стройку&quot;,&quot;Заказчик → органы власти&quot;,Z+&quot; ГрК ст. 51&quot;],[&quot;ППР, план строительства&quot;,&quot;Construction Execution Plan&quot;,&quot;Как строим&quot;,&quot;EPC-подрядчик&quot;,K]],
+  [[&quot;Исполнительная документация, акты скрытых работ, общий журнал&quot;,&quot;As-built, QA/QC records&quot;,&quot;Факт строительства&quot;,&quot;Подрядчик, стройконтроль&quot;,Z],[&quot;Заключение о соответствии, разрешение на ввод&quot;,&quot;Mechanical Completion, RFSU, Handover&quot;,&quot;Ввод объекта&quot;,&quot;→ органы стройнадзора&quot;,Z+&quot; ГрК ст. 55&quot;],[&quot;Регистрация ОПО&quot;,&quot;—&quot;,&quot;Учёт в реестре&quot;,&quot;→ Ростехнадзор&quot;,Z]],
+  [[&quot;Регламенты, эксплуатационная документация&quot;,&quot;Operating Manuals&quot;,&quot;Как эксплуатировать&quot;,&quot;Служба эксплуатации&quot;,Z],[&quot;ЭПБ, диагностика, декларация ПБ&quot;,&quot;Asset Integrity Management&quot;,&quot;Безопасность объектов&quot;,&quot;Экспертная организация&quot;,Z]],
+  [[&quot;Проект ликвидации/консервации объектов&quot;,&quot;Decommissioning Plan&quot;,&quot;Демонтаж, рекультивация&quot;,&quot;Проектировщик&quot;,Z],[&quot;Исключение из реестра ОПО&quot;,&quot;—&quot;,&quot;Снятие с учёта&quot;,&quot;→ Ростехнадзор&quot;,Z]]]}
+};
+// Пробелы. Российские документы, у которых нет мирового аналога: стираем аналог.
+const RU_ONLY={
+ w:[&quot;Акт о заложении скважины&quot;,&quot;Разрешение на вскрытие пласта&quot;,&quot;Заключение ЭПБ&quot;],
+ g:[&quot;Оперативное изменение запасов&quot;],
+ d:[&quot;Авторский надзор за реализацией проекта&quot;],
+ i:[&quot;Заключение о соответствии, разрешение на ввод&quot;,&quot;Регистрация ОПО&quot;,&quot;Исключение из реестра ОПО&quot;]};
+// Мировые документы, которые в РФ ведутся только как корпоративная практика или не ведутся: стираем российское название.
+const WORLD_ONLY={w:[&quot;Паспорт идеи / заявка на скважину&quot;,&quot;Концепция скважины&quot;,&quot;Базовый дизайн скважины&quot;,&quot;Схема барьеров&quot;,&quot;DWOP&quot;,&quot;Отчёт по итогам строительства&quot;,&quot;Учёт целостности&quot;]};
+// Анализ ранее построенных скважин — основа всех ранних дизайнов скважины, обновляется на каждом этапе.
+D.w.docs[0].push([&quot;Анализ ранее построенных скважин&quot;,&quot;Offset Well Analysis (анализ соседних скважин)&quot;,&quot;Осложнения, сроки, NPT, удачные решения на скважинах-аналогах; обновляется на каждом этапе&quot;,&quot;Инженер по бурению&quot;,K]);
+// Мировые документы, которых в таблицах не было: [этап, мировой, что фиксирует, кто]
+const WORLD_ADD={
+ g:[[2,&quot;Independent Reserves Audit (независимый аудит запасов)&quot;,&quot;Внешняя проверка запасов по PRMS/SEC&quot;,&quot;Независимый аудитор&quot;],[3,&quot;Subsurface Peer Review (экспертиза модели коллегами)&quot;,&quot;Проверка геомодели перед проектом&quot;,&quot;Сообщество экспертов&quot;]],
+ d:[[2,&quot;Reservoir Management Plan (план управления пластом)&quot;,&quot;Стратегия мониторинга и управления пластом&quot;,&quot;Команда актива&quot;],[6,&quot;Lookback Review (ретроспективный анализ прогноза)&quot;,&quot;Сравнение прогноза и факта добычи&quot;,&quot;Команда актива&quot;]],
+ i:[[3,&quot;HAZOP Close-out Report (отчёт о закрытии HAZOP)&quot;,&quot;Выполнение рекомендаций анализа опасностей&quot;,&quot;Проектная команда&quot;],[4,&quot;Operations Readiness Plan (план готовности к эксплуатации)&quot;,&quot;Люди, процедуры, запчасти до ввода&quot;,&quot;Служба эксплуатации&quot;]],
+ w:[]};
+Object.entries(D).forEach(([k,x])=>x.docs.forEach(s=>s.forEach(d=>{
+ if((RU_ONLY[k]||[]).includes(d[0]))d[1]=null;
+ if((WORLD_ONLY[k]||[]).some(n=>d[0].startsWith(n))){d[1]=`${d[1]} (${d[0].toLowerCase()})`;d[0]=null}})));
+Object.entries(WORLD_ADD).forEach(([k,a])=>a.forEach(([j,w,t,who])=>D[k].docs[j].push([null,w,t,who,'<span class=&quot;b k&quot;>нет в РФ</span>'])));
+
+const FM=[
+ [[[1,1,0,0,0,0,0,0],&quot;оценка проспекта&quot;],[[1,0,0,0,0,0,0,0],&quot;возможность добычи по аналогам&quot;],[[1,1,1,1,1,1,0,1],&quot;поисковая скважина: замысел → бурение → ликвидация&quot;],[[1,0,0,0,0,0,0,0],&quot;потребность в объектах по аналогам&quot;]],
+ [[[1,1,1,0,1,1,0,0],&quot;открытие, программа и сопровождение доразведки&quot;],[[1,1,0,0,0,0,0,0],&quot;варианты разработки&quot;],[[1,1,1,1,1,1,1,1],&quot;разведочная скважина с пробной эксплуатацией — полный цикл&quot;],[[1,1,1,1,1,1,1,0],&quot;временное обустройство для пробной эксплуатации&quot;]],
+ [[[0,0,1,1,0,0,0,0],&quot;подземная основа, модель для проекта&quot;],[[0,1,1,0,0,0,0,0],&quot;выбор схемы разработки&quot;],[[0,1,1,0,0,0,0,0],&quot;концепция и базовый дизайн эксплуатационных скважин&quot;],[[1,1,1,0,0,0,0,0],&quot;выбор схемы обустройства, FEL 1–2&quot;]],
+ [[[0,0,0,1,0,0,0,0],&quot;модель для плана разработки&quot;],[[0,0,0,1,0,0,0,0],&quot;план разработки&quot;],[[0,0,0,1,1,0,0,0],&quot;проект скважин, подготовка к бурению&quot;],[[0,0,0,1,0,0,0,0],&quot;FEED, FEL 3&quot;]],
+ [[[0,0,0,0,1,1,0,0],&quot;программа исследований, уточнение по бурению&quot;],[[0,0,0,0,1,1,0,0],&quot;подготовка и ввод в разработку&quot;],[[0,0,0,0,1,1,1,0],&quot;бурение, заканчивание, передача в эксплуатацию&quot;],[[0,0,0,0,1,1,1,0],&quot;стройка, пусконаладка, ввод&quot;]],
+ [[[0,0,0,1,1,1,1,1],&quot;обновление модели, переоценка и списание запасов&quot;],[[1,1,1,1,1,1,1,1],&quot;новые мероприятия разработки — полный цикл&quot;],[[1,1,1,1,1,1,1,1],&quot;новые скважины, ГТМ, ликвидация старых — полный цикл&quot;],[[1,1,1,1,1,1,1,1],&quot;реконструкция, новые объекты, вывод старых — полный цикл&quot;]]
+];
+const ORDER=[&quot;g&quot;,&quot;d&quot;,&quot;w&quot;,&quot;i&quot;],KEY={g:&quot;G&quot;,d:&quot;R&quot;,w:&quot;B&quot;,i:&quot;I&quot;};
+const isOn=(dep,m)=>dep>=Math.min(m+1,4);
+const AS=[[&quot;Вход в актив&quot;,&quot;Access&quot;],[&quot;Геологоразведка&quot;,&quot;Exploration&quot;],[&quot;Доразведка&quot;,&quot;Appraisal&quot;],[&quot;Проект&quot;,&quot;Select/Define&quot;],[&quot;Стройка и ввод&quot;,&quot;Execute&quot;],[&quot;Добыча&quot;,&quot;рост, полка&quot;],[&quot;Зрелый актив&quot;,&quot;падение, МУН&quot;],[&quot;Вывод&quot;,&quot;Decommission&quot;]];
+const GRP=[[&quot;ГРР&quot;,3,&quot;#7A6A55&quot;],[&quot;Гринфилд&quot;,2,&quot;#3D5A8A&quot;],[&quot;Браунфилд&quot;,2,&quot;#2F6B4F&quot;],[&quot;Ликвидация&quot;,1,&quot;#5A6662&quot;]];
+const FS=[[&quot;Идентификация&quot;,&quot;Identify&quot;],[&quot;Оценка&quot;,&quot;Assess&quot;],[&quot;Выбор&quot;,&quot;Select&quot;],[&quot;Определение&quot;,&quot;Define&quot;],[&quot;Реализация&quot;,&quot;Execute&quot;],[&quot;Эксплуатация&quot;,&quot;Operate&quot;]];
+const OS=[&quot;Замысел&quot;,&quot;Концепт&quot;,&quot;Базовый дизайн&quot;,&quot;Проектирование&quot;,&quot;Подготовка&quot;,&quot;Строительство&quot;,&quot;Эксплуатация&quot;,&quot;Ликвидация&quot;];
+// этапы месторождения внутри этапа актива — как на уровне 3
+const AF=[[1,1,1,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,1],[1,1,1,1,0,0],[0,0,0,0,1,0],[1,1,1,1,1,1],[1,0,1,0,1,1],[1,1,1,1,1,0]];
+let a=3,f=3,o=3;
+ph.innerHTML=GRP.map(([n,k,c])=>`<div style=&quot;background:${c}&quot;>${n}</div>`).join(&quot;&quot;);
+const objOn=f=>OS.map((_,j)=>FM[f].some(x=>x[0][j]));
+const clip=(i,n)=>`polygon(${i/n*100}% 0,${(i+1)/n*100}% 0,100% 100%,0 100%)`;
+function draw(){
+ r3.innerHTML=AS.map((s,i)=>`<button class=&quot;act ${i==a?&quot;on&quot;:&quot;&quot;}&quot; data-i=&quot;${i}&quot;>${i+1}. ${s[0]}<small>${s[1]}</small></button>`).join(&quot;&quot;);
+ if(!AF[a][f])f=AF[a].indexOf(1);
+ const on1=objOn(f);if(!on1[o])o=on1.lastIndexOf(true);
+ r2.innerHTML=FS.map((s,i)=>`<button class=&quot;${AF[a][i]?&quot;act&quot;:&quot;off&quot;} ${i==f?&quot;on&quot;:&quot;&quot;}&quot; data-i=&quot;${i}&quot;>${i+1}. ${s[0]}<small>${s[1]}</small></button>`).join(&quot;&quot;);
+ r1.innerHTML=OS.map((s,i)=>`<button class=&quot;${on1[i]?&quot;act&quot;:&quot;off&quot;} ${i==o?&quot;on&quot;:&quot;&quot;}&quot; data-i=&quot;${i}&quot;>${i+1}. ${s}</button>`).join(&quot;&quot;);
+ z3.style.setProperty(&quot;--clip&quot;,clip(a,8));z2.style.setProperty(&quot;--clip&quot;,clip(f,6));z1.style.setProperty(&quot;--clip&quot;,clip(o,8));
+ s2.textContent=`внутри «${AS[a][0]}»: выполняется ${AF[a].filter(Boolean).length} из 6`;
+ s1.textContent=`внутри «${FS[f][0]}»: выполняется ${on1.filter(Boolean).length} из 8`;
+ let tot=0;
+ r0.innerHTML=ORDER.map((k,fi)=>{const x=D[k],run=FM[f][fi][0][o];let n=0,all=0;
+  const rows=x.comp.map((c,r)=>{const dep=c[1][o];return `<div class=&quot;ds&quot;><div class=&quot;dn&quot;><span><code>${KEY[k]}${r+1}</code> ${c[0]}</span><i>${run?DEPTH[dep]:&quot;&quot;}</i></div><div class=&quot;cc&quot;>${c[2].map((nm,m)=>{all++;const act=run&amp;&amp;isOn(dep,m);if(act)n++;return `<span class=&quot;${act?&quot;on&quot;:&quot;&quot;}&quot; title=&quot;${nm}&quot;>${KEY[k]}${r+1}.${m+1}</span>`}).join(&quot;&quot;)}</div></div>`}).join(&quot;&quot;);
+  tot+=n;
+  return `<div class=&quot;fn ${run?&quot;&quot;:&quot;off&quot;}&quot; style=&quot;--fc:${x.c}&quot;><div class=&quot;fh&quot;>${fi+1}. ${x.n}<small>${run?n+&quot; из &quot;+all+&quot; расчётов&quot;:&quot;этап объекта не выполняется&quot;}</small></div>${run?`<div class=&quot;fs&quot;>${FM[f][fi][1]}</div>`:&quot;&quot;}${rows}</div>`}).join(&quot;&quot;);
+ s0.textContent=`внутри «${OS[o]}»: выполняется ${tot} расчётов`;
+ path.innerHTML=`${AS[a][0]} → ${FS[f][0]} → ${OS[o]} → ${tot} расчётов по четырём направлениям<small>Документы собираются обратно снизу вверх: расчёты → документы объекта → кросс-функциональные документы месторождения → документы актива.</small>`;
+}
+const W='<span class=&quot;b k&quot;>нет в РФ</span>';
+// документы актива — как в «Уровень 3 · Официальные документы»
+const S3=[
+ [&quot;Вход в актив&quot;,&quot;Access / Acquisition&quot;,[&quot;Вход&quot;,&quot;в актив&quot;],&quot;1–2 года&quot;,&quot;Входить ли в участок и на каких условиях&quot;,6,[
+  [&quot;Заявка на аукцион, лицензия на пользование недрами&quot;,&quot;Licence Application / Bid (заявка на лицензионный раунд)&quot;,&quot;Право на участок&quot;,&quot;Роснедра&quot;,Z],
+  [&quot;Лицензионные условия и обязательства&quot;,&quot;Work Programme Commitment (обязательная программа работ)&quot;,&quot;Объём работ, сроки&quot;,&quot;Роснедра&quot;,Z],
+  [&quot;Договор купли-продажи доли, соглашение о СП&quot;,&quot;Farm-in Agreement / SPA (соглашение о вхождении / купле-продаже доли)&quot;,&quot;Доли партнёров&quot;,&quot;Партнёры&quot;,K],
+  [null,&quot;Joint Operating Agreement — JOA (соглашение о совместной деятельности)&quot;,&quot;Правила совместной работы оператора и партнёров&quot;,&quot;Партнёры&quot;,W+&quot; ⚠&quot;]]],
+ [&quot;Геологоразведка&quot;,&quot;Exploration&quot;,[&quot;Геолого-&quot;,&quot;разведка&quot;],&quot;2–5 лет&quot;,&quot;Есть ли открытие&quot;,9,[
+  [&quot;Проект поисковых работ&quot;,&quot;Exploration Work Programme (программа геологоразведочных работ)&quot;,&quot;Сейсмика, поисковые скважины&quot;,&quot;Недропользователь → экспертиза&quot;,Z],
+  [&quot;Паспорт подготовленной структуры, оценка ресурсов D0/Dл&quot;,&quot;Prospect Evaluation (оценка проспекта, вероятность успеха)&quot;,&quot;Ресурсы и риск объекта&quot;,&quot;Недропользователь&quot;,K+&quot; ⚠&quot;],
+  [null,&quot;Well Proposal / AFE (заявка на скважину / разрешение на расходы)&quot;,&quot;Цель и бюджет скважины&quot;,&quot;Партнёры&quot;,W],
+  [&quot;Свидетельство об установлении факта открытия&quot;,&quot;Discovery Notification (уведомление об открытии)&quot;,&quot;Регистрация открытия&quot;,&quot;Роснедра&quot;,Z],
+  [&quot;Оперативный подсчёт, постановка запасов на госбаланс&quot;,null,&quot;Первые запасы C1/C2 на госбалансе&quot;,&quot;ГКЗ / ТКЗ&quot;,Z],
+  [&quot;Геологический отчёт по ГРР, сдача в фонд геоинформации&quot;,&quot;Final Exploration Report, Data Submission (итоговый отчёт по ГРР, сдача данных)&quot;,&quot;Результаты и первичные данные&quot;,&quot;Роснедра / Росгеолфонд&quot;,Z]]],
+ [&quot;Доразведка и оценка&quot;,&quot;Appraisal&quot;,[&quot;Доразведка&quot;,&quot;и оценка&quot;],&quot;2–4 года&quot;,&quot;Коммерческое ли открытие&quot;,8,[
+  [&quot;Проект разведки (дополнение к проекту ГРР)&quot;,&quot;Appraisal Programme (программа доразведки)&quot;,&quot;Разведочное бурение, испытания&quot;,&quot;Недропользователь → экспертиза&quot;,Z],
+  [&quot;Проект пробной эксплуатации (ППЭ)&quot;,&quot;Extended Well Test (расширенные испытания скважин)&quot;,&quot;Пробная добыча&quot;,&quot;ЦКР Роснедр&quot;,Z],
+  [&quot;Подсчёт запасов + протокол ГКЗ&quot;,&quot;Resource Assessment (оценка ресурсов P90/P50/P10)&quot;,&quot;Утверждённые запасы&quot;,&quot;ФБУ ГКЗ&quot;,Z],
+  [null,&quot;Declaration of Commerciality (декларация коммерческой ценности)&quot;,&quot;Решение, что открытие рентабельно&quot;,&quot;Регулятор, партнёры&quot;,W]]],
+ [&quot;Выбор концепции и проект&quot;,&quot;Develop: Select / Define&quot;,[&quot;Выбор концепции&quot;,&quot;и проект&quot;],&quot;2–3 года&quot;,&quot;Как разрабатывать и инвестировать ли&quot;,9,[
+  [&quot;Концепция освоения, ОТР по активу&quot;,&quot;Concept Select Report (отчёт о выборе концепции)&quot;,&quot;Выбранный вариант освоения&quot;,&quot;Технический совет&quot;,K],
+  [&quot;ТСР / ТПР; КПРА&quot;,&quot;Field Development Plan / PDO (план разработки / план разработки и эксплуатации)&quot;,&quot;Система разработки, фонд, профили; комплексные решения&quot;,&quot;ЦКР Роснедр; инвест. комитет&quot;,Z],
+  [&quot;Бизнес-кейсы&quot;,&quot;Business Case (бизнес-кейс)&quot;,&quot;Экономика объектов и мероприятий в составе КПРА&quot;,&quot;Инвест. комитет&quot;,K],
+  [&quot;Инвестиционное решение&quot;,&quot;Final Investment Decision (окончательное инвестиционное решение)&quot;,&quot;Утверждение финансирования&quot;,&quot;Совет директоров&quot;,K],
+  [null,&quot;Project Execution Plan (план реализации проекта)&quot;,&quot;Организация, график, контракты, интерфейсы&quot;,&quot;Оператор&quot;,W],
+  [&quot;Раздел ОВОС в проектной документации, экспертиза&quot;,&quot;Environmental Impact Assessment (оценка воздействия на окружающую среду)&quot;,&quot;Экологические ограничения&quot;,&quot;Госэкспертиза / регулятор&quot;,Z]]],
+ [&quot;Строительство и ввод&quot;,&quot;Develop: Execute&quot;,[&quot;Строительство&quot;,&quot;и ввод&quot;],&quot;2–4 года&quot;,&quot;Построить и запустить в срок и бюджет&quot;,8,[
+  [&quot;Лицензия на добычу, разрешение на строительство&quot;,&quot;Development Consent (разрешение на разработку)&quot;,&quot;Право строить и добывать&quot;,&quot;Роснедра, органы власти&quot;,Z],
+  [&quot;Акты передачи скважин, разрешения на ввод объектов&quot;,&quot;Well &amp; Facility Handover Certificates (акты передачи скважин и объектов)&quot;,&quot;Ввод построенного&quot;,&quot;Комиссии, стройнадзор&quot;,Z],
+  [&quot;Ввод месторождения в промышленную разработку&quot;,&quot;Start-up / First Oil Notification (уведомление о начале добычи)&quot;,&quot;Начало промышленной добычи&quot;,&quot;Недропользователь → Роснедра&quot;,Z+&quot; ⚠&quot;],
+  [&quot;Отчёт о реализации проекта&quot;,&quot;Project Close-out Report (отчёт о закрытии проекта)&quot;,&quot;Итоги проекта&quot;,&quot;Комиссия&quot;,K]]],
+ [&quot;Добыча&quot;,&quot;Production: ramp-up &amp; plateau&quot;,[&quot;Добыча&quot;,&quot;рост и полка&quot;],&quot;5–10 лет&quot;,&quot;Максимизировать добычу и ценность&quot;,14,[
+  [&quot;Бизнес-план на год&quot;,&quot;Annual Work Programme &amp; Budget (годовая программа работ и бюджет)&quot;,&quot;Программа и бюджет&quot;,&quot;Совет директоров&quot;,K],
+  [&quot;Пересчёт запасов, форма 6-гр&quot;,&quot;Annual Reserves Report SEC / PRMS (годовой отчёт о запасах)&quot;,&quot;Госбаланс / аудит запасов&quot;,&quot;ГКЗ / аудитор&quot;,Z],
+  [null,&quot;Reservoir Management Plan (план управления пластом)&quot;,&quot;Стратегия управления пластом&quot;,&quot;Оператор&quot;,W],
+  [null,&quot;Post-Investment Review (постинвестиционный анализ)&quot;,&quot;План/факт после ввода, уроки&quot;,&quot;Совет директоров&quot;,W],
+  [&quot;ТПР и дополнения, авторский надзор&quot;,null,&quot;Контроль соответствия разработки проекту силами проектировщика&quot;,&quot;ЦКР Роснедр, НИПИ&quot;,Z]]],
+ [&quot;Зрелый актив&quot;,&quot;Mature / Late Life&quot;,[&quot;Зрелый актив&quot;,&quot;падение, МУН&quot;],&quot;10–25 лет&quot;,&quot;Продлевать жизнь, перезапускать или продавать&quot;,24,[
+  [&quot;Дополнения к ТПР: доразработка, уплотнение&quot;,&quot;FDP Addendum / Redevelopment Plan (дополнение к плану разработки / план перезапуска)&quot;,&quot;Новые решения по разработке&quot;,&quot;ЦКР Роснедр&quot;,Z],
+  [&quot;Проектные решения по МУН&quot;,&quot;IOR / EOR Project (проект повышения нефтеотдачи)&quot;,&quot;Методы увеличения нефтеотдачи&quot;,&quot;ЦКР Роснедр&quot;,Z],
+  [null,&quot;Late-Life Strategy (стратегия поздней стадии)&quot;,&quot;Как продлить жизнь актива и когда остановиться&quot;,&quot;Оператор&quot;,W],
+  [null,&quot;Asset Divestment Memorandum (меморандум о продаже актива)&quot;,&quot;Решение продать актив&quot;,&quot;Совет директоров&quot;,W+&quot; ⚠&quot;],
+  [&quot;Обоснование льгот по НДПИ (выработанность)&quot;,null,&quot;Налоговые стимулы для выработанных месторождений&quot;,&quot;ФНС / Минэнерго&quot;,Z+&quot; ⚠&quot;],
+  [&quot;Обоснование списания запасов&quot;,&quot;Reserves De-booking (снятие запасов с учёта)&quot;,&quot;Нерентабельные запасы&quot;,&quot;ГКЗ&quot;,Z]]],
+ [&quot;Прекращение и вывод&quot;,&quot;Cessation &amp; Decommissioning&quot;,[&quot;Прекращение&quot;,&quot;и вывод&quot;],&quot;3–8 лет&quot;,&quot;Как безопасно закрыть и восстановить территорию&quot;,9,[
+  [null,&quot;Cessation of Production Application (заявка на прекращение добычи)&quot;,&quot;Обоснование остановки добычи&quot;,&quot;Регулятор&quot;,W],
+  [&quot;Проект ликвидации / консервации скважин и объектов&quot;,&quot;Decommissioning Programme (программа вывода из эксплуатации)&quot;,&quot;Мосты, демонтаж, сроки&quot;,&quot;Недропользователь → ЭПБ&quot;,Z],
+  [null,&quot;Decommissioning Security Agreement (финансовое обеспечение ликвидации)&quot;,&quot;Гарантии средств на ликвидацию&quot;,&quot;Регулятор, партнёры&quot;,W+&quot; ⚠&quot;],
+  [&quot;Заключение ЭПБ на ликвидацию&quot;,null,&quot;Допуск к ликвидационным работам&quot;,&quot;Экспертная организация → Ростехнадзор&quot;,Z],
+  [&quot;Акты ликвидации, исключение из реестра ОПО&quot;,&quot;Close-out Report (отчёт о завершении вывода)&quot;,&quot;Факт выполнения&quot;,&quot;Комиссия, Ростехнадзор&quot;,Z],
+  [null,&quot;Post-Decommissioning Monitoring (мониторинг после ликвидации)&quot;,&quot;Наблюдение за ликвидированными объектами&quot;,&quot;Регулятор&quot;,W],
+  [&quot;Прекращение права пользования недрами, рекультивация&quot;,&quot;Licence Relinquishment (возврат лицензии)&quot;,&quot;Возврат участка&quot;,&quot;Роснедра, Росприроднадзор&quot;,Z]]]
+];
+// документы месторождения — как в «Уровень 2 · Официальные документы»
+const S2=[
+ [&quot;Идентификация&quot;,&quot;Identify&quot;,[
+  [&quot;Паспорт инвестиционной возможности&quot;,&quot;Opportunity Framing (формирование возможности)&quot;,&quot;Цель, ресурсный потенциал, ориентир ценности&quot;,&quot;Инвестиционный комитет&quot;,K],
+  [&quot;Лицензия на пользование недрами&quot;,&quot;Exploration Licence / PSC (лицензия на разведку / соглашение о разделе продукции)&quot;,&quot;Право на участок, лицензионные обязательства&quot;,&quot;Роснедра&quot;,Z],
+  [&quot;Программа ГРР актива&quot;,&quot;Exploration Strategy (стратегия геологоразведки)&quot;,&quot;Объём и очерёдность ГРР&quot;,&quot;Компания&quot;,K]]],
+ [&quot;Оценка&quot;,&quot;Assess / Appraise&quot;,[
+  [&quot;Концепция освоения месторождения&quot;,&quot;Feasibility / Concept Options Study (технико-экономическая оценка / исследование вариантов концепции)&quot;,&quot;Варианты освоения: разработка, скважины, обустройство&quot;,&quot;Технический совет&quot;,K],
+  [&quot;Проект пробной эксплуатации (ППЭ)&quot;,&quot;Appraisal Plan, Extended Well Test (план доразведки, расширенные испытания скважин)&quot;,&quot;Пробная добыча и исследования&quot;,&quot;ЦКР Роснедр&quot;,Z],
+  [null,&quot;Value Assurance Review (независимая проверка ценности проекта)&quot;,&quot;Независимая экспертиза качества проекта перед воротами&quot;,&quot;Независимая команда&quot;,W]]],
+ [&quot;Выбор&quot;,&quot;Select&quot;,[
+  [&quot;Технологическая схема разработки (ТСР)&quot;,&quot;Preliminary Field Development Plan (предварительный план разработки месторождения)&quot;,&quot;Система разработки, фонд, профили, КИН&quot;,&quot;ЦКР Роснедр&quot;,Z],
+  [&quot;Основные технические решения (ОТР) по активу&quot;,&quot;Concept Select Report, Basis of Design (отчёт о выборе концепции, базовые проектные данные)&quot;,&quot;Выбранный вариант освоения&quot;,&quot;Технический совет&quot;,K],
+  [null,&quot;Contracting &amp; Procurement Strategy (стратегия контрактования и закупок)&quot;,&quot;Стратегия контрактования всего проекта&quot;,&quot;Проектная команда&quot;,W],
+  [null,&quot;Risk &amp; Uncertainty Management Plan (план управления рисками и неопределённостями)&quot;,&quot;Единый реестр рисков актива по всем направлениям&quot;,&quot;Проектная команда&quot;,W]]],
+ [&quot;Определение&quot;,&quot;Define (FEED)&quot;,[
+  [&quot;КПРА — комплексный проект разработки актива&quot;,&quot;Integrated FDP / PDO (комплексный план разработки / план разработки и эксплуатации, Норвегия)&quot;,&quot;Согласованные решения всех направлений; за 1–3 года до строительства&quot;,&quot;Инвестиционный комитет&quot;,K],
+  [&quot;Бизнес-кейсы&quot;,&quot;Business Case / Project Proposal (бизнес-кейс / проектное предложение)&quot;,&quot;Экономика каждого мероприятия или объекта&quot;,&quot;Инвестиционный комитет&quot;,K],
+  [&quot;Технологический проект разработки (ТПР)&quot;,&quot;Regulatory FDP (план разработки, утверждаемый регулятором)&quot;,&quot;Проектные показатели разработки&quot;,&quot;ЦКР Роснедр&quot;,Z],
+  [&quot;Инвестиционное решение&quot;,&quot;Final Investment Decision (окончательное инвестиционное решение)&quot;,&quot;Утверждение финансирования&quot;,&quot;Совет директоров / правление&quot;,K],
+  [null,&quot;Project Execution Plan (план реализации проекта)&quot;,&quot;Организация, график, контракты, интерфейсы направлений&quot;,&quot;Руководитель проекта&quot;,W],
+  [null,&quot;Independent Project Review / IPA benchmarking (независимая экспертиза проекта / отраслевое сравнение)&quot;,&quot;Внешняя оценка готовности к FID&quot;,&quot;Внешний эксперт&quot;,W]]],
+ [&quot;Реализация&quot;,&quot;Execute&quot;,[
+  [&quot;Бизнес-план на год&quot;,&quot;Annual Work Programme &amp; Budget (годовая программа работ и бюджет)&quot;,&quot;Программа работ и бюджет из утверждённых бизнес-кейсов&quot;,&quot;Совет директоров / правление&quot;,K],
+  [&quot;Корректировки бизнес-плана&quot;,&quot;WP&amp;B Revision (корректировка программы работ и бюджета)&quot;,&quot;Изменения в течение года&quot;,&quot;Правление&quot;,K],
+  [&quot;Программа бурения и ввода объектов&quot;,&quot;Integrated Activity Plan (комплексный план работ)&quot;,&quot;Согласованный график работ всех направлений&quot;,&quot;Руководитель актива&quot;,K],
+  [&quot;Отчёт о реализации проекта&quot;,&quot;Project Close-out Report (отчёт о закрытии проекта)&quot;,&quot;Итоги, передача в эксплуатацию&quot;,&quot;Комиссия&quot;,K],
+  [null,&quot;Operations Readiness &amp; Assurance Plan (план готовности к эксплуатации)&quot;,&quot;Люди, процедуры, запчасти до ввода&quot;,&quot;Служба эксплуатации&quot;,W]]],
+ [&quot;Эксплуатация&quot;,&quot;Operate&quot;,[
+  [&quot;Дополнения к ТПР&quot;,&quot;Revised FDP, Reservoir Management Plan (обновлённый план разработки, план управления пластом)&quot;,&quot;Актуализация разработки&quot;,&quot;ЦКР Роснедр&quot;,Z],
+  [&quot;Бизнес-кейсы на бурение, ГТМ, реконструкцию&quot;,&quot;Business Case / AFE (бизнес-кейс / разрешение на расходы)&quot;,&quot;Экономика новых мероприятий&quot;,&quot;Инвестиционный комитет&quot;,K],
+  [&quot;Бизнес-план на год&quot;,&quot;Asset Reference Plan, Annual WP&amp;B (базовый план актива, годовая программа и бюджет)&quot;,&quot;Программа и бюджет актива&quot;,&quot;Совет директоров / правление&quot;,K],
+  [null,&quot;Post-Investment Review (постинвестиционный анализ)&quot;,&quot;План/факт через 1–3 года после ввода, уроки&quot;,&quot;Инвестиционный комитет&quot;,W],
+  [null,&quot;Late-Life / Cessation Strategy (стратегия поздней стадии и прекращения добычи)&quot;,&quot;Стратегия поздней стадии&quot;,&quot;Команда актива&quot;,W]]]
+];
+// строка документа: [РФ|null, мир|null, что фиксирует, кто утверждает, статус]
+const drow=(d,pre=&quot;&quot;,cls=&quot;&quot;)=>{const t=!d[0]?&quot;wo&quot;:!d[1]?&quot;ro&quot;:&quot;&quot;;return `<tr class=&quot;${t} ${cls}&quot;>${pre}<td class=&quot;ru&quot;>${d[0]||'<i class=&quot;no&quot;>нет в РФ</i>'}</td><td class=&quot;en&quot;>${d[1]||'<i class=&quot;no&quot;>нет в мире</i>'}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]||&quot;&quot;}</td></tr>`};
+const thead=(pre=&quot;&quot;)=>`<thead><tr>${pre}<th>Документ РФ</th><th>Мировой аналог</th><th>Что фиксирует</th><th>Кто утверждает</th><th>Статус</th></tr></thead>`;
+const _draw=draw;
+draw=function(){
+ _draw();
+ const s3=S3[a];
+ d3.innerHTML=`<div class=&quot;dh&quot;>Документы актива · ${a+1}. ${s3[0]}<span>${s3[1]} · ${s3[3]} · ${s3[4]}</span></div><table>${thead()}<tbody>${s3[6].map(d=>drow(d)).join(&quot;&quot;)}</tbody></table>`;
+ const s2=S2[f];
+ d2.innerHTML=`<div class=&quot;dh&quot;>Кросс-функциональные документы месторождения · ${f+1}. ${s2[0]}<span>${s2[1]}</span></div><table>${thead()}<tbody>${s2[2].map(d=>drow(d)).join(&quot;&quot;)}</tbody></table>`;
+ let n1=0;
+ const rows=ORDER.map((k,fi)=>{const x=D[k],run=FM[f][fi][0][o];return x.docs[o].map((d,j)=>{if(run)n1++;return drow(d,j?'<td class=&quot;fd&quot;></td>':`<td class=&quot;fd&quot; rowspan=&quot;${x.docs[o].length}&quot; style=&quot;--fc:${x.c}&quot;>${fi+1}. ${x.n}${run?&quot;&quot;:&quot;<br><small>не выполняется</small>&quot;}</td>`,run?&quot;&quot;:&quot;skip&quot;)}).join(&quot;&quot;)}).join(&quot;&quot;);
+ d1.innerHTML=`<div class=&quot;dh&quot;>Документы объекта · ${o+1}. ${OS[o]}<span>${n1} документов по направлениям, которые выполняются внутри «${FS[f][0]}»</span></div><table>${thead(&quot;<th>Направление</th>&quot;)}<tbody>${rows}</tbody></table>`;
+};
 r3.onclick=e=>{const b=e.target.closest(&quot;button&quot;);if(b){a=+b.dataset.i;f=AF[a].indexOf(1);o=99;draw()}};
 r2.onclick=e=>{const b=e.target.closest(&quot;button:not(.off)&quot;);if(b){f=+b.dataset.i;o=99;draw()}};
 r1.onclick=e=>{const b=e.target.closest(&quot;button:not(.off)&quot;);if(b){o=+b.dataset.i;draw()}};
