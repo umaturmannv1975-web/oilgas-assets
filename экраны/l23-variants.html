@@ -1,0 +1,114 @@
+<h2>Уровень 2 + 3 вместе: варианты визуализации</h2>
+<p class="subtitle">Одна логика: этап жизни актива → кросс-функциональные документы этапа → функциональные документы четырёх направлений. Четыре подачи на одних данных. Нажмите на ближе всего подходящий.</p>
+
+<style>
+.vv{font-size:12px;--g:#9A5B1E;--r:#0F6E62;--b:#A23B2A;--i:#3D5A8A;--a:#8a6fd0}
+.chev{display:flex;margin-bottom:6px}
+.chev div{flex:1;background:var(--a);color:#fff;font-weight:600;font-size:11.5px;padding:6px 4px 6px 16px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%);margin-right:-6px;text-align:center;cursor:pointer;opacity:.55}
+.chev div:first-child{clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%)}
+.chev div.on{opacity:1}
+/* A */
+.adocs{display:flex;gap:4px;flex-wrap:wrap;margin:4px 0 8px}
+.adocs button{font:inherit;font-size:11px;padding:4px 8px;border-radius:5px;border:1px solid var(--a);background:transparent;color:inherit;cursor:pointer}
+.adocs button.on{background:var(--a);color:#fff}
+.dr{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:relative}
+.dr .h{color:#fff;font-weight:600;padding:4px 6px;border-radius:5px 5px 0 0;font-size:11.5px}
+.dr .w{height:156px;overflow:hidden;border:1px solid #8885;border-top:none;-webkit-mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent);mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent)}
+.dr .rl{transition:transform .8s cubic-bezier(.25,1.3,.5,1)}
+.dr .c{height:52px;padding:4px 6px;border-bottom:1px solid #8883;font-size:10.5px;line-height:1.2;opacity:.4}
+.dr .c.hit{opacity:1}.dr .c b{display:block;font-size:9.5px;opacity:.7;text-transform:uppercase}
+.dr .band{position:absolute;left:-4px;right:-4px;top:calc(23px + 52px);height:52px;border:2px solid var(--a);border-radius:7px;pointer-events:none}
+/* B */
+.mx{overflow-x:auto}
+.mx table{border-collapse:collapse;font-size:10.5px;min-width:1100px;width:100%}
+.mx th,.mx td{border:1px solid #8884;padding:4px 5px;vertical-align:top;text-align:left;line-height:1.2}
+.mx th.st{background:var(--a);color:#fff;text-align:center}
+.mx th.doc{background:#8a6fd01c;font-weight:600}
+.mx td b{display:block;font-size:9px;opacity:.75;text-transform:uppercase}
+/* C */
+.cc svg{width:100%;height:auto;display:block}
+.cc text{fill:currentColor}
+/* D */
+.sc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sc .card{border:1px solid #8886;border-radius:7px;overflow:hidden}
+.sc .card .hh{background:var(--a);color:#fff;font-weight:600;padding:5px 8px}
+.sc .row{padding:5px 8px;border-top:1px solid #8883}
+.sc .row .t{font-weight:600;margin-bottom:3px}
+.sc .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.sc .chips span{font-size:9.5px;padding:2px 3px;border-radius:3px;color:#fff;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+
+<div class="options">
+
+<div class="option" data-choice="drums" onclick="toggleSelect(this)"><div class="letter">A</div><div class="content">
+<h3>Этапы-стрелки + барабаны</h3>
+<p>Сверху стрелки этапов актива, под ними документы выбранного этапа. Клик по документу — барабаны направлений встают на линию. Самый «живой» вариант для показа, но видно один документ за раз.</p>
+<div class="mockup"><div class="mockup-body vv" onclick="event.stopPropagation()">
+<div class="chev" id="aChev"></div><div class="adocs" id="aDocs"></div><div class="dr" id="aDr"></div>
+</div></div></div></div>
+
+<div class="option" data-choice="matrix" onclick="toggleSelect(this)"><div class="letter">B</div><div class="content">
+<h3>Сквозная матрица</h3>
+<p>Столбцы — документы актива, сгруппированные по этапам. Строки — 4 направления. В ячейке — на каком этапе направление и какой функциональный документ нужен. Вся картина сразу, удобно печатать.</p>
+<div class="mockup"><div class="mockup-body vv mx"><table id="bT"></table></div></div></div></div>
+
+<div class="option" data-choice="stairs" onclick="toggleSelect(this)"><div class="letter">C</div><div class="content">
+<h3>Лестница зрелости</h3>
+<p>По горизонтали — документы актива по этапам, по вертикали — этап направления. Четыре линии показывают, как созревает каждое направление, и где оно «откатывается» (новое бурение в эксплуатации снова проходит проектирование).</p>
+<div class="mockup"><div class="mockup-body vv cc"><svg id="cS" viewBox="0 0 1000 330"></svg></div></div></div></div>
+
+<div class="option" data-choice="cards" onclick="toggleSelect(this)"><div class="letter">D</div><div class="content">
+<h3>Карточки этапов актива</h3>
+<p>Шесть карточек. В каждой — документы этапа, под каждым документом четыре цветные плашки: что даёт каждое направление. Компактно и читается без клика.</p>
+<div class="mockup"><div class="mockup-body vv"><div class="sc" id="dC"></div></div></div></div></div>
+
+</div>
+
+<script>
+const FS=["Замысел","Концепт.","Баз. дизайн","Проектир.","Подготовка","Стройка","Эксплуат.","Ликвид."];
+const DIR=[
+ {n:"Геология",c:"#9A5B1E",d:["Программа ГРР","Проект ГРР, опер. подсчёт","ПЗ + протокол ГКЗ","Геомодель","Программа ГИС/керна","Заключения ГИС","Пересчёт запасов","Списание запасов"]},
+ {n:"Разработка",c:"#0F6E62",d:["Концепция разработки","ППЭ","Варианты (ГДМ)","Решения ТПР","Программа ввода","Авторский надзор","Анализ разработки","Обоснование завершения"]},
+ {n:"Скважина",c:"#A23B2A",d:["Заявка на скважину","Концепция скважины","Базовый дизайн","ПД на строительство","Программа бурения, ГТН","Дело скважины","Техрежим, КРС","Ликвидация"]},
+ {n:"Инфраструктура",c:"#3D5A8A",d:["Концепция по аналогам","Предпроектное иссл.","Концепция / ОТР","ПД + экспертиза","Разрешение на стр-во","Разрешение на ввод","Регламенты, ЭПБ","Ликвидация объектов"]}
+];
+const A=[
+ ["Идентификация",[["Паспорт возможности",[0,0,0,0]],["Лицензия",[0,0,0,0]],["Программа ГРР актива",[0,0,0,0]]]],
+ ["Оценка",[["Концепция освоения",[1,1,1,1]],["ППЭ",[1,1,1,0]]]],
+ ["Выбор",[["ТСР",[2,2,2,1]],["ОТР по активу",[2,2,2,2]]]],
+ ["Определение",[["КПРА",[3,3,3,3]],["Бизнес-кейсы",[3,3,3,3]],["ТПР",[3,3,2,2]],["Инвест. решение",[3,3,3,3]]]],
+ ["Реализация",[["Бизнес-план",[4,4,4,4]],["Программа бурения и ввода",[4,4,4,4]],["Отчёт о реализации",[5,5,5,5]]]],
+ ["Эксплуатация",[["Дополнения к ТПР",[6,6,6,6]],["БК на бурение и ГТМ",[6,6,3,3]],["Бизнес-план",[6,6,4,4]]]]
+];
+const FLAT=A.flatMap(([s,ds],si)=>ds.map(d=>({s,si,n:d[0],m:d[1]})));
+
+// A
+let aS=3,aD=0;
+function aR(){
+ aChev.innerHTML=A.map((x,i)=>`<div class="${i==aS?"on":""}" data-i="${i}">${x[0]}</div>`).join("");
+ aDocs.innerHTML=A[aS][1].map((d,i)=>`<button class="${i==aD?"on":""}" data-i="${i}">${d[0]}</button>`).join("");
+ const m=A[aS][1][aD][1];
+ DIR.forEach((D,n)=>{const r=document.getElementById("ar"+n);r.style.transform=`translateY(${(1-m[n])*52}px)`;[...r.children].forEach((c,k)=>c.classList.toggle("hit",k==m[n]))});
+}
+aDr.innerHTML=DIR.map((D,n)=>`<div><div class="h" style="background:${D.c}">${D.n}</div><div class="w"><div class="rl" id="ar${n}">${D.d.map((x,j)=>`<div class="c" style="border-left:3px solid ${D.c}"><b>${FS[j]}</b>${x}</div>`).join("")}</div></div></div>`).join("")+`<div class="band"></div>`;
+aChev.onclick=e=>{const d=e.target.closest("[data-i]");if(d){aS=+d.dataset.i;aD=0;aR()}};
+aDocs.onclick=e=>{const d=e.target.closest("[data-i]");if(d){aD=+d.dataset.i;aR()}};
+aR();
+
+// B
+bT.innerHTML=`<tr><th></th>${A.map(([s,ds])=>`<th class="st" colspan="${ds.length}">${s}</th>`).join("")}</tr><tr><th></th>${FLAT.map(f=>`<th class="doc">${f.n}</th>`).join("")}</tr>`+
+ DIR.map((D,n)=>`<tr><th style="background:${D.c};color:#fff">${D.n}</th>${FLAT.map(f=>{const j=f.m[n];return `<td style="background:${D.c}${(16+j*22).toString(16).padStart(2,"0")}"><b>${FS[j]}</b>${D.d[j]}</td>`}).join("")}</tr>`).join("");
+
+// C
+(()=>{const L=150,R=985,T=40,B=300,n=FLAT.length,dx=(R-L)/(n-1),y=j=>B-(j/7)*(B-T-10);let h="";
+ FS.forEach((s,j)=>h+=`<line x1="${L}" x2="${R}" y1="${y(j)}" y2="${y(j)}" stroke="#8883"/><text x="${L-8}" y="${y(j)+4}" text-anchor="end" font-size="11">${s}</text>`);
+ let x0=L;A.forEach(([s,ds],si)=>{const w=(ds.length)*dx;h+=`<rect x="${x0-dx/2}" y="6" width="${w-2}" height="20" rx="4" fill="#8a6fd0" fill-opacity="${.35+si*.1}"/><text x="${x0-dx/2+w/2}" y="20" text-anchor="middle" font-size="11" font-weight="600" style="fill:#fff">${s}</text>`;x0+=w});
+ FLAT.forEach((f,k)=>h+=`<text transform="translate(${L+k*dx},${B+12}) rotate(35)" font-size="9.5">${f.n}</text>`);
+ DIR.forEach((D,n)=>{const off=(n-1.5)*3;const pts=FLAT.map((f,k)=>`${L+k*dx},${y(f.m[n])+off}`).join(" ");
+  h+=`<polyline points="${pts}" fill="none" stroke="${D.c}" stroke-width="2.5" stroke-linejoin="round"/>`+FLAT.map((f,k)=>`<circle cx="${L+k*dx}" cy="${y(f.m[n])+off}" r="3.5" fill="${D.c}"><title>${D.n}: ${D.d[f.m[n]]}</title></circle>`).join("")});
+ h+=DIR.map((D,n)=>`<rect x="${8}" y="${T+n*18}" width="12" height="4" fill="${D.c}"/><text x="24" y="${T+n*18+5}" font-size="10.5">${D.n}</text>`).join("");
+ cS.setAttribute("viewBox","0 0 1000 370");cS.innerHTML=h;})();
+
+// D
+dC.innerHTML=A.map(([s,ds])=>`<div class="card"><div class="hh">${s}</div>${ds.map(d=>`<div class="row"><div class="t">${d[0]}</div><div class="chips">${DIR.map((D,n)=>`<span style="background:${D.c}" title="${D.n}: ${FS[d[1][n]]} · ${D.d[d[1][n]]}">${D.d[d[1][n]]}</span>`).join("")}</div></div>`).join("")}</div>`).join("");
+</script>

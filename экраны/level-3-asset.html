@@ -1,0 +1,97 @@
+<h2>Уровень 3 · Жизненный цикл актива: от замысла до ликвидации</h2>
+<p class="subtitle">Проектная логика по практике мейджоров (stage-gate) и российские аналоги. Шкала в годах: 0 — начало бурения, «сейчас»; минус — до начала бурения, плюс — после. Шкала нелинейная, сроки типовые. ⚠ — сверить.</p>
+
+<style>
+.tlw{overflow-x:auto}
+.tlw svg{width:100%;min-width:900px;height:auto;display:block}
+.tlw text{fill:currentColor}
+.fw{overflow-x:auto;margin-top:14px}
+.fw .g{display:grid;grid-template-columns:150px repeat(8,minmax(0,1fr));gap:3px;min-width:900px;font-size:11.5px}
+.fw .co{font-weight:600;padding:5px 6px;display:flex;align-items:center}
+.fw .ph{padding:5px 6px;border-radius:4px;background:#8a6fd022;border:1px solid #8a6fd055;line-height:1.25}
+.fw .ph.ru{background:#0F6E6222;border-color:#0F6E6255}
+.fw .ph.h{background:transparent;border:none;font-weight:600;text-align:center;opacity:.75}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
+.card{border:1px solid #8886;border-radius:8px;padding:10px 12px;font-size:12px;cursor:pointer;transition:all .2s}
+.card.sel{border:2px solid #8a6fd0;background:#8a6fd010}
+.card h4{margin:0;font-size:14px}
+.card .y{font-family:ui-monospace,Consolas,monospace;font-size:11px;opacity:.75;margin:2px 0 6px}
+.card .lb{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;opacity:.65;margin-top:6px}
+.card ul{margin:2px 0 0;padding-left:16px}
+.card li{margin:1px 0}
+.card .key{font-weight:700;color:#8a6fd0}
+.card .gate{margin-top:7px;font-size:11px;padding:3px 7px;border-radius:4px;background:#8881;display:inline-block}
+@media (max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.cards{grid-template-columns:1fr}}
+</style>
+
+<div class="tlw"><svg viewBox="0 0 1000 200" id="tl"></svg></div>
+
+<div class="fw"><div class="g" id="fw"></div></div>
+
+<div class="cards" id="cards"></div>
+
+<script>
+const S=[
+ {n:"Замысел",en:"Identify",y:[-10,-7],
+  w:["Opportunity Framing","Prospect / play evaluation","Заявка на лицензию / PSC"],
+  r:["Лицензия на пользование недрами","Программа ГРР","Паспорт инвестиционной возможности"],gate:"Ворота 1 · возможность есть (DG0/DG1)"},
+ {n:"Концептуальный",en:"Assess / Appraise",y:[-7,-4],
+  w:["Appraisal Plan","Discovery Report","Feasibility / Concept Options Study","Value Assurance Review"],
+  r:["Проект ГРР / доразведки","Оперативный подсчёт запасов","Проект пробной эксплуатации (ППЭ)","Концепция освоения"],gate:"Ворота 2 · концепция осуществима"},
+ {n:"Базовый дизайн",en:"Select",y:[-4,-2.5],
+  w:["Concept Select Report","Basis of Design (BoD)","Preliminary FDP","DBSP (Aramco)"],
+  r:["Подсчёт запасов + протокол ГКЗ","ТСР (ЦКР Роснедр)","<span class='key'>КПРА — комплексный проект разработки актива</span>","<span class='key'>Бизнес-кейс</span> (после КПРА)"],gate:"Ворота 3 · выбор концепции (DG2)"},
+ {n:"Проектирование",en:"Define (FEED)",y:[-2.5,-1],
+  w:["FEED","Project Execution Plan","FDP (UK NSTA) / PDO (Норвегия)","Project Proposal + Expenditure Request (Aramco)","FID package"],
+  r:["ПД обустройства + экспертиза","ПД на строительство скважин","ТПР / дополнение к ТСР","Инвестиционное решение (FID)"],gate:"Ворота 4 · FID (DG3)"},
+ {n:"5.1 Подготовка",en:"Execute: pre-spud",y:[-1,0],
+  w:["Contract award (EPC, drilling)","Detailed engineering (IFC)","Permits","Drilling programmes","Operations readiness review"],
+  r:["Рабочая документация","Разрешение на строительство","Программа бурения, ГТН","Контракты на бурение и стройку"],gate:"Старт бурения · 0"},
+ {n:"5.2 Строительство",en:"Execute: construction",y:[0,3],
+  w:["Construction & commissioning","Mechanical Completion","RFSU / First Oil","Handover Certificate","Project Close-out Report"],
+  r:["Акты передачи скважин","ЗОС, разрешение на ввод","Регистрация ОПО","Первая нефть"],gate:"Ворота 5 · ввод, передача в эксплуатацию (DG4)"},
+ {n:"Эксплуатация",en:"Operate",y:[3,30],
+  w:["Reservoir / Asset Management Plan","Post-Investment Review (PIR)","Annual Reserves Report (SEC/PRMS)","Late-life plan"],
+  r:["ТПР и дополнения (ЦКР)","Авторский надзор","Пересчёт запасов, 6-гр","Бизнес-план актива"],gate:"Ворота 6 · PIR (DG5); прекращение добычи"},
+ {n:"Ликвидация",en:"Decommission",y:[30,35],
+  w:["Cessation of Production (CoP)","Decommissioning Programme (UK OPRED)","Decommissioning Plan (Норвегия)","Close-out Report"],
+  r:["Проект ликвидации","Списание запасов","Рекультивация","Прекращение права пользования недрами"],gate:"Закрытие актива"}
+];
+// мейджоры: [компания, [[название, от, до(вкл.)], ...]]
+const FW=[
+ ["Shell · ORP ⚠",[["Identify & Assess",0,1],["Select",2,2],["Define",3,3],["Execute",4,5],["Operate",6,6],["Decommission",7,7]]],
+ ["BP · CVP",[["Appraise",0,1],["Select",2,2],["Define",3,3],["Execute",4,5],["Operate",6,7]]],
+ ["Chevron · CPDEP",[["1 Identify & assess",0,1],["2 Generate & select",2,2],["3 Develop preferred",3,3],["4 Execute",4,5],["5 Operate & evaluate",6,7]]],
+ ["ExxonMobil ⚠",[["Opportunity",0,0],["Concept selection",1,2],["Define / FEED",3,3],["Execute",4,5],["Operations",6,7]]],
+ ["Equinor · DG",[["DG0–DG1 Feasibility",0,1],["DG2 Concept",2,2],["DG3 PDO",3,3],["DG4 Execute",4,5],["Operate",6,7]]],
+ ["Saudi Aramco",[["Study",0,1],["DBSP",2,2],["Project Proposal + ER",3,3],["Detail design, construction",4,5],["Operation",6,7]]],
+ ["IPA · FEL",[["FEL 1",0,1],["FEL 2",2,2],["FEL 3",3,3],["Execute",4,5],["Operate",6,7]]],
+ ["Россия · корп. ворота ⚠",[["Идентификация",0,0],["Оценка",1,1],["Выбор",2,2],["Определение",3,3],["Реализация",4,5],["Эксплуатация",6,6],["Ликвидация",7,7]],true]
+];
+// временная шкала: равные отрезки на этап, подписи годов
+(()=>{const X0=20,W=960/8;let h="";
+ const col=["#8a6fd0","#8a6fd0","#8a6fd0","#8a6fd0","#A23B2A","#A23B2A","#0F6E62","#5A6662"];
+ S.forEach((s,i)=>{const x=X0+i*W;
+  h+=`<g class="st" data-i="${i}" style="cursor:pointer"><rect x="${x+1}" y="60" width="${W-2}" height="42" rx="6" fill="${col[i]}" fill-opacity="${i<4?.25+i*.1:.7}"/><text x="${x+W/2}" y="80" text-anchor="middle" font-size="12.5" font-weight="600">${s.n}</text><text x="${x+W/2}" y="95" text-anchor="middle" font-size="10" opacity=".75">${s.en}</text></g>`;
+  h+=`<text x="${x}" y="122" text-anchor="middle" font-size="11" font-family="ui-monospace,Consolas,monospace">${s.y[0]>0?"+":""}${s.y[0]}</text><line x1="${x}" y1="102" x2="${x}" y2="110" stroke="#888"/>`;
+  if(i>0&&i!=5&&i<7)h+=`<path d="M${x},44 l7,8 l-7,8 l-7,-8z" fill="#8a6fd0"/><text x="${x}" y="38" text-anchor="middle" font-size="10">Г${i<5?i:i-1}</text>`;});
+ h+=`<text x="${X0+8*W}" y="122" text-anchor="middle" font-size="11" font-family="ui-monospace,Consolas,monospace">+35</text>`;
+ const z=X0+5*W;h+=`<line x1="${z}" y1="20" x2="${z}" y2="140" stroke="#A23B2A" stroke-width="3"/><text x="${z}" y="156" text-anchor="middle" font-size="12" font-weight="700" style="fill:#A23B2A">0 · начало бурения · сейчас</text>`;
+ const fid=X0+4*W;h+=`<text x="${fid}" y="176" text-anchor="middle" font-size="11" opacity=".8">FID (−1)</text><line x1="${fid}" y1="110" x2="${fid}" y2="166" stroke="#8a6fd0" stroke-dasharray="3 3"/>`;
+ const fo=X0+5*W+W/2;h+=`<text x="${fo}" y="176" text-anchor="middle" font-size="11" opacity=".8">первая нефть (~+1,5)</text><line x1="${fo}" y1="102" x2="${fo}" y2="166" stroke="#888" stroke-dasharray="3 3"/>`;
+ h+=`<text x="${X0}" y="16" font-size="11" opacity=".65">◄ годы до начала бурения</text><text x="${X0+960}" y="16" text-anchor="end" font-size="11" opacity=".65">годы после ►</text>`;
+ h+=`<text x="${X0+1.5*W}" y="196" text-anchor="middle" font-size="10.5" opacity=".7">ворота: Г1–Г4 до FID · Г5 — ввод · Г6 — прекращение добычи</text>`;
+ tl.innerHTML=h;})();
+// рамки мейджоров
+fw.innerHTML=`<div></div>`+S.map(s=>`<div class="ph h">${s.n}</div>`).join("")+FW.map(([c,ph,ru])=>`<div class="co">${c}</div>`+ph.map(([n,a,b])=>`<div class="ph ${ru?"ru":""}" style="grid-column:${a+2} / ${b+3}">${n}</div>`).join("")).join("");
+// карточки этапов
+cards.innerHTML=S.map((s,i)=>`<div class="card" data-i="${i}"><h4>${s.n}</h4><div class="y">${s.y[0]>0?"+":""}${s.y[0]} … ${s.y[1]>0?"+":""}${s.y[1]} лет · ${s.en}</div>
+ <div class="lb">🌐 Мировые документы</div><ul>${s.w.map(x=>`<li>${x}</li>`).join("")}</ul>
+ <div class="lb">🇷🇺 Российские аналоги</div><ul>${s.r.map(x=>`<li>${x}</li>`).join("")}</ul>
+ <div class="gate">◆ ${s.gate}</div></div>`).join("");
+function sel(i){cards.querySelectorAll(".card").forEach((c,k)=>c.classList.toggle("sel",k==i));tl.querySelectorAll(".st rect").forEach((r,k)=>r.setAttribute("stroke",k==i?"#8a6fd0":"none"));tl.querySelectorAll(".st rect").forEach((r,k)=>r.setAttribute("stroke-width",3))}
+tl.onclick=e=>{const g=e.target.closest(".st");if(g){const i=+g.dataset.i;sel(i);cards.children[i].scrollIntoView({behavior:"smooth",block:"nearest"})}};
+cards.onclick=e=>{const c=e.target.closest(".card");if(c)sel(+c.dataset.i)};
+sel(2);
+</script>

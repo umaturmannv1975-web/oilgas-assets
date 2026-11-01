@@ -1,0 +1,136 @@
+<h2>Уровень 2 · Барабаны документов</h2>
+<p class="subtitle">Выберите документ в горизонтальной ленте — барабаны направлений прокрутятся так, чтобы на общую линию встал этап и функциональный документ, на котором каждое направление должно находиться к моменту этого документа. Привязки — черновик.</p>
+
+<style>
+.xrow{display:flex;gap:6px;overflow-x:auto;margin:6px 0 4px;padding-bottom:4px}
+.xg{flex:none;border:1px solid #8a6fd066;border-radius:8px;padding:0 0 6px;display:flex;flex-direction:column}
+.xgh{background:#8a6fd0;color:#fff;font-weight:600;font-size:12px;padding:5px 8px;border-radius:7px 7px 0 0;margin-bottom:5px;text-align:center}
+.xgb{display:flex;gap:4px;padding:0 5px;align-items:stretch}
+.xgb button{border-radius:6px!important;border-left-width:1.5px!important}
+.xgb button.wo{border-left-width:2px!important}
+.xrow button{flex:1;min-width:118px;padding:10px 8px;border:1.5px solid #8a6fd0;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px;line-height:1.25;position:relative}
+.xrow button+button{border-left:none}
+.xrow button:first-child{border-radius:8px 0 0 8px}.xrow button:last-child{border-radius:0 8px 8px 0}
+.xrow button.on{background:#8a6fd0;color:#fff;font-weight:600}
+.xrow button{min-width:150px;max-width:170px;text-align:left;vertical-align:top}
+.xrow button small{display:block;font-size:10.5px;opacity:.75;margin-top:4px;padding-top:3px;border-top:1px dashed #8886;font-style:italic}
+.xrow button.wo{border:2px dashed #C77B0A;background:repeating-linear-gradient(135deg,#C77B0A12 0 6px,transparent 6px 12px);font-style:italic}
+.xrow button.wo+button,.xrow button+button.wo{border-left:2px dashed #C77B0A}
+.xrow button .no{display:block;font-style:normal;font-size:10px;font-weight:700;color:#C77B0A;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.xrow button.wo.on{background:#C77B0A;color:#fff;border-style:solid}
+.xrow button.wo.on .no{color:#fff}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin:0 0 10px}
+.leg i{display:inline-block;width:22px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.band.wo{border-color:#C77B0A;border-style:dashed;background:#C77B0A12}
+.band.wo span{background:#C77B0A}
+.gaps{margin-top:14px;border:2px dashed #C77B0A;border-radius:10px;padding:10px 14px;font-size:12.5px}
+.gaps b{color:#C77B0A}
+.tl{font-size:11px;opacity:.6;display:flex;justify-content:space-between;margin-bottom:10px}
+.drums{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.dh{color:#fff;font-weight:600;padding:7px 10px;border-radius:8px 8px 0 0;font-size:14px}
+.win{height:430px;overflow:hidden;position:relative;border:1px solid #8885;border-top:none;border-radius:0 0 8px 8px;
+ -webkit-mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent)}
+.reel{transition:transform 1.1s cubic-bezier(.25,1.35,.5,1)}
+.cell{height:86px;padding:8px 10px;border-bottom:1px solid #8883;font-size:12px;line-height:1.3;opacity:.45;transition:opacity .4s}
+.cell.hit{opacity:1}
+.cell .s{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;opacity:.75}
+.cell .d{font-weight:600;font-size:13px;margin:2px 0}
+.cell .k{font-size:11px;opacity:.8}
+.cell{overflow:hidden}
+.cell.gfull{background:repeating-linear-gradient(135deg,#C77B0A26 0 6px,#C77B0A0d 6px 12px);outline:2px dashed #C77B0A;outline-offset:-3px}
+.cell.gfull .d{font-style:italic}
+.cell .no{display:block;font-style:normal;font-size:10px;font-weight:700;color:#C77B0A;letter-spacing:.04em}
+.cell.gpart{box-shadow:inset -6px 0 0 #C77B0A}
+.cell .gx{font-size:10.5px;color:#C77B0A;font-weight:600;line-height:1.2;margin:1px 0 2px}
+.cell.gpart .d,.cell.gfull .d{font-size:12px;margin:1px 0}
+.band{position:absolute;left:-8px;right:-8px;top:calc(36px + 172px);height:86px;border:2.5px solid #8a6fd0;border-radius:10px;pointer-events:none;background:#8a6fd014}
+.band span{position:absolute;top:-13px;left:12px;background:#8a6fd0;color:#fff;font-size:12px;font-weight:600;padding:2px 10px;border-radius:4px;white-space:nowrap}
+.why{margin:14px 0 6px;font-size:13px;max-width:90ch}
+.feed{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;font-size:11.5px}
+.feed h4{margin:0 0 4px;font-size:12.5px}
+.feed code{display:inline-block;font-family:ui-monospace,Consolas,monospace;font-size:10px;padding:1px 4px;border-radius:3px;color:#fff;margin:1px 2px 1px 0}
+@media (max-width:760px){.drums,.feed{grid-template-columns:repeat(2,minmax(0,1fr))}.band{display:none}}
+</style>
+
+<div class="xrow" id="xrow"></div>
+<div class="tl"><span>← ранние решения</span><span>жизненный цикл →</span></div>
+<div class="leg"><span><i style="border:1.5px solid #8a6fd0"></i>🇷🇺 российский документ + 🌐 мировой аналог</span><span><i style="border:2px dashed #C77B0A;background:repeating-linear-gradient(135deg,#C77B0A22 0 4px,transparent 4px 8px)"></i>🌐 есть в мире — российского аналога нет</span><span><i style="background:repeating-linear-gradient(135deg,#C77B0A44 0 4px,transparent 4px 8px);outline:2px dashed #C77B0A;outline-offset:-2px"></i>в барабане: документа этапа в РФ нет</span><span><i style="box-shadow:inset -5px 0 0 #C77B0A;border:1px solid #8886"></i>в барабане: часть мировых документов этапа в РФ отсутствует</span></div>
+<div class="drums" id="drums"></div>
+<p class="why" id="why"></p>
+<div class="feed" id="feed"></div>
+<div class="gaps" id="gaps"></div>
+
+<script>
+const ST=["Замысел","Концептуальный","Базовый дизайн","Проектирование","5.1 Подготовка","5.2 Строительство","Эксплуатация","Ликвидация"];
+const DIR=[
+ {k:"G",n:"Геология",c:"#9A5B1E",
+  docs:["Программа ГРР, лицензия","Проект ГРР, оперативный подсчёт","Подсчёт запасов + протокол ГКЗ","Геологическая модель (в ТСР/ТПР)","Программа ГИС и керна","Заключения ГИС, изменение запасов","Пересчёт запасов, 6-гр","Списание запасов"],
+  d:[[1,3,4,4,4,5,4,1,3],[1,2,4,4,3,5,4,1,3],[1,3,4,4,2,3,3,1,2],[0,2,4,5,3,5,5,2,3],[1,2,5,4,2,3,5,4,3],[2,3,4,3,2,2,3,1,3],[2,3,3,3,4,3,3,0,2]]},
+ {k:"R",n:"Разработка",c:"#0F6E62",
+  docs:["Концепция разработки","Проект пробной эксплуатации","Варианты разработки (ГДМ)","Проектные решения ТПР","Программа ввода и исследований","Авторский надзор","Анализ разработки","Обоснование завершения"],
+  d:[[1,2,4,4,2,3,3,0,2],[1,2,4,4,2,2,3,2,3],[0,2,4,5,3,4,5,3,3],[1,2,4,5,4,3,4,1,3],[1,2,4,5,4,5,5,3,3],[0,1,3,4,4,4,5,1,2],[0,1,2,3,4,4,5,2,2]]},
+ {k:"B",n:"Скважина",c:"#A23B2A",
+  docs:["Паспорт идеи / заявка","Концепция скважины","Базовый дизайн скважины","Проектная документация","Программа бурения, ГТН","Дело скважины, акт передачи","Техрежим, планы КРС/ГТМ","Проект и акт ликвидации"],
+  d:[[1,2,3,4,5,5,2,2,4],[1,1,3,4,5,5,3,1,3],[1,2,3,4,5,5,1,1,4],[1,2,2,4,5,5,2,2,3],[1,2,2,4,5,5,1,1,4],[1,1,2,3,4,4,5,2,3],[1,1,1,2,2,2,3,5,2]]},
+ {k:"I",n:"Инфраструктура",c:"#3D5A8A",
+  docs:["Концепция по аналогам","Предпроектное исследование","Концепция обустройства / ОТР","ПД + экспертиза, РД","Разрешение на строительство","Разрешение на ввод","Регламенты, ЭПБ","Проект ликвидации объектов"],
+  d:[[1,2,4,5,4,4,4,1,2],[1,2,4,5,5,5,4,2,3],[1,2,4,5,5,5,4,2,3],[1,2,3,5,5,5,4,2,2],[1,2,3,5,5,5,4,2,2],[0,1,3,5,5,5,3,3,2],[0,1,1,2,2,2,3,5,3]]}
+];
+// последний элемент массива дизайна — число расчётов; правило включения как на уровне 1
+const on=(dep,m)=>dep>=Math.min(m+1,4);
+const active=(D,j)=>{const a=[];D.d.forEach((x,i)=>{for(let m=0;m<x[8];m++)if(on(x[j],m))a.push(`${D.k}${i+1}.${m+1}`)});return a};
+const total=D=>D.d.reduce((s,x)=>s+x[8],0);
+// кросс-функциональные документы: [РФ|null, мировой аналог (перевод), этап G,R,B,I, пояснение]
+const X=[
+ ["Паспорт инвестиционной возможности","Opportunity Framing (формирование возможности)",[0,0,0,0],"Все направления на замысле: оценка по аналогам."],
+ ["Концепция освоения месторождения","Feasibility / Concept Options Study (технико-экономическая оценка / исследование вариантов концепции)",[1,1,1,1],"Все направления на концептуальном этапе: сравнение вариантов."],
+ ["Проект пробной эксплуатации (ППЭ)","Appraisal Plan, Extended Well Test (план доразведки, расширенные испытания скважин)",[1,1,1,0],"Нужны оперативный подсчёт и концепция скважины; обустройство — по аналогам."],
+ [null,"Value Assurance Review (независимая проверка ценности проекта)",[1,1,1,1],"Независимая экспертиза концепций всех направлений перед воротами."],
+ ["ТСР","Preliminary Field Development Plan (предварительный план разработки месторождения)",[2,2,2,1],"Запасы утверждены, выбрана система разработки и базовый дизайн скважин; обустройство ещё на вариантах."],
+ ["ОТР по активу","Concept Select Report, Basis of Design (отчёт о выборе концепции, базовые проектные данные)",[2,2,2,2],"Все направления на базовом дизайне — выбран единый вариант."],
+ [null,"Risk & Uncertainty Management Plan (план управления рисками и неопределённостями)",[2,2,2,2],"Единый реестр рисков: неопределённости геологии, разработки, скважин, обустройства."],
+ ["КПРА","Integrated FDP / PDO (комплексный план разработки / план разработки и эксплуатации)",[3,3,3,3],"За 1–3 года до строительства: все направления на проектировании, решения согласованы."],
+ ["Бизнес-кейсы","Business Case / Project Proposal (бизнес-кейс / проектное предложение)",[3,3,3,3],"Формируются в составе КПРА; каждый опирается на проектные решения направлений."],
+ ["ТПР","Regulatory FDP (план разработки, утверждаемый регулятором)",[3,3,2,2],"Разработка на проектировании; скважины и обустройство — на базовом дизайне."],
+ [null,"Project Execution Plan (план реализации проекта)",[3,3,3,3],"Единый план реализации и интерфейсов всех направлений."],
+ ["Инвестиционное решение","Final Investment Decision (окончательное инвестиционное решение)",[3,3,3,3],"Проектная документация всех направлений готова."],
+ ["Бизнес-план на год","Annual Work Programme & Budget (годовая программа работ и бюджет)",[4,4,4,4],"Из утверждённых бизнес-кейсов: все направления в подготовке к работам."],
+ ["Программа бурения и ввода","Integrated Activity Plan (комплексный план работ)",[4,4,4,4],"ГТН, программа ввода, разрешение на строительство."],
+ [null,"Operations Readiness & Assurance Plan (план готовности к эксплуатации)",[4,4,5,5],"Готовность эксплуатации принять скважины и объекты."],
+ ["Отчёт о реализации проекта","Project Close-out Report (отчёт о закрытии проекта)",[5,5,5,5],"Дело скважины, разрешение на ввод, авторский надзор."],
+ ["Дополнения к ТПР","Revised FDP (обновлённый план разработки)",[6,6,6,6],"Все направления в эксплуатации."],
+ ["Бизнес-кейсы на бурение и ГТМ","Business Case / AFE (бизнес-кейс / разрешение на расходы)",[6,6,3,3],"Месторождение в эксплуатации, а новые скважины и объекты снова проходят проектирование."],
+ [null,"Post-Investment Review (постинвестиционный анализ)",[6,6,5,5],"План/факт по построенному через 1–3 года после ввода."]
+];
+const H=86;
+// этап жизни месторождения каждого документа ленты — группы над документами, как на уровне 1
+const XS=["Идентификация","Оценка","Выбор","Определение","Реализация","Эксплуатация"];
+const XG=[0,1,1,1,2,2,2,3,3,3,3,3,4,4,4,4,5,5,5];
+xrow.innerHTML=XS.map((st,g)=>`<div class="xg"><div class="xgh">${g+1}. ${st}</div><div class="xgb">`+X.map((x,i)=>XG[i]!=g?"":x[0]
+ ?`<button data-i="${i}">${x[0]}<small>🌐 ${x[1]}</small></button>`
+ :`<button class="wo" data-i="${i}"><span class="no">🌐 нет в РФ</span>${x[1]}</button>`).join("")+`</div></div>`).join("");
+const nWo=X.filter(x=>!x[0]).length;
+gaps.innerHTML=`<b>🌐 Мировые документы без российского аналога: ${nWo}</b> — ${X.filter(x=>!x[0]).map(x=>x[1]).join("; ")}.`;
+// Пробелы функциональных документов (из уровня 0): full — основного документа этапа в РФ нет; extra — мировые документы этапа, которых нет в РФ
+const GAP={
+ G:{2:{w:"Independent Reserves Audit (независимый аудит запасов)"},3:{w:"Subsurface Peer Review (экспертиза модели)"}},
+ R:{2:{w:"Reservoir Management Plan (план управления пластом)"},6:{w:"Lookback Review (ретроспективный анализ)"}},
+ B:{0:{full:1,w:"Well Proposal (заявка на скважину)"},1:{full:1,w:"Well Concept Select Report (концепция скважины)"},2:{full:1,w:"Basis of Well Design (базовый дизайн скважины)"},
+    4:{w:"Well Barrier Schematic, DWOP (схема барьеров, бурение на бумаге)"},5:{w:"End of Well Report (отчёт по итогам строительства)"},6:{w:"Well Integrity records (учёт целостности)"}},
+ I:{3:{w:"HAZOP Close-out (закрытие HAZOP)"},4:{w:"Operations Readiness Plan (готовность к эксплуатации)"}}
+};
+drums.innerHTML=DIR.map((D,n)=>`<div><div class="dh" style="background:${D.c}">${D.n}</div><div class="win"><div class="reel" id="r${n}">${ST.map((s,j)=>{const g=(GAP[D.k]||{})[j];
+ return `<div class="cell ${g?(g.full?"gfull":"gpart"):""}" style="border-left:4px solid ${D.c}"><div class="s">${s}</div>${g&&g.full
+  ?`<div class="d"><span class="no">🌐 нет в РФ</span>${g.w}</div>`
+  :`<div class="d">${D.docs[j]}</div>${g?`<div class="gx">+ 🌐 нет в РФ: ${g.w}</div>`:""}`}<div class="k">${active(D,j).length} из ${total(D)} расчётов</div></div>`}).join("")}</div></div></div>`).join("")+`<div class="band"><span id="bl"></span></div>`;
+xrow.onclick=e=>{const b=e.target.closest("button");if(b)pick(+b.dataset.i)};
+function pick(i){const x=X[i];
+ xrow.querySelectorAll("button").forEach(b=>b.classList.toggle("on",+b.dataset.i==i));
+ DIR.forEach((D,n)=>{const r=document.getElementById("r"+n),j=x[2][n];r.style.transform=`translateY(${(2-j)*H}px)`;[...r.children].forEach((c,k)=>c.classList.toggle("hit",k==j))});
+ document.querySelector(".band").classList.toggle("wo",!x[0]);
+ bl.textContent=x[0]||x[1];
+ why.innerHTML=(x[0]?`<b>${x[0]}</b> ↔ <i>${x[1]}</i>. `:`<b style="color:#C77B0A">${x[1]}</b> — российского аналога нет. `)+x[3];
+ feed.innerHTML=DIR.map((D,n)=>{const j=x[2][n],a=active(D,j);return `<div><h4 style="color:${D.c}">${D.n} → ${a.length} скиллов</h4>${a.map(c=>`<code style="background:${D.c}">${c}</code>`).join("")}</div>`}).join("");
+}
+pick(7);
+</script>

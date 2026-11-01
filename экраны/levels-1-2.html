@@ -1,0 +1,98 @@
+<h2>Уровень 1 и уровень 2 — черновой прототип</h2>
+<p class="subtitle">Содержание этапов и привязка документов — мой черновик для обсуждения, не финал.</p>
+
+<style>
+.tabs{display:flex;gap:6px;margin:8px 0 14px}
+.tabs button{padding:6px 12px;border-radius:6px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit}
+.tabs button.on{background:#8883;font-weight:600}
+.cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.colh{font-weight:600;padding:6px 8px;border-radius:6px 6px 0 0;color:#fff;font-size:13px}
+.g .colh{background:#9A5B1E}.d .colh{background:#0F6E62}.w .colh{background:#A23B2A}.i .colh{background:#3D5A8A}
+.st{border:1px solid #8885;border-top:none;padding:6px 8px;font-size:12px;line-height:1.35;height:78px;overflow:hidden}
+.st b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;opacity:.7}
+.st .doc{display:block;margin-top:3px;font-weight:600}
+/* level 2 */
+.pick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.pick select{font:inherit;padding:6px 10px;border-radius:6px;border:1px solid #8886;background:transparent;color:inherit}
+.pick select option{color:#000}
+.drums{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.win{height:400px;overflow:hidden;position:relative;border:1px solid #8885;border-top:none}
+.reel{transition:transform .9s cubic-bezier(.3,1.4,.5,1)}
+.reel .st{border:none;border-bottom:1px solid #8883;height:80px;opacity:.45}
+.reel .st.hit{opacity:1}
+.band{position:absolute;left:-6px;right:-6px;top:calc(34px + 160px);height:80px;border:2px solid #8a6fd0;border-radius:8px;pointer-events:none;background:#8a6fd012}
+.band span{position:absolute;top:-22px;left:8px;background:#8a6fd0;color:#fff;font-size:12px;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.why{margin-top:12px;font-size:13px;opacity:.85;max-width:80ch}
+@media (max-width:760px){.cols,.drums{grid-template-columns:repeat(2,minmax(0,1fr))}.band{display:none}}
+</style>
+
+<div class="tabs">
+  <button id="t1" class="on" onclick="show(1)">Уровень 1 · Функциональный</button>
+  <button id="t2" onclick="show(2)">Уровень 2 · Кросс-функциональный</button>
+</div>
+
+<div id="L1">
+  <p class="why">Четыре направления, у каждого одни и те же 7 этапов. В ячейке — что делается и какой официальный документ получается.</p>
+  <div class="cols" id="l1cols"></div>
+</div>
+
+<div id="L2" style="display:none">
+  <div class="pick"><b>Документ:</b>
+    <select id="docSel" onchange="spin(this.value)"></select>
+  </div>
+  <div class="drums" id="drums"></div>
+  <p class="why" id="why"></p>
+</div>
+
+<script>
+const STAGES=["Замысел","Оценка","Выбор","Проектирование","Реализация","Эксплуатация","Ликвидация"];
+const DIRS=[
+ {k:"g",n:"Геология",s:[
+  ["Прогноз ресурсов, выбор участков","Программа ГРР, лицензия"],
+  ["Поиск, поисковые скважины","Оперативный подсчёт (D0→C2)"],
+  ["Разведка, подсчёт запасов","Подсчёт запасов, протокол ГКЗ"],
+  ["3D-модель под проект","Геологическая модель"],
+  ["Доразведка по бурению","Оперативный пересчёт"],
+  ["Мониторинг, уточнение","Пересчёт запасов, госбаланс"],
+  ["Остаточные запасы","Обоснование списания"]]},
+ {k:"d",n:"Разработка",s:[
+  ["Аналоги, оценка КИН","Концепция разработки"],
+  ["Варианты систем, пробная добыча","Проект пробной эксплуатации"],
+  ["Выбор системы, ГДМ","Технологическая схема (ТСР)"],
+  ["Уточнение под фонд и обустройство","Дополнение к ТСР / ТПР"],
+  ["Сопровождение ввода","Авторский надзор"],
+  ["ГТМ, анализ, адаптация","ТПР, анализ разработки"],
+  ["Завершение разработки","Проект на завершение"]]},
+ {k:"w",n:"Скважина",s:[
+  ["Тип скважины по аналогам","Укрупнённая стоимость"],
+  ["Поисково-оценочное бурение","Групповой проект строительства"],
+  ["Типовые конструкции, заканчивание","Обоснование конструкций"],
+  ["Проект на строительство, ГТН","ПД на строительство скважин"],
+  ["Бурение, крепление, освоение","Дело скважины, акт ввода"],
+  ["Ремонты, ГРП, ЗБС","Планы КРС / ГТМ"],
+  ["Ликвидация, консервация","Проект и акт ликвидации"]]},
+ {k:"i",n:"Инфраструктура",s:[
+  ["Аналоги, точки сдачи","Концепция по аналогам"],
+  ["Варианты схем обустройства","Предпроектное исследование"],
+  ["Выбор схемы","Концепция обустройства"],
+  ["Проектирование объектов","ПД (экспертиза), РД"],
+  ["Строительство, ввод","Разрешение на ввод"],
+  ["Эксплуатация, реконструкция","Регламенты, проекты реконструкции"],
+  ["Демонтаж, рекультивация","Проект ликвидации объектов"]]}
+];
+// индексы этапов g,d,w,i, на которых направление стоит к моменту документа (черновик)
+const DOCS={
+ "Бизнес-кейс":[1,0,0,0,"Ранняя оценка: геология уже нашла залежь, остальные работают по аналогам."],
+ "Технологическая схема разработки":[2,2,2,1,"Запасы утверждены, разработка выбирает систему, скважины — типовые конструкции, обустройство ещё на вариантах."],
+ "КПРА":[2,3,3,2,"Черновик: уточню у вас, что именно входит в КПРА."],
+ "Проект обустройства (ПД)":[3,3,3,3,"Все четыре направления на проектировании — документы должны быть согласованы между собой."],
+ "Технологический проект разработки":[5,5,4,4,"Месторождение в эксплуатации, бурение и стройка продолжаются."],
+ "Проект ликвидации":[6,6,6,6,"Все направления на завершающем этапе."]
+};
+function cell(d,j,cls){const [w,doc]=d.s[j];return `<div class="st ${cls||""}"><b>${j+1}. ${STAGES[j]}</b>${w}<span class="doc">${doc}</span></div>`}
+document.getElementById("l1cols").innerHTML=DIRS.map(d=>`<div class="${d.k}"><div class="colh">${d.n}</div>${d.s.map((_,j)=>cell(d,j)).join("")}</div>`).join("");
+document.getElementById("drums").innerHTML=DIRS.map((d,n)=>`<div class="${d.k}"><div class="colh">${d.n}</div><div class="win"><div class="reel" id="r${n}">${d.s.map((_,j)=>cell(d,j)).join("")}</div></div></div>`).join("")+`<div class="band"><span id="bandlbl"></span></div>`;
+const sel=document.getElementById("docSel");sel.innerHTML=Object.keys(DOCS).map(k=>`<option>${k}</option>`).join("");
+function spin(doc){const v=DOCS[doc];DIRS.forEach((d,n)=>{const r=document.getElementById("r"+n);r.style.transform=`translateY(${(2-v[n])*80}px)`;[...r.children].forEach((c,j)=>c.classList.toggle("hit",j===v[n]))});document.getElementById("bandlbl").textContent=doc;document.getElementById("why").textContent=v[4]}
+function show(n){document.getElementById("L1").style.display=n==1?"":"none";document.getElementById("L2").style.display=n==2?"":"none";t1.classList.toggle("on",n==1);t2.classList.toggle("on",n==2);if(n==2)spin(sel.value)}
+</script>

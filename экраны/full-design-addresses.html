@@ -1,0 +1,64 @@
+<h2>Уровень 0 · Перечень расчётов</h2>
+<p class="subtitle">Код расчёта = направление · дизайн · расчёт (например, B1.3 — Скважина · Конструкция · Прочность обсадных труб). Каждый расчёт — один скилл ИИ. ⚠ — сверить.</p>
+
+<style>
+.sa{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;font-size:12.5px}
+.sa .col{min-width:0}
+.sa .hd{color:#fff;font-weight:600;font-size:15px;padding:8px 10px;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;align-items:baseline;background:var(--c)}
+.sa .hd small{font-weight:400;font-size:11.5px;opacity:.9}
+.sa .blk{border:1px solid #8885;border-top:none;padding:8px 10px}
+.sa .blk b{display:flex;gap:6px;align-items:baseline;margin-bottom:4px;font-size:13.5px}
+.sa .blk b i{font-style:normal;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:var(--c)}
+.sa .sk{display:flex;align-items:flex-start;gap:6px;margin:3px 0;font-size:12px;line-height:1.3}
+.sa .sk code{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;padding:1px 5px;border-radius:3px;color:#fff;background:var(--c);flex:none;min-width:40px;text-align:center}
+.sa .soft{border:1px dashed color-mix(in srgb,var(--c) 60%,#888);border-top:none;padding:8px 10px;font-size:11.5px;border-radius:0 0 8px 8px;line-height:1.5;background:color-mix(in srgb,var(--c) 6%,transparent)}
+.sa .soft div+div{margin-top:4px}
+.tot{margin-top:12px;font-size:13px;opacity:.85}
+@media (max-width:900px){.sa{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.sa{grid-template-columns:1fr}}
+</style>
+
+<div class="sa" id="sa"></div>
+<p class="tot" id="tot"></p>
+
+<script>
+const DIR=[
+ {k:"G",n:"Геология",c:"#9A5B1E",d:[
+  ["Структурная модель",["Интерпретация сейсмики","Скоростная модель","Структурные карты"],"Petrel, Kingdom, Paradigm","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Петрофизика",["Интерпретация ГИС","Кп, Кн, Кпр","Граничные значения"],"Techlog, IP","Прайм ⚠, Соната ⚠"],
+  ["Седиментология",["Фациальный анализ","Концептуальная модель"],"Petrel","tNavigator"],
+  ["3D геологическая модель",["Литологическое моделирование","Распределение свойств","Набор реализаций"],"Petrel, RMS, SKUA","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Подсчёт запасов",["Объёмный метод","Категоризация запасов","Классификация PRMS"],"Petrel, GeoX","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Неопределённости и риски",["Вероятность успеха Pg","Монте-Карло","P90/P50/P10"],"GeoX, Crystal Ball","tNavigator"],
+  ["Программа доизучения",["Ценность информации","Программа ГИС и керна"],"Excel","Корп. инструменты"]]},
+ {k:"R",n:"Разработка",c:"#0F6E62",d:[
+  ["PVT и свойства флюидов",["PVT-модель","Уравнение состояния"],"PVTsim, PVTi","tNavigator"],
+  ["Вытеснение и КИН",["ОФП","Коэфф. вытеснения и охвата","КИН"],"SCAL, Eclipse","tNavigator, РН-КИМ"],
+  ["Гидродинамическая модель",["Апскейлинг","Адаптация по истории","Прогноз вариантов"],"Eclipse, Intersect, CMG","tNavigator, РН-КИМ"],
+  ["Система разработки и сетка",["Плотность сетки","Размещение забоев","Тип скважин"],"Petrel, Eclipse","tNavigator"],
+  ["Профили добычи",["Кривые падения (Арпс)","Материальный баланс","Профиль по фонду"],"OFM, MBAL","tNavigator, корп. ИС"],
+  ["Система ППД",["Компенсация отборов","Приёмистость"],"Eclipse, OFM","tNavigator"],
+  ["Мониторинг и ГТМ",["Программа исследований","Подбор ГТМ"],"OFM, Petrel","Корп. ИС ⚠"]]},
+ {k:"B",n:"Скважина",c:"#A23B2A",d:[
+  ["Конструкция",["Совмещённый график давлений","Глубины спуска колонн","Прочность обсадных труб","Цементирование"],"StressCheck, WellCat, DrillPlan","Бурсофтпроект"],
+  ["Заканчивание",["Узловой анализ","Дизайн ГРП/МГРП","Подбор ГНО"],"PROSPER, PIPESIM, FracPro, Kinetix","РН-ГРИД, Автотехнолог, tNavigator"],
+  ["Траектория",["Профиль скважины","Антиколлизия","Кустование","Геонавигация"],"Compass, Petrel, StarSteer","Бурсофтпроект"],
+  ["Буровая установка (грузоподъёмность)",["Нагрузка на крюк","Torque & drag","Подбор класса БУ"],"WellPlan, Drillbench","Бурсофтпроект"],
+  ["Технология строительства",["Гидравлика промывки","Буровые растворы","КНБК","Цикл и стоимость"],"WellPlan, Drillbench, DrillPlan","Бурсофтпроект"],
+  ["Эксплуатация",["Техрежим","Целостность","Подбор ГТМ"],"PROSPER, OFM","Автотехнолог"],
+  ["Ликвидация",["Схема мостов и барьеров","Затраты на ликвидацию"],"WellCat","Корп. методики"]]},
+ {k:"I",n:"Инфраструктура",c:"#3D5A8A",d:[
+  ["Нагрузки и мощности",["Пиковые нагрузки","Поэтапный ввод мощностей"],"Excel, HYSYS","РН-СИМТЕП ⚠"],
+  ["Сбор и транспорт",["Трассировка","Многофазная гидравлика","Тепловой расчёт"],"PIPESIM, OLGA, Civil 3D","РН-СИМТЕП ⚠, Кредо"],
+  ["Подготовка продукции",["Материальный баланс","Сепарация","Утилизация ПНГ"],"HYSYS, UniSim","РН-СИМТЕП ⚠"],
+  ["ППД (КНС, водоводы)",["Гидравлика водоводов","Подбор насосов"],"PIPESIM","РН-СИМТЕП ⚠"],
+  ["Энергоснабжение",["Электрические нагрузки","Схема: ГТЭС или сеть"],"ETAP","RastrWin"],
+  ["Генплан, площадки, дороги",["Компоновка площадок","Объёмы работ"],"AutoCAD Plant 3D, AVEVA","nanoCAD, Model Studio CS, Renga"],
+  ["Вывод из эксплуатации",["Демонтаж","Рекультивация","Затраты"],"Excel","ГРАНД-Смета"]]}
+];
+let total=0;
+sa.innerHTML=DIR.map(D=>{const f=new Set(),r=new Set();let n=0;
+ D.d.forEach(x=>{n+=x[1].length;x[2].split(", ").forEach(v=>f.add(v));x[3].split(", ").forEach(v=>r.add(v))});total+=n;
+ return `<div class="col" style="--c:${D.c}"><div class="hd">${D.n}<small>${n} расчётов</small></div>${D.d.map((x,j)=>`<div class="blk"><b><i>${D.k}${j+1}</i>${x[0]}</b>${x[1].map((s,m)=>`<div class="sk"><code>${D.k}${j+1}.${m+1}</code>${s}</div>`).join("")}</div>`).join("")}<div class="soft"><div>🌐 <b>Зарубежный:</b> ${[...f].join(", ")}</div><div>🇷🇺 <b>Отечественный:</b> ${[...r].join(", ")}</div></div></div>`}).join("");
+tot.textContent=`Итого: 4 направления · 28 дизайнов · ${total} расчётов = ${total} скиллов ИИ.`;
+</script>

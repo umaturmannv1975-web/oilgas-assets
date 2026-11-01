@@ -1,0 +1,127 @@
+<h2>Уровень 1 · Расчёты по этапам</h2>
+<p class="subtitle">На каждом этапе выполняется один и тот же полный дизайн (уровень 0), но с разной глубиной: часть расчётов считается, часть — нет. Сверху — уникальные документы этапа. Глубины — черновик для обсуждения.</p>
+
+<style>
+.bar1{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.bar1 button{padding:6px 12px;border-radius:6px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit}
+.bar1 button.on{color:#fff;font-weight:600}
+.bar2 button.on{background:#8883;color:inherit}
+.leg{display:flex;gap:6px;flex-wrap:wrap;font-size:11.5px;margin:6px 0 10px}
+.leg span{padding:2px 8px;border-radius:4px;border:1px solid #8884}
+.d0{background:transparent}
+.d1{background:color-mix(in srgb,var(--c) 14%,transparent)}
+.d2{background:color-mix(in srgb,var(--c) 28%,transparent)}
+.d3{background:color-mix(in srgb,var(--c) 45%,transparent)}
+.d4{background:color-mix(in srgb,var(--c) 68%,transparent);color:#fff}
+.d5{background:var(--c);color:#fff}
+/* A heatmap */
+.hm{overflow-x:auto}
+.hm table{border-collapse:collapse;width:100%;min-width:980px;font-size:11.5px}
+.hm th,.hm td{border:1px solid #8884;padding:4px 6px;vertical-align:top;text-align:left}
+.hm thead th{background:var(--c);color:#fff;text-align:center;font-size:12px}
+.hm tr.docs td{font-size:11px;font-weight:600;background:color-mix(in srgb,var(--c) 8%,transparent);line-height:1.3}
+.hm tr.cnt td{text-align:center;font-size:11px;opacity:.8}
+.hm tr.dz th{background:color-mix(in srgb,var(--c) 12%,transparent);font-size:12px}
+.hm td.v{text-align:center;font-weight:600;width:9%}
+.hm td.v.d0::after{content:"·";opacity:.3}
+.hm th.rh{font-weight:400;white-space:nowrap}
+.hm th.rh code{font-family:ui-monospace,Consolas,monospace;font-size:10px;padding:1px 4px;border-radius:3px;color:#fff;background:var(--c);margin-right:5px}
+/* B stage stepper */
+.step{display:flex;gap:0;margin:8px 0 10px;overflow-x:auto}
+.step button{flex:1;min-width:100px;padding:8px 6px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12px;position:relative}
+.step button+button{border-left:none}
+.step button.on{background:var(--c);color:#fff;font-weight:600}
+.step button small{display:block;font-size:10.5px;opacity:.75}
+.docbox{border:2px solid var(--c);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:13px}
+.docbox b{color:var(--c)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.card{border:1px solid #8885;border-radius:6px;padding:8px 10px;font-size:12px}
+.card h4{margin:0 0 5px;font-size:13px;display:flex;justify-content:space-between}
+.card h4 span{font-weight:400;font-size:11px;opacity:.7}
+.sk{display:flex;gap:6px;align-items:center;margin:3px 0;padding:2px 4px;border-radius:3px;transition:all .3s}
+.sk code{font-family:ui-monospace,Consolas,monospace;font-size:10px;padding:1px 4px;border-radius:3px;flex:none;border:1px solid var(--c);min-width:38px;text-align:center}
+.sk.off{opacity:.3;text-decoration:line-through}
+.sk.off code{background:transparent;color:inherit}
+.sk:not(.off) code{background:var(--c);color:#fff}
+.sk .dl{margin-left:auto;font-size:10px;opacity:.75;white-space:nowrap}
+.sum{font-size:12.5px;opacity:.85;margin-top:8px}
+</style>
+
+<div class="bar1" id="dirs"></div>
+<div class="bar1 bar2"><button id="mA" class="on" onclick="setM('A')">A · Тепловая карта</button><button id="mB" onclick="setM('B')">B · По этапам (шагами)</button></div>
+<div class="leg" id="leg"></div>
+<div id="out"></div>
+
+<script>
+const ST=["Замысел","Концептуальный","Базовый дизайн","Проектирование","5.1 Подготовка","5.2 Строительство","Эксплуатация","Ликвидация"];
+const DEPTH=["не считается","по аналогам","укрупнённо","инженерный расчёт","проектный","рабочий / факт"];
+// дизайн: [название, глубина по этапам, расчёты]
+const DIR={
+ g:{k:"G",n:"Геология",c:"#9A5B1E",
+  docs:["Программа ГРР, лицензия","Проект ГРР, оперативный подсчёт","Подсчёт запасов + протокол ГКЗ","Геологическая модель (в ТСР/ТПР)","Программа ГИС и керна","Заключения ГИС, оперативное изменение запасов","Пересчёт запасов, 6-гр","Списание запасов, сдача информации"],
+  d:[["Структурная модель",[1,3,4,4,4,5,4,1],["Интерпретация сейсмики","Скоростная модель","Структурные карты"]],
+     ["Петрофизика",[1,2,4,4,3,5,4,1],["Интерпретация ГИС","Кп, Кн, Кпр","Граничные значения"]],
+     ["Седиментология",[1,3,4,4,2,3,3,1],["Фациальный анализ","Концептуальная модель"]],
+     ["3D геологическая модель",[0,2,4,5,3,5,5,2],["Литологическое моделирование","Распределение свойств","Набор реализаций"]],
+     ["Подсчёт запасов",[1,2,5,4,2,3,5,4],["Объёмный метод","Категоризация запасов","Классификация PRMS"]],
+     ["Неопределённости и риски",[2,3,4,3,2,2,3,1],["Вероятность успеха Pg","Монте-Карло","P90/P50/P10"]],
+     ["Программа доизучения",[2,3,3,3,4,3,3,0],["Ценность информации","Программа ГИС и керна"]]]},
+ r:{k:"R",n:"Разработка",c:"#0F6E62",
+  docs:["Концепция разработки","Проект пробной эксплуатации","Технологическая схема (ТСР)","ТПР / дополнение","Программа ввода и исследований","Авторский надзор","Анализ разработки, дополнения","Обоснование завершения"],
+  d:[["PVT и свойства флюидов",[1,2,4,4,2,3,3,0],["PVT-модель","Уравнение состояния"]],
+     ["Вытеснение и КИН",[1,2,4,4,2,2,3,2],["ОФП","Коэфф. вытеснения и охвата","КИН"]],
+     ["Гидродинамическая модель",[0,2,4,5,3,4,5,3],["Апскейлинг","Адаптация по истории","Прогноз вариантов"]],
+     ["Система разработки и сетка",[1,2,4,5,4,3,4,1],["Плотность сетки","Размещение забоев","Тип скважин"]],
+     ["Профили добычи",[1,2,4,5,4,5,5,3],["Кривые падения (Арпс)","Материальный баланс","Профиль по фонду"]],
+     ["Система ППД",[0,1,3,4,4,4,5,1],["Компенсация отборов","Приёмистость"]],
+     ["Мониторинг и ГТМ",[0,1,2,3,4,4,5,2],["Программа исследований","Подбор ГТМ"]]]},
+ b:{k:"B",n:"Скважина",c:"#A23B2A",
+  docs:["Паспорт идеи / заявка","Концепция скважины","Базовый дизайн скважины","Проектная документация","Программа бурения, ГТН, акт готовности БУ","Дело скважины, акт передачи, EOWR","Техрежим, планы КРС/ГТМ","Проект и акт ликвидации"],
+  d:[["Конструкция",[1,2,3,4,5,5,2,2],["Совмещённый график давлений","Глубины спуска колонн","Прочность обсадных труб","Цементирование"]],
+     ["Заканчивание",[1,1,3,4,5,5,3,1],["Узловой анализ","Дизайн ГРП/МГРП","Подбор ГНО"]],
+     ["Траектория",[1,2,3,4,5,5,1,1],["Профиль скважины","Антиколлизия","Кустование","Геонавигация"]],
+     ["Буровая установка",[1,2,2,4,5,5,2,2],["Нагрузка на крюк","Torque & drag","Подбор класса БУ"]],
+     ["Технология строительства",[1,2,2,4,5,5,1,1],["Гидравлика промывки","Буровые растворы","КНБК","Цикл и стоимость"]],
+     ["Эксплуатация",[1,1,2,3,4,4,5,2],["Техрежим","Целостность","Подбор ГТМ"]],
+     ["Ликвидация",[1,1,1,2,2,2,3,5],["Схема мостов и барьеров","Затраты на ликвидацию"]]]},
+ i:{k:"I",n:"Инфраструктура",c:"#3D5A8A",
+  docs:["Концепция по аналогам","Предпроектное исследование","Концепция обустройства / ОТР","ПД + экспертиза, РД","Разрешение на строительство, ППР","Исп. документация, разрешение на ввод","Регламенты, ЭПБ","Проект ликвидации объектов"],
+  d:[["Нагрузки и мощности",[1,2,4,5,4,4,4,1],["Пиковые нагрузки","Поэтапный ввод мощностей"]],
+     ["Сбор и транспорт",[1,2,4,5,5,5,4,2],["Трассировка","Многофазная гидравлика","Тепловой расчёт"]],
+     ["Подготовка продукции",[1,2,4,5,5,5,4,2],["Материальный баланс","Сепарация","Утилизация ПНГ"]],
+     ["ППД (КНС, водоводы)",[1,2,3,5,5,5,4,2],["Гидравлика водоводов","Подбор насосов"]],
+     ["Энергоснабжение",[1,2,3,5,5,5,4,2],["Электрические нагрузки","Схема: ГТЭС или сеть"]],
+     ["Генплан, площадки, дороги",[0,1,3,5,5,5,3,3],["Компоновка площадок","Объёмы работ"]],
+     ["Вывод из эксплуатации",[0,1,1,2,2,2,3,5],["Демонтаж","Рекультивация","Затраты"]]]}
+};
+// черновое правило: m-й расчёт дизайна включается, когда глубина дизайна ≥ m+1 (первый — уже по аналогам, последующие — с ростом глубины)
+const sd=(dep,m)=>dep>=Math.min(m+1,4)?dep:0;
+let cur="g",mode="A",stage=2;
+const ORDER=["g","r","b","i"];
+dirs.innerHTML=ORDER.map(k=>`<button data-k="${k}" style="border-color:${DIR[k].c}">${DIR[k].n}</button>`).join("");
+dirs.onclick=e=>{const b=e.target.closest("button");if(b){cur=b.dataset.k;render()}};
+function setM(m){mode=m;mA.classList.toggle("on",m=="A");mB.classList.toggle("on",m=="B");render()}
+function setS(j){stage=j;render()}
+function render(){
+ const D=DIR[cur];out.style.setProperty("--c",D.c);leg.style.setProperty("--c",D.c);
+ [...dirs.children].forEach(b=>{const on=b.dataset.k==cur;b.classList.toggle("on",on);b.style.background=on?DIR[b.dataset.k].c:"transparent"});
+ leg.innerHTML="<b>Глубина:</b>"+DEPTH.map((d,i)=>`<span class="d${i}">${i} · ${d}</span>`).join("");
+ const cnt=ST.map((_,j)=>D.d.reduce((s,x)=>s+x[2].filter((_,m)=>sd(x[1][j],m)).length,0));
+ const all=D.d.reduce((s,x)=>s+x[2].length,0);
+ if(mode=="A"){
+  let h=`<div class="hm"><table><thead><tr><th style="text-align:left">Адрес · расчёт</th>${ST.map(s=>`<th>${s}</th>`).join("")}</tr></thead><tbody>`;
+  h+=`<tr class="docs"><th>Документ этапа</th>${D.docs.map(x=>`<td>${x}</td>`).join("")}</tr>`;
+  h+=`<tr class="cnt"><th style="font-weight:400">Считается расчётов</th>${cnt.map(n=>`<td>${n} из ${all}</td>`).join("")}</tr>`;
+  D.d.forEach((x,j)=>{h+=`<tr class="dz"><th colspan="9">${D.k}${j+1} · ${x[0]}</th></tr>`;
+   x[2].forEach((s,m)=>{h+=`<tr><th class="rh"><code>${D.k}${j+1}.${m+1}</code>${s}</th>${x[1].map(dep=>{const v=sd(dep,m);return `<td class="v d${v}">${v||""}</td>`}).join("")}</tr>`})});
+  out.innerHTML=h+`</tbody></table></div>`;
+ } else {
+  let h=`<div class="step">${ST.map((s,j)=>`<button class="${j==stage?"on":""}" onclick="setS(${j})">${s}<small>${cnt[j]} из ${all}</small></button>`).join("")}</div>`;
+  h+=`<div class="docbox">Документ этапа «${ST[stage]}»: <b>${D.docs[stage]}</b></div><div class="cards">`;
+  D.d.forEach((x,j)=>{const dep=x[1][stage];
+   h+=`<div class="card"><h4>${D.k}${j+1} · ${x[0]}<span class="d${dep}" style="padding:0 5px;border-radius:3px">${dep}</span></h4>${x[2].map((s,m)=>{const v=sd(dep,m);return `<div class="sk ${v?"":"off"}"><code>${D.k}${j+1}.${m+1}</code>${s}<span class="dl">${v?DEPTH[v]:""}</span></div>`}).join("")}</div>`});
+  out.innerHTML=h+`</div><p class="sum">На этапе «${ST[stage]}» считается ${cnt[stage]} из ${all} расчётов направления «${D.n}». Агент этапа вызывает только эти скиллы и собирает из них документ.</p>`;
+ }
+}
+render();
+</script>

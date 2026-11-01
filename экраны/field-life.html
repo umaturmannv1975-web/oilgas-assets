@@ -1,0 +1,195 @@
+<h2>Уровень 2 · Этапы жизни месторождения</h2>
+<p class="subtitle">Этапы жизни месторождения по практике мейджоров, этапы формирования объекта внутри них и как формируется каждый этап: цель, данные, работы, результат, ворота. Официальные документы этапов — на вкладке «Официальные документы».</p>
+
+<style>
+.fw{overflow-x:auto;margin-bottom:16px}
+.fw .g{display:grid;grid-template-columns:150px repeat(6,minmax(0,1fr));gap:3px;min-width:860px;font-size:11.5px}
+.fw .co{font-weight:600;padding:5px 6px;display:flex;align-items:center}
+.fw .ph{padding:5px 6px;border-radius:4px;background:#8a6fd022;border:1px solid #8a6fd055;line-height:1.25}
+.fw .ph.h{background:#8a6fd0;color:#fff;border:none;font-weight:600;text-align:center}
+.oh{margin:18px 0 4px;font-size:16px}
+.os{margin:0 0 8px;font-size:13px;max-width:100ch}
+.ob{overflow-x:auto;margin-bottom:18px}
+.ob table{border-collapse:collapse;width:100%;min-width:1000px;font-size:12px}
+.ob th,.ob td{border:1px solid #8885;padding:6px 8px;vertical-align:top;text-align:left;line-height:1.3}
+.ob thead th{color:#fff;text-align:center}
+.ob thead th.ar{position:relative}
+.ob thead th.ar::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:#555;font-size:16px;z-index:1}
+.ob td.fs{background:#8a6fd0;color:#fff;font-weight:700;width:130px}
+.oc{display:flex;gap:2px;margin-bottom:4px}
+.oc span{flex:1;text-align:center;font-size:9.5px;font-weight:700;padding:3px 0;border:1px solid var(--fc);border-radius:2px;color:var(--fc)}
+.oc span.on{background:var(--fc);color:#fff}
+.ob td b{font-size:11px;opacity:.75}.ob td b.full{opacity:1;color:#8a6fd0}
+.ol{font-size:11.5px;opacity:.8;margin:-12px 0 18px}
+.ob td b{display:block}
+.ob td i{opacity:.75;font-size:11px}
+.gf{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.gf button{padding:5px 12px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px}
+.gf button.on{font-weight:700;border-width:2px;border-color:currentColor}
+.gf button.wo{color:#C77B0A}.gf button.ro{color:#0E7C86}
+.dt{overflow-x:auto}
+.dt table{border-collapse:collapse;width:100%;min-width:900px;font-size:12.5px}
+.dt th,.dt td{border:1px solid #8885;padding:7px 9px;vertical-align:top;text-align:left}
+.dt thead th{background:#8a6fd0;color:#fff}
+.dt tr.stg td{background:#8a6fd01f;font-weight:700;font-size:13.5px}
+.dt tr.stg td span{font-weight:400;opacity:.7;font-size:12px;margin-left:6px}
+.dt td.ru{font-weight:600;width:25%}
+.dt td.en{font-style:italic;width:27%}
+.dt tr.wo td{background:repeating-linear-gradient(135deg,#C77B0A14 0 6px,transparent 6px 12px)}
+.dt tr.wo td:first-child{border-left:3px dashed #C77B0A}
+.dt tr.ro td{background:#0E7C8614}
+.dt tr.ro td:first-child{border-left:3px solid #0E7C86}
+.no{font-style:normal;font-weight:700;font-size:11.5px}
+tr.wo .no{color:#C77B0A}tr.ro .no{color:#0E7C86}
+.b{display:inline-block;font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid #8886;white-space:nowrap}
+.b.z{background:#0F6E6230}.b.k{background:#3D5A8A30}
+.sum{margin-top:12px;font-size:13px;max-width:95ch}
+</style>
+
+<div class="fw"><div class="g" id="fw"></div></div>
+<h3 class="oh">Этапы формирования объекта внутри этапов месторождения</h3>
+<p class="os">Этапы объекта не привязаны к этапам месторождения один к одному: на любом этапе месторождения цикл объекта может пройти <b>полностью</b> — от замысла до ликвидации (например, поисковая скважина на идентификации) — или <b>частью</b>. Функции всегда идут в очередности <b>1. Геология → 2. Разработка → 3. Скважина → 4. Инфраструктура</b>. Закрашенная ячейка — этап объекта выполняется.</p>
+<div class="ob"><table id="obj"></table></div>
+
+<script>
+const Z='<span class="b z">закон</span>',K='<span class="b k">корп.</span>',W='<span class="b k">нет в РФ</span>';
+// [этап, англ., [[РФ|null, мир|null, что фиксирует, кто утверждает, статус], ...]]
+const S=[
+ ["Идентификация","Identify",[
+  ["Паспорт инвестиционной возможности","Opportunity Framing (формирование возможности)","Цель, ресурсный потенциал, ориентир ценности","Инвестиционный комитет",K],
+  ["Лицензия на пользование недрами","Exploration Licence / PSC (лицензия на разведку / соглашение о разделе продукции)","Право на участок, лицензионные обязательства","Роснедра",Z],
+  ["Программа ГРР актива","Exploration Strategy (стратегия геологоразведки)","Объём и очерёдность ГРР","Компания",K]]],
+ ["Оценка","Assess / Appraise",[
+  ["Концепция освоения месторождения","Feasibility / Concept Options Study (технико-экономическая оценка / исследование вариантов концепции)","Варианты освоения: разработка, скважины, обустройство","Технический совет",K],
+  ["Проект пробной эксплуатации (ППЭ)","Appraisal Plan, Extended Well Test (план доразведки, расширенные испытания скважин)","Пробная добыча и исследования","ЦКР Роснедр",Z],
+  [null,"Value Assurance Review (независимая проверка ценности проекта)","Независимая экспертиза качества проекта перед воротами","Независимая команда",W]]],
+ ["Выбор","Select",[
+  ["Технологическая схема разработки (ТСР)","Preliminary Field Development Plan (предварительный план разработки месторождения)","Система разработки, фонд, профили, КИН","ЦКР Роснедр",Z],
+  ["Основные технические решения (ОТР) по активу","Concept Select Report, Basis of Design (отчёт о выборе концепции, базовые проектные данные)","Выбранный вариант освоения","Технический совет",K],
+  [null,"Contracting & Procurement Strategy (стратегия контрактования и закупок)","Стратегия контрактования всего проекта","Проектная команда",W],
+  [null,"Risk & Uncertainty Management Plan (план управления рисками и неопределённостями)","Единый реестр рисков актива по всем направлениям","Проектная команда",W]]],
+ ["Определение","Define (FEED)",[
+  ["КПРА — комплексный проект разработки актива","Integrated FDP / PDO (комплексный план разработки / план разработки и эксплуатации, Норвегия)","Согласованные решения всех направлений; за 1–3 года до строительства","Инвестиционный комитет",K],
+  ["Бизнес-кейсы","Business Case / Project Proposal (бизнес-кейс / проектное предложение)","Экономика каждого мероприятия или объекта","Инвестиционный комитет",K],
+  ["Технологический проект разработки (ТПР)","Regulatory FDP (план разработки, утверждаемый регулятором)","Проектные показатели разработки","ЦКР Роснедр",Z],
+  ["Инвестиционное решение","Final Investment Decision (окончательное инвестиционное решение)","Утверждение финансирования","Совет директоров / правление",K],
+  [null,"Project Execution Plan (план реализации проекта)","Организация, график, контракты, интерфейсы направлений","Руководитель проекта",W],
+  [null,"Independent Project Review / IPA benchmarking (независимая экспертиза проекта / отраслевое сравнение)","Внешняя оценка готовности к FID","Внешний эксперт",W]]],
+ ["Реализация","Execute",[
+  ["Бизнес-план на год","Annual Work Programme & Budget (годовая программа работ и бюджет)","Программа работ и бюджет из утверждённых бизнес-кейсов","Совет директоров / правление",K],
+  ["Корректировки бизнес-плана","WP&B Revision (корректировка программы работ и бюджета)","Изменения в течение года","Правление",K],
+  ["Программа бурения и ввода объектов","Integrated Activity Plan (комплексный план работ)","Согласованный график работ всех направлений","Руководитель актива",K],
+  ["Отчёт о реализации проекта","Project Close-out Report (отчёт о закрытии проекта)","Итоги, передача в эксплуатацию","Комиссия",K],
+  [null,"Operations Readiness & Assurance Plan (план готовности к эксплуатации)","Люди, процедуры, запчасти до ввода","Служба эксплуатации",W]]],
+ ["Эксплуатация","Operate",[
+  ["Дополнения к ТПР","Revised FDP, Reservoir Management Plan (обновлённый план разработки, план управления пластом)","Актуализация разработки","ЦКР Роснедр",Z],
+  ["Бизнес-кейсы на бурение, ГТМ, реконструкцию","Business Case / AFE (бизнес-кейс / разрешение на расходы)","Экономика новых мероприятий","Инвестиционный комитет",K],
+  ["Бизнес-план на год","Asset Reference Plan, Annual WP&B (базовый план актива, годовая программа и бюджет)","Программа и бюджет актива","Совет директоров / правление",K],
+  [null,"Post-Investment Review (постинвестиционный анализ)","План/факт через 1–3 года после ввода, уроки","Инвестиционный комитет",W],
+  [null,"Late-Life / Cessation Strategy (стратегия поздней стадии и прекращения добычи)","Стратегия поздней стадии","Команда актива",W]]]
+];
+const FW=[
+ ["Shell · ORP ⚠",[["Identify & Assess",0,1],["Select",2,2],["Define",3,3],["Execute",4,4],["Operate",5,5]]],
+ ["BP · CVP",[["Appraise",0,1],["Select",2,2],["Define",3,3],["Execute",4,4],["Operate",5,5]]],
+ ["Chevron · CPDEP ⚠",[["1 Identify & assess",0,1],["2 Generate & select",2,2],["3 Develop preferred",3,3],["4 Execute",4,4],["5 Operate & evaluate",5,5]]],
+ ["ExxonMobil ⚠",[["Opportunity",0,0],["Concept selection",1,2],["Define / FEED",3,3],["Execute",4,4],["Operations",5,5]]],
+ ["Equinor · DG",[["DG0–DG1 Feasibility",0,1],["DG2 Concept",2,2],["DG3 PDO",3,3],["DG4 Execute",4,4],["Operate",5,5]]],
+ ["Saudi Aramco",[["Study",0,1],["DBSP",2,2],["Project Proposal + ER",3,3],["Detail design, construction",4,4],["Operation",5,5]]],
+ ["IPA · FEL",[["FEL 1",0,1],["FEL 2",2,2],["FEL 3",3,3],["Execute",4,4],["Operate",5,5]]]
+];
+fw.innerHTML=`<div></div>`+S.map(s=>`<div class="ph h">${s[0]}</div>`).join("")+FW.map(([c,ph])=>`<div class="co">${c}</div>`+ph.map(([n,a,b])=>`<div class="ph" style="grid-column:${a+2} / ${b+3}">${n}</div>`).join("")).join("");
+// Формирование этапов объекта внутри этапов месторождения. Функции — всегда в очередности G → R → B → I.
+const OS=["Замысел","Концепт","Базовый дизайн","Проектирование","Подготовка","Строительство","Эксплуатация","Ликвидация"];
+const OSK=["З","К","БД","П","Пг","С","Э","Л"];
+// [этап месторождения][функция G,R,B,I] = [этапы объекта 1/0, пример]
+const FM=[
+ [[[1,1,0,0,0,0,0,0],"оценка проспекта"],[[1,0,0,0,0,0,0,0],"возможность добычи по аналогам"],[[1,1,1,1,1,1,0,1],"поисковая скважина: замысел → бурение → ликвидация"],[[1,0,0,0,0,0,0,0],"потребность в объектах по аналогам"]],
+ [[[1,1,1,0,1,1,0,0],"открытие, программа и сопровождение доразведки"],[[1,1,0,0,0,0,0,0],"варианты разработки"],[[1,1,1,1,1,1,1,1],"разведочная скважина с пробной эксплуатацией — полный цикл"],[[1,1,1,1,1,1,1,0],"временное обустройство для пробной эксплуатации"]],
+ [[[0,0,1,1,0,0,0,0],"подземная основа, модель для проекта"],[[0,1,1,0,0,0,0,0],"выбор схемы разработки"],[[0,1,1,0,0,0,0,0],"концепция и базовый дизайн эксплуатационных скважин"],[[1,1,1,0,0,0,0,0],"выбор схемы обустройства, FEL 1–2"]],
+ [[[0,0,0,1,0,0,0,0],"модель для плана разработки"],[[0,0,0,1,0,0,0,0],"план разработки"],[[0,0,0,1,1,0,0,0],"проект скважин, подготовка к бурению"],[[0,0,0,1,0,0,0,0],"FEED, FEL 3"]],
+ [[[0,0,0,0,1,1,0,0],"программа исследований, уточнение по бурению"],[[0,0,0,0,1,1,0,0],"подготовка и ввод в разработку"],[[0,0,0,0,1,1,1,0],"бурение, заканчивание, передача в эксплуатацию"],[[0,0,0,0,1,1,1,0],"стройка, пусконаладка, ввод"]],
+ [[[0,0,0,1,1,1,1,1],"обновление модели, переоценка и списание запасов"],[[1,1,1,1,1,1,1,1],"новые мероприятия разработки — полный цикл"],[[1,1,1,1,1,1,1,1],"новые скважины, ГТМ, ликвидация старых — полный цикл"],[[1,1,1,1,1,1,1,1],"реконструкция, новые объекты, вывод старых — полный цикл"]]
+];
+const FN=[
+ {n:"Геология",o:"залежь",c:"#9A5B1E",s:[["Проспект","Prospect Evaluation"],["Открытие","Discovery Report, Appraisal Plan"],["Оценённая залежь","Subsurface BoD, Reserves Booking"],["Модель для проекта","Static Model Report"],["Программа исследований","Formation Evaluation Programme"],["Уточнение по бурению","Well Evaluation Report"],["Залежь в разработке","Annual Reserves Report"],["Остаточные запасы","Reserves De-booking"]]},
+ {n:"Разработка",o:"объект разработки",c:"#0F6E62",s:[["Возможность добычи","Development Opportunity"],["Варианты разработки","Development Options Study"],["Выбранная схема","Reservoir BoD, Preliminary FDP"],["План разработки","FDP / PDO"],["Готовность к вводу","Start-up & Surveillance Plan"],["Ввод в разработку","Early Production Review"],["Объект в разработке","Reservoir Management Plan"],["Завершение разработки","Cessation of Production Report"]]},
+ {n:"Скважина",o:"скважина",c:"#A23B2A",s:[["Идея скважины","Well Proposal"],["Варианты скважины","Well Concept Select Report"],["Выбранная концепция","Basis of Well Design"],["Проект скважины","Detailed Well Design"],["Готовность к бурению","Drilling Programme, DWOP"],["Бурение и заканчивание","Handover Package, EOWR"],["Работающая скважина","Well Integrity records"],["Скважина к ликвидации","Abandonment Programme"]]},
+ {n:"Инфраструктура",o:"объект обустройства",c:"#3D5A8A",s:[["Потребность в объекте","Opportunity Framing"],["Варианты (FEL 1)","Concept Select Report"],["Базовый дизайн (FEL 2)","Design Basis"],["Проект (FEL 3)","FEED, Project Execution Plan"],["Подготовка к стройке","Construction Execution Plan"],["Строительство и пусконаладка","Mechanical Completion, RFSU"],["Объект в эксплуатации","Asset Integrity Management Plan"],["Вывод из эксплуатации","Decommissioning Programme"]]}
+];
+obj.innerHTML=`<thead><tr><th style="background:#8a6fd0">Этап месторождения</th>${FN.map((f,k)=>`<th class="${k<3?"ar":""}" style="background:${f.c}">${k+1}. ${f.n}<br><span style="font-weight:400;font-size:10.5px">${f.o}</span></th>`).join("")}</tr></thead><tbody>`+
+ S.map((st,fi)=>`<tr><td class="fs">${fi+1}. ${st[0]}</td>${FN.map((f,k)=>{const [on,ex]=FM[fi][k],full=on[0]&&on[7];
+  return `<td><div class="oc">${on.map((v,j)=>`<span class="${v?"on":""}" style="--fc:${f.c}" title="${OS[j]}: ${f.s[j][0]} → ${f.s[j][1]}">${OSK[j]}</span>`).join("")}</div><b class="${full?"full":""}">${full?"полный цикл":"часть цикла"}</b><i>${ex}</i></td>`}).join("")}</tr>`).join("")+`</tbody>`;
+document.querySelector(".ob").insertAdjacentHTML("afterend",`<p class="ol">З — замысел · К — концепт · БД — базовый дизайн · П — проектирование · Пг — подготовка · С — строительство · Э — эксплуатация · Л — ликвидация. Наведите на ячейку — состояние объекта и документ.</p>`);
+</script>
+<!--L2CARDS-->
+<style>
+.fc-h{margin:20px 0 4px;font-size:16px}
+.fc-s{margin:0 0 8px;font-size:13px;max-width:100ch}
+.fvw{display:flex;gap:6px;margin:0 0 10px}
+.fvw button{padding:4px 10px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:13px}
+.fvw button.on{background:#8883;font-weight:600}
+.fstep{display:flex;overflow-x:auto;margin:0 0 12px}
+.fstep button{flex:1;min-width:120px;padding:8px 4px 8px 16px;border:none;background:#8a6fd033;color:inherit;cursor:pointer;font:inherit;font-size:12px;font-weight:600;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%);margin-right:-6px;line-height:1.2}
+.fstep button:first-child{clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%)}
+.fstep button small{display:block;font-weight:400;font-size:10px;opacity:.8}
+.fstep button.on{background:#8a6fd0;color:#fff}
+.fhd{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.fhd h4{margin:0;font-size:17px}
+.fhd span{font-size:12px;padding:2px 8px;border-radius:999px;background:#8a6fd02e;border:1px solid #8a6fd0}
+.fgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fbox{border:1px solid #8886;border-radius:8px;padding:9px 12px;font-size:12.5px;line-height:1.45}
+.fbox h5{margin:0 0 5px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;opacity:.7}
+.fbox ul{margin:0;padding-left:16px}
+.fbox.goal{grid-column:1/-1;border-left:5px solid #8a6fd0;font-size:14px}
+.fbox.out{border:2px solid #8a6fd0}
+.fbox.gate{border:2px dashed #8a6fd0}
+.fmx{overflow-x:auto}
+.fmx table{border-collapse:collapse;width:100%;min-width:1000px;font-size:11.5px}
+.fmx th,.fmx td{border:1px solid #8885;padding:6px 7px;vertical-align:top;text-align:left;line-height:1.3}
+.fmx thead th{background:#8a6fd0;color:#fff;text-align:center}
+.fmx tbody th{background:#8a6fd022;white-space:nowrap}
+.fmx ul{margin:0;padding-left:14px}
+@media (max-width:800px){.fgrid{grid-template-columns:1fr}}
+</style>
+<h3 class="fc-h">Как формируется каждый этап жизни месторождения</h3>
+<p class="fc-s">По аналогии с уровнями 1 и 3 — для месторождения в целом: цель этапа, входные данные, ключевые работы, результат (кросс-функциональные документы этапа), критерии выхода (ворота) и кто принимает решение. Черновик.</p>
+<div class="fvw"><button id="fv1" class="on">По этапам месторождения</button><button id="fv2">Сводная матрица</button></div>
+<div id="fout"></div>
+<script>
+(()=>{
+// [этап, англ., состояние, цель, входные данные, [ключевые работы], результат, критерии выхода, кто решает]
+const SC=[
+ ["Идентификация","Identify","Возможность / перспективный участок","Есть ли ценная возможность и стоит ли её оценивать","Региональная геология, аналоги, лицензионные и рыночные условия",["Формирование возможности","Ресурсы, вероятность успеха, ориентир ценности","Стратегия и программа ГРР"],"Паспорт инвестиционной возможности, лицензия, программа ГРР","Ворота 1: возможность согласуется со стратегией, ценность с учётом риска оправдывает оценку","Инвестиционный комитет"],
+ ["Оценка","Assess","Открытое месторождение","Осуществима ли разработка и какие есть варианты освоения","Поисковые и разведочные скважины, сейсмика 3D, испытания",["Оценка запасов P90 / P50 / P10","Варианты концепции освоения: разработка, скважины, обустройство","Пробная эксплуатация, независимая проверка ⚠"],"Концепция освоения, ППЭ, заключение по воротам 2","Ворота 2: есть хотя бы один осуществимый и рентабельный вариант","Технический совет; ЦКР Роснедр (ППЭ)"],
+ ["Выбор","Select","Выбранная концепция","Какой вариант освоения выбрать","Утверждённые запасы, ГДМ, изыскания, затраты класса 3",["Сравнение вариантов по ценности и рискам","Технологическая схема разработки","Основные технические решения, реестр рисков ⚠"],"ТСР, ОТР по активу","Ворота 3: выбран один вариант, ТСР согласована","ЦКР Роснедр, инвестиционный комитет"],
+ ["Определение","Define","Определённый проект","Подготовить проект к инвестиционному решению","ТСР, ОТР, модели, проектная документация направлений",["КПРА: согласованные решения всех направлений","Бизнес-кейсы объектов и мероприятий","ТПР, план реализации ⚠, независимая экспертиза ⚠"],"КПРА, бизнес-кейсы, ТПР, инвестиционное решение","Ворота 4 (FID): проект определён, бизнес-кейсы утверждены","Совет директоров / правление"],
+ ["Реализация","Execute","Проект в реализации","Построить и ввести в срок и в бюджет","Утверждённые бизнес-кейсы, проектная и рабочая документация, контракты",["Годовой бизнес-план и его корректировки","Бурение, строительство, ввод по программе","Готовность эксплуатации ⚠, передача объектов"],"Бизнес-план на год, программа бурения и ввода, отчёт о реализации","Ворота 5: объекты введены и переданы в эксплуатацию","Правление, комиссия по вводу"],
+ ["Эксплуатация","Operate","Месторождение в эксплуатации","Максимизировать добычу и ценность месторождения","История добычи, исследования, фактические затраты",["Управление разработкой; ГТМ и бурение — новыми циклами","Дополнения к ТПР, бизнес-кейсы на новые мероприятия","Постинвестиционный анализ ⚠, стратегия поздней стадии ⚠"],"Дополнения к ТПР, бизнес-кейсы на бурение и ГТМ, бизнес-план","Ворота 6: добыча рентабельна или запущено прекращение","ЦКР Роснедр, инвестиционный комитет"]
+];
+let stg=2,view=1;
+const out=document.getElementById("fout");
+document.getElementById("fv1").onclick=()=>{view=1;draw()};
+document.getElementById("fv2").onclick=()=>{view=2;draw()};
+out.onclick=e=>{const b=e.target.closest("[data-s]");if(b){stg=+b.dataset.s;draw()}};
+function draw(){
+ document.getElementById("fv1").classList.toggle("on",view==1);document.getElementById("fv2").classList.toggle("on",view==2);
+ if(view==1){const x=SC[stg];
+  out.innerHTML=`<div class="fstep">${SC.map((t,j)=>`<button class="${j==stg?"on":""}" data-s="${j}">${j+1}. ${t[0]}<small>${t[1]}</small></button>`).join("")}</div>
+  <div class="fhd"><h4>${stg+1}. ${x[0]} · ${x[1]}</h4><span>состояние: ${x[2]}</span></div>
+  <div class="fgrid">
+   <div class="fbox goal"><h5>Цель — какое решение принимается</h5>${x[3]}</div>
+   <div class="fbox"><h5>Входные данные</h5>${x[4]}</div>
+   <div class="fbox"><h5>Ключевые работы</h5><ul>${x[5].map(v=>`<li>${v}</li>`).join("")}</ul></div>
+   <div class="fbox out"><h5>Результат — документы этапа</h5>${x[6]}</div>
+   <div class="fbox gate"><h5>Критерии выхода (ворота)</h5>${x[7]}</div>
+   <div class="fbox"><h5>Кто принимает решение</h5>${x[8]}</div>
+  </div><p class="fc-s" style="margin-top:8px">⚠ — мировой документ, у которого нет российского аналога.</p>`;
+ } else {
+  out.innerHTML=`<div class="fmx"><table><thead><tr><th>Этап</th><th>Цель</th><th>Входные данные</th><th>Ключевые работы</th><th>Результат</th><th>Ворота</th><th>Кто решает</th></tr></thead><tbody>`+
+   SC.map((x,j)=>`<tr><th>${j+1}. ${x[0]}<br><span style="font-weight:400;opacity:.7">${x[1]}</span></th><td>${x[3]}</td><td>${x[4]}</td><td><ul>${x[5].map(v=>`<li>${v}</li>`).join("")}</ul></td><td><b>${x[6]}</b></td><td>${x[7]}</td><td>${x[8]}</td></tr>`).join("")+`</tbody></table></div>`;
+ }
+}
+draw();
+})();
+</script>
+<!--/L2CARDS-->

@@ -1,0 +1,79 @@
+<h2>Как визуализировать полный дизайн по 4 направлениям?</h2>
+<p class="subtitle">Четыре варианта на одних и тех же данных: 4 направления × 7 дизайнов. Нажмите на вариант, который ближе. Это эскизы — масштаб и детали доработаем.</p>
+
+<style>
+.vz svg{width:100%;height:auto;display:block}
+.vz text{fill:currentColor}
+.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;font-size:11px}
+.cols4 .h{color:#fff;font-weight:600;padding:4px 6px;border-radius:4px 4px 0 0}
+.cols4 .it{border:1px solid #8885;border-top:none;padding:4px 6px}
+.cols4 .it small{display:block;opacity:.65}
+.tm{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;font-size:10.5px;height:260px}
+.tm .d{display:grid;gap:3px;grid-auto-rows:1fr}
+.tm .t{color:#fff;padding:3px 5px;border-radius:3px;overflow:hidden;line-height:1.2}
+.tm .t b{display:block;font-size:11px}
+</style>
+
+<div class="options">
+
+<div class="option" data-choice="wheel" onclick="toggleSelect(this)">
+<div class="letter">A</div><div class="content">
+<h3>Колесо</h3>
+<p>Центр — «Полный дизайн актива», 4 сектора — направления, лепестки — дизайны. Клик по лепестку — скиллы и софт. Хорошо смотрится на слайде, сразу видно «всё вместе».</p>
+<div class="mockup"><div class="mockup-body vz"><svg viewBox="0 0 420 420" id="wheel"></svg></div></div>
+</div></div>
+
+<div class="option" data-choice="columns" onclick="toggleSelect(this)">
+<div class="letter">B</div><div class="content">
+<h3>Четыре колонки-карточки</h3>
+<p>Как уровень 1, но без этапов: в каждой колонке 7 дизайнов, под каждым — его ключевые расчёты. Максимально читаемо, легко печатать.</p>
+<div class="mockup"><div class="mockup-body"><div class="cols4" id="cols"></div></div></div>
+</div></div>
+
+<div class="option" data-choice="treemap" onclick="toggleSelect(this)">
+<div class="letter">C</div><div class="content">
+<h3>Карта-мозаика (treemap)</h3>
+<p>Площадь плитки = число расчётов-скиллов в дизайне. Видно, где сосредоточен объём работы для ИИ. Клик — проваливаемся в расчёты и софт.</p>
+<div class="mockup"><div class="mockup-body"><div class="tm" id="tm"></div></div></div>
+</div></div>
+
+<div class="option" data-choice="chain" onclick="toggleSelect(this)">
+<div class="letter">D</div><div class="content">
+<h3>Сквозная цепочка</h3>
+<p>4 полосы слева направо: геология → разработка → скважина → инфраструктура. Дизайны стоят в своей полосе, линии показывают ключевые передачи между направлениями (3D-модель → ГДМ → профили → нагрузки).</p>
+<div class="mockup"><div class="mockup-body vz"><svg viewBox="0 0 820 300" id="chain"></svg></div></div>
+</div></div>
+
+</div>
+
+<script>
+const DIR=[
+ {n:"Геология",c:"#9A5B1E",d:[["Структурная модель",3],["Петрофизика",3],["Седиментология",2],["3D геомодель",3],["Подсчёт запасов",3],["Неопределённости",3],["Доизучение",2]]},
+ {n:"Разработка",c:"#0F6E62",d:[["PVT",2],["Вытеснение и КИН",3],["ГДМ",3],["Система и сетка",3],["Профили добычи",3],["Система ППД",2],["Мониторинг, ГТМ",2]]},
+ {n:"Скважина",c:"#A23B2A",d:[["Конструкция",4],["Заканчивание",3],["Траектория",4],["Буровая установка",3],["Технология",4],["Эксплуатация",3],["Ликвидация",2]]},
+ {n:"Инфраструктура",c:"#3D5A8A",d:[["Нагрузки",2],["Сбор и транспорт",3],["Подготовка",3],["ППД (КНС)",2],["Энергия",2],["Генплан",2],["Вывод из экспл.",3]]}
+];
+// A wheel
+(()=>{const s=document.getElementById("wheel"),cx=210,cy=210,r0=62,r1=200;let h="";
+ const seg=2*Math.PI/28;
+ const P=(r,a)=>[cx+r*Math.cos(a),cy+r*Math.sin(a)];
+ DIR.forEach((D,i)=>D.d.forEach((x,j)=>{const k=i*7+j,a0=k*seg-Math.PI/2,a1=a0+seg;
+  const [x0,y0]=P(r0,a0),[x1,y1]=P(r1,a0),[x2,y2]=P(r1,a1),[x3,y3]=P(r0,a1);
+  h+=`<path d="M${x0},${y0}L${x1},${y1}A${r1},${r1} 0 0 1 ${x2},${y2}L${x3},${y3}A${r0},${r0} 0 0 0 ${x0},${y0}z" fill="${D.c}" fill-opacity="${.45+.08*(j%3)}" stroke="#fff" stroke-width="1"/>`;
+  const am=(a0+a1)/2,[tx,ty]=P(r0+8,am);let deg=am*180/Math.PI,flip=deg>90&&deg<270;
+  h+=`<text x="${tx}" y="${ty}" font-size="9" fill="#fff" style="fill:#fff" transform="rotate(${flip?deg+180:deg} ${tx} ${ty})" text-anchor="${flip?"end":"start"}" dominant-baseline="middle" dx="${flip?-0:0}">${flip?"":""}${x[0]}</text>`;}));
+ DIR.forEach((D,i)=>{const am=(i*7+3.5)*seg-Math.PI/2,[tx,ty]=P(r1+12,am);});
+ h+=`<circle cx="${cx}" cy="${cy}" r="${r0-4}" fill="#8a6fd0"/><text x="${cx}" y="${cy-6}" text-anchor="middle" font-size="12" font-weight="600" style="fill:#fff">Полный дизайн</text><text x="${cx}" y="${cy+10}" text-anchor="middle" font-size="12" font-weight="600" style="fill:#fff">актива</text>`;
+ s.innerHTML=h;})();
+// B columns
+document.getElementById("cols").innerHTML=DIR.map(D=>`<div><div class="h" style="background:${D.c}">${D.n}</div>${D.d.map(x=>`<div class="it">${x[0]}<small>${x[1]} расчёта</small></div>`).join("")}</div>`).join("");
+// C treemap
+document.getElementById("tm").innerHTML=DIR.map(D=>`<div class="d" style="grid-template-rows:auto ${D.d.map(x=>x[1]+"fr").join(" ")}"><div class="t" style="background:${D.c}"><b>${D.n}</b></div>${D.d.map((x,j)=>`<div class="t" style="background:${D.c};opacity:${.55+.1*(j%3)}">${x[0]} · ${x[1]}</div>`).join("")}</div>`).join("");
+// D chain
+(()=>{const s=document.getElementById("chain");let h="";const lw=195,bw=170,bh=30;
+ const pos={};DIR.forEach((D,i)=>{h+=`<rect x="${i*205+5}" y="5" width="${lw}" height="290" rx="8" fill="${D.c}" fill-opacity=".08" stroke="${D.c}"/><text x="${i*205+15}" y="24" font-size="13" font-weight="600" style="fill:${D.c}">${D.n}</text>`;
+  D.d.forEach((x,j)=>{const X=i*205+17,Y=34+j*37;pos[i+"-"+j]=[X,Y];h+=`<rect x="${X}" y="${Y}" width="${bw}" height="${bh}" rx="5" fill="${D.c}" fill-opacity=".85"/><text x="${X+8}" y="${Y+19}" font-size="11" style="fill:#fff">${x[0]}</text>`})});
+ const L=[["0-3","1-2"],["0-4","1-1"],["0-0","2-2"],["1-3","2-2"],["1-4","3-0"],["1-5","3-3"],["2-3","3-5"],["1-2","2-1"],["2-0","3-1"]];
+ let lines="";L.forEach(([a,b])=>{const A=pos[a],B=pos[b];const x1=A[0]+bw,y1=A[1]+bh/2,x2=B[0],y2=B[1]+bh/2,m=(x1+x2)/2;lines+=`<path d="M${x1},${y1}C${m},${y1} ${m},${y2} ${x2},${y2}" fill="none" stroke="#8a6fd0" stroke-width="1.6" opacity=".8"/>`});
+ s.innerHTML=h+lines;})();
+</script>

@@ -1,0 +1,75 @@
+<h2>Как показать три уровня и место ИИ?</h2>
+<p class="subtitle">Три способа собрать одну картину: функциональный уровень, кросс-функциональный, жизненный цикл актива, и в каждой ячейке документы, расчёты-скиллы, агент и софт. Этапы условные: Замысел · Оценка · Выбор · Проект · Реализация · Эксплуатация · Ликвидация.</p>
+
+<style>
+.m{font-size:11px;line-height:1.3}
+.m table{border-collapse:collapse;width:100%}
+.m td,.m th{border:1px solid #8884;padding:3px 4px;text-align:center}
+.m th{font-weight:600;opacity:.8}
+.g{background:#c98a4b33}.d{background:#2aa19833}.w{background:#d0605033}.i{background:#5a7fc033}.x{background:#8a6fd033}.a{background:#88888833}
+.lane{padding:4px 6px;margin:2px 0;border-radius:3px}
+.gate{display:inline-block;width:2px;background:#888;height:100%}
+.card{border:1px solid #8886;border-radius:4px;padding:6px;margin-top:6px}
+.chip{display:inline-block;padding:1px 5px;border-radius:3px;margin:1px;border:1px solid #8885}
+</style>
+
+<div class="options">
+
+<div class="option" data-choice="a" onclick="toggleSelect(this)">
+<div class="letter">A</div>
+<div class="content">
+<h3>Единая матрица «уровень × этап»</h3>
+<p>Одна большая таблица. Строки — 4 направления, под ними строка кросс-функциональных документов и строка актива. Столбцы — этапы. Клик по ячейке открывает карточку: документы, скиллы, агент, софт.</p>
+<div class="mockup"><div class="mockup-body m">
+<table>
+<tr><th></th><th>Замысел</th><th>Оценка</th><th>Выбор</th><th>Проект</th><th>Реализ.</th><th>Экспл.</th><th>Ликв.</th></tr>
+<tr class="g"><th>Геология</th><td>3</td><td>5</td><td>4</td><td>2</td><td>2</td><td>3</td><td>1</td></tr>
+<tr class="d"><th>Разработка</th><td>2</td><td>4</td><td>6</td><td>3</td><td>2</td><td>4</td><td>1</td></tr>
+<tr class="w"><th>Скважина</th><td>1</td><td>2</td><td>3</td><td>5</td><td>6</td><td>3</td><td>2</td></tr>
+<tr class="i"><th>Инфрастр.</th><td>1</td><td>2</td><td>4</td><td>5</td><td>5</td><td>2</td><td>2</td></tr>
+<tr class="x"><th>Кросс</th><td colspan="2">Бизнес-кейс</td><td colspan="2">ТСР / КПРА</td><td colspan="2">ТПР</td><td>Проект ликв.</td></tr>
+<tr class="a"><th>Актив</th><td colspan="7">ворота ●──●──●──●──●──●──● жизненный цикл месторождения</td></tr>
+</table>
+<div class="card"><b>Ячейка: Геология × Оценка</b><br>Док: отчёт ПЗ · <span class="chip">G1 структура</span><span class="chip">G4 запасы</span><span class="chip">G5 неопр.</span><br>Агент: «Оценка» · Софт: Petrel / РН-ГЕОСИМ</div>
+</div></div>
+<p><b>Плюс:</b> всё на одном экране, адрес расчёта читается сразу. <b>Минус:</b> плотно, «время» направлений не видно.</p>
+</div></div>
+
+<div class="option" data-choice="b" onclick="toggleSelect(this)">
+<div class="letter">B</div>
+<div class="content">
+<h3>Слоёная схема с «воротами»</h3>
+<p>Сверху — шкала жизненного цикла актива. Ниже — 4 дорожки направлений, каждая со своими этапами и документами, сдвинутыми во времени. Вертикальные «ворота» прошивают все дорожки и показывают, где рождается кросс-функциональный документ. Агенты висят над воротами.</p>
+<div class="mockup"><div class="mockup-body m">
+<div class="lane a">АКТИВ: Замысел ──── Оценка ──── Выбор ──── Проект ──── Реализация ──── Эксплуатация ── Ликв.</div>
+<div style="display:flex;gap:4px;justify-content:space-around;margin:4px 0"><span class="chip x">🤖 Бизнес-кейс</span><span class="chip x">🤖 ТСР · КПРА</span><span class="chip x">🤖 ТПР</span></div>
+<div class="lane g">Геология &nbsp;■■■■■ ПЗ ■■■■ пересчёт ■■ авторский надзор</div>
+<div class="lane d">Разработка &nbsp;&nbsp;&nbsp;&nbsp;■■■ ТСР ■■■■ ТПР ■■■ анализ</div>
+<div class="lane w">Скважина &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;■■ ПД ■■ бурение ■ освоение ■■ КРС ■ ликв.</div>
+<div class="lane i">Инфраструктура &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;■ концепция ■■ ПД/РД ■■■ стройка ■ экспл.</div>
+<p style="margin:4px 0 0;opacity:.7">│ ворота связывают дорожки; клик по блоку → скиллы, агент, софт</p>
+</div></div>
+<p><b>Плюс:</b> видно, что направления живут в разном темпе (геология впереди, инфраструктура догоняет). <b>Минус:</b> адрес расчёта читается хуже, нужен клик.</p>
+</div></div>
+
+<div class="option" data-choice="c" onclick="toggleSelect(this)">
+<div class="letter">C</div>
+<div class="content">
+<h3>Погружение сверху вниз</h3>
+<p>Экран 1 — жизненный цикл актива. Клик по этапу → экран 2: 4 направления на этом этапе и кросс-документ, который они вместе дают. Клик по направлению → экран 3: расчёты-скиллы, агент, софт (зарубежный / отечественный).</p>
+<div class="mockup"><div class="mockup-body m">
+<div class="lane a">① Актив: [Замысел] [<b>Оценка</b>] [Выбор] [Проект] [Реализ.] [Экспл.] [Ликв.]</div>
+<div style="text-align:center">↓</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">
+<div class="lane g">Геология: ПЗ</div><div class="lane d">Разработка: оценка КИН</div>
+<div class="lane w">Скважина: поисковая</div><div class="lane i">Инфр.: аналоги</div></div>
+<div class="lane x" style="text-align:center">② Кросс: Бизнес-кейс / ТЭО</div>
+<div style="text-align:center">↓</div>
+<div class="card">③ <b>Геология · Оценка</b> — 🤖 агент «Оценка»<br>
+<span class="chip">G4 Подсчёт запасов</span> Petrel · <i>РН-ГЕОСИМ, ГеоСофт</i><br>
+<span class="chip">G5 Неопределённости</span> Crystal Ball · <i>tNavigator</i></div>
+</div></div>
+<p><b>Плюс:</b> лучше для презентации — рассказ идёт от общего к частному. <b>Минус:</b> целиком всю матрицу не видно сразу.</p>
+</div></div>
+
+</div>

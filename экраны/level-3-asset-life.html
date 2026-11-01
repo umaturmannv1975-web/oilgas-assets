@@ -1,0 +1,123 @@
+<h2>Уровень 3 · Официальные документы: РФ ↔ мир</h2>
+<p class="subtitle">Те же 8 этапов, что в блоке «Этапы жизни актива», сгруппированные в фазы ГРР, гринфилд, браунфилд и ликвидация. Для каждого мирового документа — российский аналог; пробелы в обе стороны. Сроки типовые, шкала условная. Черновик, ⚠ — сверить.</p>
+
+<style>
+.pf svg{width:100%;height:auto;display:block}
+.pf text{fill:currentColor}
+.pf .st{cursor:pointer}
+.gs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.gc{border:1px solid #8886;border-top:5px solid var(--g);border-radius:8px;padding:8px 10px;font-size:12px}
+.gc b{font-size:15px;display:block;color:var(--g)}
+.gc span{opacity:.75;display:block;margin-bottom:4px}
+.gc p{margin:6px 0 0}
+.gc em{font-style:normal;font-weight:600}.gc em.w{color:#C77B0A}.gc em.r{color:#0E7C86}
+.gf{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 10px}
+.gf button{padding:5px 12px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px}
+.gf button.on{font-weight:700;border-width:2px;border-color:currentColor}
+.gf button.wo{color:#C77B0A}.gf button.ro{color:#0E7C86}
+.dt{overflow-x:auto}
+.dt table{border-collapse:collapse;width:100%;min-width:940px;font-size:12.5px}
+.dt th,.dt td{border:1px solid #8885;padding:7px 9px;vertical-align:top;text-align:left}
+.dt thead th{background:#2F6B4F;color:#fff}
+.dt tr.grp td{color:#fff;font-weight:700;font-size:14.5px;letter-spacing:.02em}
+.dt tr.grp td span{font-weight:400;opacity:.9;font-size:12px}
+.dt tr.stg td{background:#2F6B4F1c;font-weight:700;font-size:13.5px}
+.dt tr.stg td span{font-weight:400;opacity:.75;font-size:12px;margin-left:6px}
+.dt tr.stg td em{float:right;font-style:normal;font-weight:400;font-size:11.5px;opacity:.8}
+.dt tr.stg.sel td{background:#2F6B4F44}
+.dt td.ru{font-weight:600;width:27%}
+.dt td.en{font-style:italic;width:30%}
+.dt tr.wo td{background:repeating-linear-gradient(135deg,#C77B0A14 0 6px,transparent 6px 12px)}
+.dt tr.wo td:first-child{border-left:3px dashed #C77B0A}
+.dt tr.ro td{background:#0E7C8614}
+.dt tr.ro td:first-child{border-left:3px solid #0E7C86}
+.no{font-style:normal;font-weight:700;font-size:11.5px}
+tr.wo .no{color:#C77B0A}tr.ro .no{color:#0E7C86}
+.b{display:inline-block;font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid #8886;white-space:nowrap}
+.b.z{background:#0F6E6230}.b.k{background:#3D5A8A30}
+.mv{font-size:12.5px;opacity:.8;margin:4px 0 0}
+.sum{margin-top:12px;font-size:13px;max-width:100ch}
+@media (max-width:800px){.gs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+
+<p class="mv">График фаз и профиль добычи перенесены в блок «Этапы жизни актива».</p>
+<div class="gs" id="gs"></div>
+<div class="gf" id="gf"></div>
+<div class="dt"><table id="dt"></table></div>
+<p class="sum" id="sum"></p>
+
+<script>
+const Z='<span class="b z">закон</span>',K='<span class="b k">корп.</span>',W='<span class="b k">нет в РФ</span>';
+// Этапы и мировые документы — как в блоке «Этапы жизни актива».
+// [этап, англ., подпись на графике (две строки), срок, что решается, ширина на шкале, [[РФ|null, мир|null, что фиксирует, кто утверждает, статус]]]
+const S=[
+ ["Вход в актив","Access / Acquisition",["Вход","в актив"],"1–2 года","Входить ли в участок и на каких условиях",6,[
+  ["Заявка на аукцион, лицензия на пользование недрами","Licence Application / Bid (заявка на лицензионный раунд)","Право на участок","Роснедра",Z],
+  ["Лицензионные условия и обязательства","Work Programme Commitment (обязательная программа работ)","Объём работ, сроки","Роснедра",Z],
+  ["Договор купли-продажи доли, соглашение о СП","Farm-in Agreement / SPA (соглашение о вхождении / купле-продаже доли)","Доли партнёров","Партнёры",K],
+  [null,"Joint Operating Agreement — JOA (соглашение о совместной деятельности)","Правила совместной работы оператора и партнёров","Партнёры",W+" ⚠"]]],
+ ["Геологоразведка","Exploration",["Геолого-","разведка"],"2–5 лет","Есть ли открытие",9,[
+  ["Проект поисковых работ","Exploration Work Programme (программа геологоразведочных работ)","Сейсмика, поисковые скважины","Недропользователь → экспертиза",Z],
+  ["Паспорт подготовленной структуры, оценка ресурсов D0/Dл","Prospect Evaluation (оценка проспекта, вероятность успеха)","Ресурсы и риск объекта","Недропользователь",K+" ⚠"],
+  [null,"Well Proposal / AFE (заявка на скважину / разрешение на расходы)","Цель и бюджет скважины","Партнёры",W],
+  ["Свидетельство об установлении факта открытия","Discovery Notification (уведомление об открытии)","Регистрация открытия","Роснедра",Z],
+  ["Оперативный подсчёт, постановка запасов на госбаланс",null,"Первые запасы C1/C2 на госбалансе","ГКЗ / ТКЗ",Z],
+  ["Геологический отчёт по ГРР, сдача в фонд геоинформации","Final Exploration Report, Data Submission (итоговый отчёт по ГРР, сдача данных)","Результаты и первичные данные","Роснедра / Росгеолфонд",Z]]],
+ ["Доразведка и оценка","Appraisal",["Доразведка","и оценка"],"2–4 года","Коммерческое ли открытие",8,[
+  ["Проект разведки (дополнение к проекту ГРР)","Appraisal Programme (программа доразведки)","Разведочное бурение, испытания","Недропользователь → экспертиза",Z],
+  ["Проект пробной эксплуатации (ППЭ)","Extended Well Test (расширенные испытания скважин)","Пробная добыча","ЦКР Роснедр",Z],
+  ["Подсчёт запасов + протокол ГКЗ","Resource Assessment (оценка ресурсов P90/P50/P10)","Утверждённые запасы","ФБУ ГКЗ",Z],
+  [null,"Declaration of Commerciality (декларация коммерческой ценности)","Решение, что открытие рентабельно","Регулятор, партнёры",W]]],
+ ["Выбор концепции и проект","Develop: Select / Define",["Выбор концепции","и проект"],"2–3 года","Как разрабатывать и инвестировать ли",9,[
+  ["Концепция освоения, ОТР по активу","Concept Select Report (отчёт о выборе концепции)","Выбранный вариант освоения","Технический совет",K],
+  ["ТСР / ТПР; КПРА","Field Development Plan / PDO (план разработки / план разработки и эксплуатации)","Система разработки, фонд, профили; комплексные решения","ЦКР Роснедр; инвест. комитет",Z],
+  ["Бизнес-кейсы","Business Case (бизнес-кейс)","Экономика объектов и мероприятий в составе КПРА","Инвест. комитет",K],
+  ["Инвестиционное решение","Final Investment Decision (окончательное инвестиционное решение)","Утверждение финансирования","Совет директоров",K],
+  [null,"Project Execution Plan (план реализации проекта)","Организация, график, контракты, интерфейсы","Оператор",W],
+  ["Раздел ОВОС в проектной документации, экспертиза","Environmental Impact Assessment (оценка воздействия на окружающую среду)","Экологические ограничения","Госэкспертиза / регулятор",Z]]],
+ ["Строительство и ввод","Develop: Execute",["Строительство","и ввод"],"2–4 года","Построить и запустить в срок и бюджет",8,[
+  ["Лицензия на добычу, разрешение на строительство","Development Consent (разрешение на разработку)","Право строить и добывать","Роснедра, органы власти",Z],
+  ["Акты передачи скважин, разрешения на ввод объектов","Well & Facility Handover Certificates (акты передачи скважин и объектов)","Ввод построенного","Комиссии, стройнадзор",Z],
+  ["Ввод месторождения в промышленную разработку","Start-up / First Oil Notification (уведомление о начале добычи)","Начало промышленной добычи","Недропользователь → Роснедра",Z+" ⚠"],
+  ["Отчёт о реализации проекта","Project Close-out Report (отчёт о закрытии проекта)","Итоги проекта","Комиссия",K]]],
+ ["Добыча","Production: ramp-up & plateau",["Добыча","рост и полка"],"5–10 лет","Максимизировать добычу и ценность",14,[
+  ["Бизнес-план на год","Annual Work Programme & Budget (годовая программа работ и бюджет)","Программа и бюджет","Совет директоров",K],
+  ["Пересчёт запасов, форма 6-гр","Annual Reserves Report SEC / PRMS (годовой отчёт о запасах)","Госбаланс / аудит запасов","ГКЗ / аудитор",Z],
+  [null,"Reservoir Management Plan (план управления пластом)","Стратегия управления пластом","Оператор",W],
+  [null,"Post-Investment Review (постинвестиционный анализ)","План/факт после ввода, уроки","Совет директоров",W],
+  ["ТПР и дополнения, авторский надзор",null,"Контроль соответствия разработки проекту силами проектировщика","ЦКР Роснедр, НИПИ",Z]]],
+ ["Зрелый актив","Mature / Late Life",["Зрелый актив","падение, МУН"],"10–25 лет","Продлевать жизнь, перезапускать или продавать",24,[
+  ["Дополнения к ТПР: доразработка, уплотнение","FDP Addendum / Redevelopment Plan (дополнение к плану разработки / план перезапуска)","Новые решения по разработке","ЦКР Роснедр",Z],
+  ["Проектные решения по МУН","IOR / EOR Project (проект повышения нефтеотдачи)","Методы увеличения нефтеотдачи","ЦКР Роснедр",Z],
+  [null,"Late-Life Strategy (стратегия поздней стадии)","Как продлить жизнь актива и когда остановиться","Оператор",W],
+  [null,"Asset Divestment Memorandum (меморандум о продаже актива)","Решение продать актив","Совет директоров",W+" ⚠"],
+  ["Обоснование льгот по НДПИ (выработанность)",null,"Налоговые стимулы для выработанных месторождений","ФНС / Минэнерго",Z+" ⚠"],
+  ["Обоснование списания запасов","Reserves De-booking (снятие запасов с учёта)","Нерентабельные запасы","ГКЗ",Z]]],
+ ["Прекращение и вывод","Cessation & Decommissioning",["Прекращение","и вывод"],"3–8 лет","Как безопасно закрыть и восстановить территорию",9,[
+  [null,"Cessation of Production Application (заявка на прекращение добычи)","Обоснование остановки добычи","Регулятор",W],
+  ["Проект ликвидации / консервации скважин и объектов","Decommissioning Programme (программа вывода из эксплуатации)","Мосты, демонтаж, сроки","Недропользователь → ЭПБ",Z],
+  [null,"Decommissioning Security Agreement (финансовое обеспечение ликвидации)","Гарантии средств на ликвидацию","Регулятор, партнёры",W+" ⚠"],
+  ["Заключение ЭПБ на ликвидацию",null,"Допуск к ликвидационным работам","Экспертная организация → Ростехнадзор",Z],
+  ["Акты ликвидации, исключение из реестра ОПО","Close-out Report (отчёт о завершении вывода)","Факт выполнения","Комиссия, Ростехнадзор",Z],
+  [null,"Post-Decommissioning Monitoring (мониторинг после ликвидации)","Наблюдение за ликвидированными объектами","Регулятор",W],
+  ["Прекращение права пользования недрами, рекультивация","Licence Relinquishment (возврат лицензии)","Возврат участка","Роснедра, Росприроднадзор",Z]]]
+];
+// фазы: [с, по (вкл.), название, пояснение, цвет]
+const GRP=[[0,2,"ГРР","вход в актив, поиски, доразведка","#7A6A55"],[3,4,"Гринфилд","новое месторождение: проект, строительство, ввод","#3D5A8A"],[5,6,"Браунфилд","месторождение в добыче: полка, падение, МУН","#2F6B4F"],[7,7,"Ликвидация","прекращение и вывод","#5A6662"]];
+const grpOf=i=>GRP.find(g=>i>=g[0]&&i<=g[1]);
+let F="all",SEL=-1;
+function render(){
+ const all=S.flatMap(s=>s[6]),nWo=all.filter(d=>!d[0]).length,nRo=all.filter(d=>!d[1]).length;
+ gs.innerHTML=GRP.map(([a,b,n,t,c])=>{const ds=S.slice(a,b+1).flatMap(s=>s[6]),wo=ds.filter(d=>!d[0]).length,ro=ds.filter(d=>!d[1]).length;
+  return `<div class="gc" style="--g:${c}"><b>${n}</b><span>${t}</span><div>${S.slice(a,b+1).map(s=>s[0]).join(" → ")}</div><p>${ds.length} документов · <em class="w">🌐 нет в РФ: ${wo}</em> · <em class="r">🇷🇺 нет в мире: ${ro}</em></p></div>`}).join("");
+ gf.innerHTML=`<button class="${F=="all"?"on":""}" data-f="all">Все документы · ${all.length}</button><button class="wo ${F=="wo"?"on":""}" data-f="wo">🌐 Есть в мире, нет в РФ · ${nWo}</button><button class="ro ${F=="ro"?"on":""}" data-f="ro">🇷🇺 Есть в РФ, нет в мире · ${nRo}</button>`;
+ dt.innerHTML=`<thead><tr><th>🇷🇺 Российский документ</th><th>🌐 Мировой документ</th><th>Что фиксирует</th><th>Кто утверждает</th><th>Статус</th></tr></thead><tbody>`+
+  S.map((s,i)=>{const g=grpOf(i),gh=g[0]==i?`<tr class="grp"><td colspan="5" style="background:${g[4]}">${g[2]} <span>· ${g[3]}</span></td></tr>`:"";
+   const rows=s[6].filter(d=>{const t=!d[0]?"wo":!d[1]?"ro":"";return F=="all"||t==F});
+   return gh+(rows.length?`<tr class="stg ${i==SEL?"sel":""}"><td colspan="5">${i+1}. ${s[0]}<span>${s[1]} · ${s[4]}</span><em>${s[3]}</em></td></tr>`+rows.map(d=>{const t=!d[0]?"wo":!d[1]?"ro":"";
+    return `<tr class="${t}"><td class="ru">${d[0]||'<span class="no">🌐 нет российского аналога</span>'}</td><td class="en">${d[1]||'<span class="no">🇷🇺 нет мирового аналога</span>'}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td></tr>`}).join(""):"")}).join("")+`</tbody>`;
+ sum.innerHTML=`<b>Вывод.</b> <b>ГРР</b>: государственная фиксация в РФ полная, но нет решения о коммерческой ценности и заявки на скважину. <b>Гринфилд</b>: в РФ нет единого плана реализации проекта. <b>Браунфилд</b> — главный пробел: план управления пластом, постинвестиционный анализ, стратегия поздней стадии. <b>Ликвидация</b>: в мире обязательны заявка на прекращение добычи, финансовые гарантии и мониторинг. Итого: ${nWo} мировых документов без аналога в РФ, ${nRo} российских — без аналога в мире.`;
+}
+gf.onclick=e=>{const b=e.target.closest("button");if(b){F=b.dataset.f;render()}};
+render();
+</script>

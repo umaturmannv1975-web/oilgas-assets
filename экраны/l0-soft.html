@@ -1,0 +1,79 @@
+<h2>Уровень 0 · Софт для расчётов</h2>
+<p class="subtitle">Какой софт нужен для каждого дизайна и его расчётов: зарубежный и российский аналог. Статус аналога — экспертная оценка: <b>есть</b> — отечественный продукт закрывает расчёт; <b>частично</b> — закрывает часть функций (нет нестационарной гидравлики, термических расчётов и т. п.); <b>нет</b> — специализированного аналога нет. ⚠ — сверить с ИТ-реестром компании и реестром российского ПО.</p>
+<style>.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.tabs button{padding:6px 12px;border-radius:6px;border:1.5px solid var(--bc);background:transparent;color:inherit;cursor:pointer;font:inherit}
+.tabs button.on{background:var(--bc);color:#fff;font-weight:600}
+.tw{overflow-x:auto}
+.tw table{border-collapse:collapse;width:100%;font-size:12.5px}
+.tw th,.tw td{border:1px solid #8885;padding:6px 8px;vertical-align:top;text-align:left;line-height:1.35}
+.tw thead th{background:#A23B2A;color:#fff}
+.b{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.b.ok{background:#0F6E6226;color:#0F6E62}.b.pt{background:#C77B0A26;color:#C77B0A}.b.no{background:#A23B2A26;color:#A23B2A}.b.na{background:#8883}
+code{font-family:ui-monospace,Consolas,monospace;font-size:11px;font-weight:700}
+.note{font-size:12px;opacity:.85;margin-top:8px;max-width:110ch}
+.sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 10px}
+.sum div{border:1px solid #8886;border-top:4px solid var(--c);border-radius:8px;padding:7px 10px;font-size:12px}
+.sum b{font-size:14px}
+.fl{display:flex;gap:6px;margin:0 0 8px;flex-wrap:wrap}
+.fl button{padding:4px 10px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px}
+.fl button.on{font-weight:700;border-width:2px;border-color:currentColor}
+tr.no td{background:#A23B2A0f}tr.pt td{background:#C77B0A0d}
+td.ds{font-weight:600;white-space:nowrap}</style>
+<div class="sum" id="sum"></div>
+<div class="fl" id="fl"></div>
+<div class="tw"><table id="t"></table></div>
+<p class="note">Сильные позиции отечественного ПО — гидродинамика и геомоделирование (tNavigator, РН-КИМ), ГРП (РН-ГРИД), подбор ГНО (Автотехнолог), энергосети (RastrWin), САПР (nanoCAD, Renga), сметы. Пробелы — нестационарная многофазная гидравлика (класс OLGA), термопрочностной анализ скважин (класс WellCat), нестационарная гидравлика бурения (класс Drillbench), вероятностная оценка ГРР (класс GeoX).</p>
+<script>
+const DIR=[
+ {k:"G",n:"Геология",c:"#9A5B1E",d:[
+  ["Структурная модель",["Интерпретация сейсмики","Скоростная модель","Структурные карты"],"Petrel, Kingdom, Paradigm","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Петрофизика",["Интерпретация ГИС","Кп, Кн, Кпр","Граничные значения"],"Techlog, IP","Прайм ⚠, Соната ⚠"],
+  ["Седиментология",["Фациальный анализ","Концептуальная модель"],"Petrel","tNavigator"],
+  ["3D геологическая модель",["Литологическое моделирование","Распределение свойств","Набор реализаций"],"Petrel, RMS, SKUA","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Подсчёт запасов",["Объёмный метод","Категоризация запасов","Классификация PRMS"],"Petrel, GeoX","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Неопределённости и риски",["Вероятность успеха Pg","Монте-Карло","P90/P50/P10"],"GeoX, Crystal Ball","tNavigator"],
+  ["Программа доизучения",["Ценность информации","Программа ГИС и керна"],"Excel","Корп. инструменты"]]},
+ {k:"R",n:"Разработка",c:"#0F6E62",d:[
+  ["PVT и свойства флюидов",["PVT-модель","Уравнение состояния"],"PVTsim, PVTi","tNavigator"],
+  ["Вытеснение и КИН",["ОФП","Коэфф. вытеснения и охвата","КИН"],"SCAL, Eclipse","tNavigator, РН-КИМ"],
+  ["Гидродинамическая модель",["Апскейлинг","Адаптация по истории","Прогноз вариантов"],"Eclipse, Intersect, CMG","tNavigator, РН-КИМ"],
+  ["Система разработки и сетка",["Плотность сетки","Размещение забоев","Тип скважин"],"Petrel, Eclipse","tNavigator"],
+  ["Профили добычи",["Кривые падения (Арпс)","Материальный баланс","Профиль по фонду"],"OFM, MBAL","tNavigator, корп. ИС"],
+  ["Система ППД",["Компенсация отборов","Приёмистость"],"Eclipse, OFM","tNavigator"],
+  ["Мониторинг и ГТМ",["Программа исследований","Подбор ГТМ"],"OFM, Petrel","Корп. ИС ⚠"]]},
+ {k:"B",n:"Скважина",c:"#A23B2A",d:[
+  ["Конструкция",["Совмещённый график давлений","Глубины спуска колонн","Прочность обсадных труб","Цементирование"],"StressCheck, WellCat, DrillPlan","Бурсофтпроект"],
+  ["Заканчивание",["Узловой анализ","Дизайн ГРП/МГРП","Подбор ГНО"],"PROSPER, PIPESIM, FracPro, Kinetix","РН-ГРИД, Автотехнолог, tNavigator"],
+  ["Траектория",["Профиль скважины","Антиколлизия","Кустование","Геонавигация"],"Compass, Petrel, StarSteer","Бурсофтпроект"],
+  ["Буровая установка (грузоподъёмность)",["Нагрузка на крюк","Torque & drag","Подбор класса БУ"],"WellPlan, Drillbench","Бурсофтпроект"],
+  ["Технология строительства",["Гидравлика промывки","Буровые растворы","КНБК","Цикл и стоимость"],"WellPlan, Drillbench, DrillPlan","Бурсофтпроект"],
+  ["Эксплуатация",["Техрежим","Целостность","Подбор ГТМ"],"PROSPER, OFM","Автотехнолог"],
+  ["Ликвидация",["Схема мостов и барьеров","Затраты на ликвидацию"],"WellCat","Корп. методики"]]},
+ {k:"I",n:"Инфраструктура",c:"#3D5A8A",d:[
+  ["Нагрузки и мощности",["Пиковые нагрузки","Поэтапный ввод мощностей"],"Excel, HYSYS","РН-СИМТЕП ⚠"],
+  ["Сбор и транспорт",["Трассировка","Многофазная гидравлика","Тепловой расчёт"],"PIPESIM, OLGA, Civil 3D","РН-СИМТЕП ⚠, Кредо"],
+  ["Подготовка продукции",["Материальный баланс","Сепарация","Утилизация ПНГ"],"HYSYS, UniSim","РН-СИМТЕП ⚠"],
+  ["ППД (КНС, водоводы)",["Гидравлика водоводов","Подбор насосов"],"PIPESIM","РН-СИМТЕП ⚠"],
+  ["Энергоснабжение",["Электрические нагрузки","Схема: ГТЭС или сеть"],"ETAP","RastrWin"],
+  ["Генплан, площадки, дороги",["Компоновка площадок","Объёмы работ"],"AutoCAD Plant 3D, AVEVA","nanoCAD, Model Studio CS, Renga"],
+  ["Вывод из эксплуатации",["Демонтаж","Рекультивация","Затраты"],"Excel","ГРАНД-Смета"]]}
+];
+// статус российского аналога по коду дизайна: ok — есть, pt — частично, no — нет; [статус, чего не хватает]
+const ST={G1:["ok",""],G2:["ok","⚠ сверить"],G3:["pt","концептуальные седиментологические модели"],G4:["ok",""],G5:["ok",""],G6:["pt","вероятностная оценка ГРР и Pg (класс GeoX)"],G7:["no","нет специализированного ПО и за рубежом — Excel"],
+ R1:["ok",""],R2:["ok",""],R3:["ok",""],R4:["ok",""],R5:["pt","материальный баланс (класс MBAL)"],R6:["ok",""],R7:["pt","мониторинг и подбор ГТМ — корпоративные ИС"],
+ B1:["pt","термопрочностной анализ, кольцевые давления (класс WellCat)"],B2:["ok",""],B3:["ok",""],B4:["pt","torque & drag в составе одного пакета"],B5:["pt","нестационарная гидравлика бурения (класс Drillbench)"],B6:["pt","узловой анализ в эксплуатации (класс PROSPER) — частично"],B7:["no","расчёт барьеров при ликвидации (класс WellCat)"],
+ I1:["pt","⚠ сверить РН-СИМТЕП"],I2:["pt","нестационарная многофазная гидравлика (класс OLGA)"],I3:["pt","⚠ сверить РН-СИМТЕП"],I4:["pt","⚠ сверить"],I5:["ok",""],I6:["ok",""],I7:["ok","сметы"]};
+const LBL={ok:"есть",pt:"частично",no:"нет"};
+let cur="all",F="all";
+const all=DIR.flatMap(D=>D.d.map((x,j)=>({D,x,code:D.k+(j+1)})));
+sum.innerHTML=DIR.map(D=>{const r=D.d.map((_,j)=>ST[D.k+(j+1)][0]);return `<div style="--c:${D.c}"><b>${D.n}</b><br>есть: ${r.filter(v=>v=="ok").length} · частично: ${r.filter(v=>v=="pt").length} · нет: ${r.filter(v=>v=="no").length}</div>`}).join("");
+function draw(){
+ fl.innerHTML=[["all","Все дизайны"],["ok","Аналог есть"],["pt","Частично"],["no","Аналога нет"]].map(([k,t])=>`<button data-f="${k}" class="${F==k?"on":""}">${t} · ${k=="all"?all.length:all.filter(a=>ST[a.code][0]==k).length}</button>`).join("");
+ t.innerHTML=`<thead><tr><th>Код</th><th>Дизайн</th><th>Расчёты</th><th>🌐 Зарубежный софт</th><th>🇷🇺 Российский софт</th><th>Аналог</th><th>Чего не хватает</th></tr></thead><tbody>`+
+  DIR.map(D=>{const rows=D.d.map((x,j)=>({x,code:D.k+(j+1)})).filter(r=>F=="all"||ST[r.code][0]==F);
+   return rows.length?`<tr><td colspan="7" style="background:${D.c};color:#fff;font-weight:700">${D.n}</td></tr>`+rows.map(({x,code})=>{const [s,g]=ST[code];
+    return `<tr class="${s}"><td><code>${code}</code></td><td class="ds">${x[0]}</td><td>${x[1].join(", ")}</td><td>${x[2]}</td><td>${x[3]}</td><td><span class="b ${s}">${LBL[s]}</span></td><td>${g||"—"}</td></tr>`}).join(""):""}).join("")+`</tbody>`;
+}
+fl.onclick=e=>{const b=e.target.closest("button");if(b){F=b.dataset.f;draw()}};
+draw();
+</script>

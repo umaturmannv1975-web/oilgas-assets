@@ -1,0 +1,109 @@
+<h2>Уровень 3 · Барабаны документов</h2>
+<p class="subtitle">Выберите фазу или этап жизни актива — барабаны этапов жизни месторождения подсветят документы, которые нужно сделать. Документ: российский и мировой аналог; пунктиром — мировые документы без российского аналога. Привязки — черновик.</p>
+
+<style>
+.phs{display:grid;grid-template-columns:3fr 2fr 2fr 1fr;gap:8px;margin:6px 0 4px}
+.phs div{color:#fff;font-weight:800;font-size:13px;letter-spacing:.03em;text-align:center;padding:4px 6px;border-radius:6px}
+.phs div small{font-weight:400;font-size:10.5px;opacity:.85;margin-left:6px;letter-spacing:0}
+.sel{display:grid;grid-template-columns:3fr 2fr 2fr 1fr;gap:8px;margin:0 0 6px}
+.stg{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin:0 0 14px}
+.stg button{padding:8px 6px 8px 14px;border:none;background:color-mix(in srgb,var(--g) 22%,transparent);color:inherit;cursor:pointer;font:inherit;font-size:12px;font-weight:600;line-height:1.2;text-align:left;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%)}
+.stg button:first-child{clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%)}
+.stg button small{display:block;font-weight:400;font-size:10.5px;opacity:.8}
+.stg button.on{background:var(--g);color:#fff}
+.sel button{padding:10px 12px;border-radius:10px;border:2px solid var(--g);background:transparent;color:inherit;cursor:pointer;font:inherit;text-align:left;line-height:1.25}
+.sel button b{display:block;font-size:14.5px}
+.sel button small{display:block;font-size:11px;opacity:.75;margin-top:2px}
+.sel button.on{background:var(--g);color:#fff}
+.sel button.on small{opacity:.9}
+.drums{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.dh{background:#8a6fd0;color:#fff;font-weight:700;padding:7px 8px;border-radius:8px 8px 0 0;font-size:13px;height:46px;box-sizing:border-box;line-height:1.2}
+.dh small{display:block;font-weight:400;font-size:10.5px;opacity:.9}
+.dh.off{background:#8886}
+.win{height:504px;overflow:hidden;position:relative;border:1px solid #8885;border-top:none;border-radius:0 0 8px 8px}
+.reel{transition:transform .9s cubic-bezier(.25,1.3,.5,1)}
+.cell{height:84px;box-sizing:border-box;padding:7px 8px;border-bottom:1px solid #8883;font-size:11.5px;line-height:1.25;opacity:.3;transition:opacity .4s,background .4s;overflow:hidden}
+.cell b{display:block;font-size:12px}
+.cell i{display:block;font-size:10.5px;opacity:.8;margin-top:3px}
+.cell.wo{background:repeating-linear-gradient(135deg,#C77B0A14 0 6px,transparent 6px 12px);border-left:3px dashed #C77B0A}
+.cell.wo .no{display:block;font-size:9.5px;font-weight:700;color:#C77B0A;text-transform:uppercase;letter-spacing:.04em}
+.win.off .cell.none{display:flex}
+.win.off .cell:not(.none){display:none}
+.cell.hit{opacity:1;background:#8a6fd01f;box-shadow:inset 4px 0 0 #8a6fd0}
+.cell.wo.hit{background:#C77B0A22;box-shadow:inset 4px 0 0 #C77B0A}
+.cell.none{display:none;opacity:.9;font-style:italic;color:#888;align-items:center;justify-content:center;text-align:center}
+.sum{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:8px;font-size:11.5px}
+.sum div{border-top:3px solid #8a6fd0;padding:5px 6px;line-height:1.3}
+.sum div.off{border-top-color:#8886;opacity:.5}
+.tot{margin-top:12px;font-size:13px;max-width:100ch}
+.tot b.w{color:#C77B0A}
+@media (max-width:900px){.drums,.sum{grid-template-columns:repeat(3,minmax(0,1fr))}.sel{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+
+<div class="phs" id="phs"></div>
+<div class="sel" id="sel"></div>
+<div class="stg" id="stg"></div>
+<div class="drums" id="drums"></div>
+<div class="sum" id="sum"></div>
+<p class="tot" id="tot"></p>
+
+<script>
+const FS=[["Идентификация","Identify"],["Оценка","Assess"],["Выбор","Select"],["Определение","Define"],["Реализация","Execute"],["Эксплуатация","Operate"]];
+// Документы этапов жизни месторождения (уровень 2): [РФ|null, мир (перевод)]
+const DOCS=[
+ [["Паспорт инвестиционной возможности","Opportunity Framing (формирование возможности)"],["Лицензия на пользование недрами","Exploration Licence / PSC (лицензия)"],["Программа ГРР актива","Exploration Strategy (стратегия геологоразведки)"]],
+ [["Концепция освоения месторождения","Concept Options Study (исследование вариантов)"],["Проект пробной эксплуатации (ППЭ)","Extended Well Test (расширенные испытания)"],[null,"Value Assurance Review (независимая проверка ценности)"]],
+ [["ТСР","Preliminary FDP (предварительный план разработки)"],["ОТР по активу","Concept Select Report, Basis of Design (выбор концепции)"],[null,"Contracting & Procurement Strategy (стратегия контрактования)"],[null,"Risk & Uncertainty Management Plan (план управления рисками)"]],
+ [["КПРА","Integrated FDP / PDO (комплексный план разработки)"],["Бизнес-кейсы","Business Case (бизнес-кейс)"],["ТПР","Regulatory FDP (план разработки для регулятора)"],["Инвестиционное решение","Final Investment Decision (окончательное инвестрешение)"],[null,"Project Execution Plan (план реализации проекта)"],[null,"Independent Project Review (независимая экспертиза проекта)"]],
+ [["Бизнес-план на год","Annual WP&B (годовая программа работ и бюджет)"],["Корректировки бизнес-плана","WP&B Revision (корректировка программы и бюджета)"],["Программа бурения и ввода","Integrated Activity Plan (комплексный план работ)"],["Отчёт о реализации проекта","Project Close-out Report (отчёт о закрытии проекта)"],[null,"Operations Readiness & Assurance Plan (готовность к эксплуатации)"]],
+ [["Дополнения к ТПР","Revised FDP (обновлённый план разработки)"],["Бизнес-кейсы на бурение, ГТМ","Business Case / AFE (бизнес-кейс / разрешение на расходы)"],["Бизнес-план на год","Annual WP&B (годовая программа работ и бюджет)"],[null,"Post-Investment Review (постинвестиционный анализ)"],[null,"Late-Life Strategy (стратегия поздней стадии)"]]
+];
+// Потоки жизни актива: для каждого этапа месторождения — номера нужных документов (пусто — этап не выполняется).
+const ST=[
+ {n:"Разведка",o:"сделка, поиски, доразведка, пробная эксплуатация",c:"#7A6A55",
+  need:[[0,1,2],[1,2],[3],[1],[0,2],[2]],
+  why:"Поиски и разведка: лицензия и программа ГРР, пробная эксплуатация, бизнес-кейсы и годовой план на бурение."},
+ {n:"Основной проект разработки",o:"первая фаза: от идеи до полки",c:"#3D5A8A",
+  need:[[0],[0,2],[0,1,2,3],[0,1,2,3,4,5],[0,1,2,3,4],[0,2,3]],
+  why:"Полный цикл: все документы выбора и определения, включая КПРА и инвестрешение, затем реализация и эксплуатация."},
+ {n:"Новые фазы и мероприятия",o:"бурение, ГТМ, МУН, редевелопмент",c:"#2F6B4F",
+  need:[[0],[],[3],[1],[0,1,2],[0,1,2,3]],
+  why:"Укороченный цикл: идея → выбор → бизнес-кейс → годовой план → эксплуатация; оценка и большая часть определения пропускаются."},
+ {n:"Ликвидация",o:"скважины, объекты, рекультивация",c:"#5A6662",
+  need:[[0],[0],[3],[1],[0,3],[4]],
+  why:"Цикл до реализации: обоснование, бизнес-кейс на затраты, годовой план и отчёт; стратегия поздней стадии — на входе. Сам проект ликвидации — документ уровня 3."}
+];
+// Этапы жизни актива: этапы месторождения и документы — согласовано с таблицей «Этапы жизни месторождения внутри этапов актива».
+const AS=[
+ {n:"Вход в актив",o:"Access",g:0,need:[[0,1],[2],[3],[],[0],[]],why:"Проект сделки: возможность и лицензия, независимая проверка, риски, бюджет сделки."},
+ {n:"Геологоразведка",o:"Exploration",g:0,need:[[0,2],[2],[3],[1],[0,2],[]],why:"Поисковые проекты: программа ГРР, бизнес-кейсы и годовой план на сейсмику и поисковое бурение."},
+ {n:"Доразведка и оценка",o:"Appraisal",g:0,need:[[0,2],[0,1,2],[3],[1],[0,2],[2]],why:"Разведка с пробной эксплуатацией: концепция освоения, ППЭ, годовой план на разведку и ППЭ."},
+ {n:"Проект",o:"выбор концепции",g:1,need:[[0],[0,2],[0,1,2,3],[0,1,2,3,4,5],[],[]],why:"Основной проект до FID: ТСР, ОТР, КПРА, бизнес-кейсы, ТПР, инвестиционное решение."},
+ {n:"Стройка и ввод",o:"Execute",g:1,need:[[],[],[],[],[0,1,2,3,4],[]],why:"Основной проект на реализации: бизнес-план и корректировки, программа бурения и ввода, готовность эксплуатации, отчёт."},
+ {n:"Добыча",o:"рост и полка",g:2,need:[[0],[0],[3],[1],[0,1,2],[0,1,2,3]],why:"Эксплуатация основного проекта и новые мероприятия полными циклами; постинвестиционный анализ."},
+ {n:"Зрелый актив",o:"падение, МУН",g:2,need:[[0],[],[3],[],[0,2],[0,1,2,4]],why:"МУН и ГТМ укороченными циклами, дополнения к ТПР, стратегия поздней стадии."},
+ {n:"Прекращение и вывод",o:"Decommissioning",g:3,need:[[0],[0],[3],[1],[0,3],[]],why:"Проект ликвидации до реализации: обоснование, бизнес-кейс на затраты, годовой план, отчёт."}
+];
+const H=84;let sel_={t:"p",i:1};
+const PHS=[["ГРР","этапы актива 1–3"],["Гринфилд","этапы 4–5"],["Браунфилд","этапы 6–7"],["Ликвидация","этап 8"]];
+phs.innerHTML=ST.map((s,i)=>`<div style="background:${s.c}">${PHS[i][0]}<small>${PHS[i][1]}</small></div>`).join("");
+sel.innerHTML=ST.map((s,i)=>`<button data-i="${i}" style="--g:${s.c}"><b>${s.n}</b><small>${s.o}</small></button>`).join("");
+stg.innerHTML=AS.map((a,i)=>`<button data-i="${i}" style="--g:${ST[a.g].c}">${i+1}. ${a.n}<small>${a.o}</small></button>`).join("");
+drums.innerHTML=FS.map((f,j)=>`<div><div class="dh" id="h${j}">${j+1}. ${f[0]}<small>${f[1]}</small></div><div class="win"><div class="reel" id="r${j}">`+
+ DOCS[j].map(d=>d[0]?`<div class="cell"><b>${d[0]}</b><i>🌐 ${d[1]}</i></div>`:`<div class="cell wo"><span class="no">🌐 нет в РФ</span><b>${d[1]}</b></div>`).join("")+
+ `<div class="cell none">этап не выполняется</div></div></div></div>`).join("");
+sel.onclick=e=>{const b=e.target.closest("button");if(b){sel_={t:"p",i:+b.dataset.i};pick()}};
+stg.onclick=e=>{const b=e.target.closest("button");if(b){sel_={t:"s",i:+b.dataset.i};pick()}};
+function pick(){const s=sel_.t=="p"?ST[sel_.i]:{...AS[sel_.i],n:`${sel_.i+1}. ${AS[sel_.i].n} · ${PHS[AS[sel_.i].g][0]}`};let n=0,w=0;
+ [...sel.children].forEach((b,i)=>b.classList.toggle("on",sel_.t=="p"&&i==sel_.i));
+ [...stg.children].forEach((b,i)=>b.classList.toggle("on",sel_.t=="s"&&i==sel_.i||sel_.t=="p"&&AS[i].g==sel_.i));
+ FS.forEach((f,j)=>{const need=s.need[j],r=document.getElementById("r"+j),cells=[...r.children],off=!need.length;
+  r.parentElement.classList.toggle("off",off);
+  cells.forEach((c,k)=>c.classList.toggle("hit",need.includes(k)));
+  document.getElementById("h"+j).classList.toggle("off",off);
+  n+=need.length;w+=need.filter(k=>!DOCS[j][k][0]).length;});
+ sum.innerHTML=FS.map((f,j)=>{const need=s.need[j];return `<div class="${need.length?"":"off"}">${need.length?`<b>${need.length}</b> док.: ${need.map(k=>DOCS[j][k][0]||DOCS[j][k][1].split(" (")[0]).join(", ")}`:"не выполняется"}</div>`}).join("");
+ tot.innerHTML=`<b>${s.n}:</b> ${s.why} Всего документов: <b>${n}</b>, из них <b class="w">без российского аналога: ${w}</b>.`;
+}
+pick();
+</script>

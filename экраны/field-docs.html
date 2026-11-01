@@ -1,0 +1,111 @@
+<h2>Уровень 2 · Официальные документы: РФ ↔ мир</h2>
+<p class="subtitle">Кросс-функциональные документы каждого этапа жизни месторождения: российский документ ↔ мировой аналог. Пробелы выделены: оранжевым — есть в мире, нет в РФ; бирюзовым — есть в РФ, нет в мире. Черновик, ⚠ — сверить.</p>
+
+<style>
+.fw{overflow-x:auto;margin-bottom:16px}
+.fw .g{display:grid;grid-template-columns:150px repeat(6,minmax(0,1fr));gap:3px;min-width:860px;font-size:11.5px}
+.fw .co{font-weight:600;padding:5px 6px;display:flex;align-items:center}
+.fw .ph{padding:5px 6px;border-radius:4px;background:#8a6fd022;border:1px solid #8a6fd055;line-height:1.25}
+.fw .ph.h{background:#8a6fd0;color:#fff;border:none;font-weight:600;text-align:center}
+.oh{margin:18px 0 4px;font-size:16px}
+.os{margin:0 0 8px;font-size:13px;max-width:100ch}
+.ob{overflow-x:auto;margin-bottom:18px}
+.ob table{border-collapse:collapse;width:100%;min-width:1000px;font-size:12px}
+.ob th,.ob td{border:1px solid #8885;padding:6px 8px;vertical-align:top;text-align:left;line-height:1.3}
+.ob thead th{color:#fff;text-align:center}
+.ob thead th.ar{position:relative}
+.ob thead th.ar::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:#555;font-size:16px;z-index:1}
+.ob td.fs{background:#8a6fd0;color:#fff;font-weight:700;width:130px}
+.oc{display:flex;gap:2px;margin-bottom:4px}
+.oc span{flex:1;text-align:center;font-size:9.5px;font-weight:700;padding:3px 0;border:1px solid var(--fc);border-radius:2px;color:var(--fc)}
+.oc span.on{background:var(--fc);color:#fff}
+.ob td b{font-size:11px;opacity:.75}.ob td b.full{opacity:1;color:#8a6fd0}
+.ol{font-size:11.5px;opacity:.8;margin:-12px 0 18px}
+.ob td b{display:block}
+.ob td i{opacity:.75;font-size:11px}
+.gf{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.gf button{padding:5px 12px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px}
+.gf button.on{font-weight:700;border-width:2px;border-color:currentColor}
+.gf button.wo{color:#C77B0A}.gf button.ro{color:#0E7C86}
+.dt{overflow-x:auto}
+.dt table{border-collapse:collapse;width:100%;min-width:900px;font-size:12.5px}
+.dt th,.dt td{border:1px solid #8885;padding:7px 9px;vertical-align:top;text-align:left}
+.dt thead th{background:#8a6fd0;color:#fff}
+.dt tr.stg td{background:#8a6fd01f;font-weight:700;font-size:13.5px}
+.dt tr.stg td span{font-weight:400;opacity:.7;font-size:12px;margin-left:6px}
+.dt td.ru{font-weight:600;width:25%}
+.dt td.en{font-style:italic;width:27%}
+.dt tr.wo td{background:repeating-linear-gradient(135deg,#C77B0A14 0 6px,transparent 6px 12px)}
+.dt tr.wo td:first-child{border-left:3px dashed #C77B0A}
+.dt tr.ro td{background:#0E7C8614}
+.dt tr.ro td:first-child{border-left:3px solid #0E7C86}
+.no{font-style:normal;font-weight:700;font-size:11.5px}
+tr.wo .no{color:#C77B0A}tr.ro .no{color:#0E7C86}
+.b{display:inline-block;font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid #8886;white-space:nowrap}
+.b.z{background:#0F6E6230}.b.k{background:#3D5A8A30}
+.sum{margin-top:12px;font-size:13px;max-width:95ch}
+</style>
+
+<div class="gf" id="gf"></div>
+<div class="dt"><table id="dt"></table></div>
+<p class="sum" id="sum"></p>
+
+<script>
+const Z='<span class="b z">закон</span>',K='<span class="b k">корп.</span>',W='<span class="b k">нет в РФ</span>';
+// [этап, англ., [[РФ|null, мир|null, что фиксирует, кто утверждает, статус], ...]]
+const S=[
+ ["Идентификация","Identify",[
+  ["Паспорт инвестиционной возможности","Opportunity Framing (формирование возможности)","Цель, ресурсный потенциал, ориентир ценности","Инвестиционный комитет",K],
+  ["Лицензия на пользование недрами","Exploration Licence / PSC (лицензия на разведку / соглашение о разделе продукции)","Право на участок, лицензионные обязательства","Роснедра",Z],
+  ["Программа ГРР актива","Exploration Strategy (стратегия геологоразведки)","Объём и очерёдность ГРР","Компания",K]]],
+ ["Оценка","Assess / Appraise",[
+  ["Концепция освоения месторождения","Feasibility / Concept Options Study (технико-экономическая оценка / исследование вариантов концепции)","Варианты освоения: разработка, скважины, обустройство","Технический совет",K],
+  ["Проект пробной эксплуатации (ППЭ)","Appraisal Plan, Extended Well Test (план доразведки, расширенные испытания скважин)","Пробная добыча и исследования","ЦКР Роснедр",Z],
+  [null,"Value Assurance Review (независимая проверка ценности проекта)","Независимая экспертиза качества проекта перед воротами","Независимая команда",W]]],
+ ["Выбор","Select",[
+  ["Технологическая схема разработки (ТСР)","Preliminary Field Development Plan (предварительный план разработки месторождения)","Система разработки, фонд, профили, КИН","ЦКР Роснедр",Z],
+  ["Основные технические решения (ОТР) по активу","Concept Select Report, Basis of Design (отчёт о выборе концепции, базовые проектные данные)","Выбранный вариант освоения","Технический совет",K],
+  [null,"Contracting & Procurement Strategy (стратегия контрактования и закупок)","Стратегия контрактования всего проекта","Проектная команда",W],
+  [null,"Risk & Uncertainty Management Plan (план управления рисками и неопределённостями)","Единый реестр рисков актива по всем направлениям","Проектная команда",W]]],
+ ["Определение","Define (FEED)",[
+  ["КПРА — комплексный проект разработки актива","Integrated FDP / PDO (комплексный план разработки / план разработки и эксплуатации, Норвегия)","Согласованные решения всех направлений; за 1–3 года до строительства","Инвестиционный комитет",K],
+  ["Бизнес-кейсы","Business Case / Project Proposal (бизнес-кейс / проектное предложение)","Экономика каждого мероприятия или объекта","Инвестиционный комитет",K],
+  ["Технологический проект разработки (ТПР)","Regulatory FDP (план разработки, утверждаемый регулятором)","Проектные показатели разработки","ЦКР Роснедр",Z],
+  ["Инвестиционное решение","Final Investment Decision (окончательное инвестиционное решение)","Утверждение финансирования","Совет директоров / правление",K],
+  [null,"Project Execution Plan (план реализации проекта)","Организация, график, контракты, интерфейсы направлений","Руководитель проекта",W],
+  [null,"Independent Project Review / IPA benchmarking (независимая экспертиза проекта / отраслевое сравнение)","Внешняя оценка готовности к FID","Внешний эксперт",W]]],
+ ["Реализация","Execute",[
+  ["Бизнес-план на год","Annual Work Programme & Budget (годовая программа работ и бюджет)","Программа работ и бюджет из утверждённых бизнес-кейсов","Совет директоров / правление",K],
+  ["Корректировки бизнес-плана","WP&B Revision (корректировка программы работ и бюджета)","Изменения в течение года","Правление",K],
+  ["Программа бурения и ввода объектов","Integrated Activity Plan (комплексный план работ)","Согласованный график работ всех направлений","Руководитель актива",K],
+  ["Отчёт о реализации проекта","Project Close-out Report (отчёт о закрытии проекта)","Итоги, передача в эксплуатацию","Комиссия",K],
+  [null,"Operations Readiness & Assurance Plan (план готовности к эксплуатации)","Люди, процедуры, запчасти до ввода","Служба эксплуатации",W]]],
+ ["Эксплуатация","Operate",[
+  ["Дополнения к ТПР","Revised FDP, Reservoir Management Plan (обновлённый план разработки, план управления пластом)","Актуализация разработки","ЦКР Роснедр",Z],
+  ["Бизнес-кейсы на бурение, ГТМ, реконструкцию","Business Case / AFE (бизнес-кейс / разрешение на расходы)","Экономика новых мероприятий","Инвестиционный комитет",K],
+  ["Бизнес-план на год","Asset Reference Plan, Annual WP&B (базовый план актива, годовая программа и бюджет)","Программа и бюджет актива","Совет директоров / правление",K],
+  [null,"Post-Investment Review (постинвестиционный анализ)","План/факт через 1–3 года после ввода, уроки","Инвестиционный комитет",W],
+  [null,"Late-Life / Cessation Strategy (стратегия поздней стадии и прекращения добычи)","Стратегия поздней стадии","Команда актива",W]]]
+];
+const FW=[
+ ["Shell · ORP ⚠",[["Identify & Assess",0,1],["Select",2,2],["Define",3,3],["Execute",4,4],["Operate",5,5]]],
+ ["BP · CVP",[["Appraise",0,1],["Select",2,2],["Define",3,3],["Execute",4,4],["Operate",5,5]]],
+ ["Chevron · CPDEP ⚠",[["1 Identify & assess",0,1],["2 Generate & select",2,2],["3 Develop preferred",3,3],["4 Execute",4,4],["5 Operate & evaluate",5,5]]],
+ ["ExxonMobil ⚠",[["Opportunity",0,0],["Concept selection",1,2],["Define / FEED",3,3],["Execute",4,4],["Operations",5,5]]],
+ ["Equinor · DG",[["DG0–DG1 Feasibility",0,1],["DG2 Concept",2,2],["DG3 PDO",3,3],["DG4 Execute",4,4],["Operate",5,5]]],
+ ["Saudi Aramco",[["Study",0,1],["DBSP",2,2],["Project Proposal + ER",3,3],["Detail design, construction",4,4],["Operation",5,5]]],
+ ["IPA · FEL",[["FEL 1",0,1],["FEL 2",2,2],["FEL 3",3,3],["Execute",4,4],["Operate",5,5]]]
+];
+let F="all";
+function render(){
+ const all=S.flatMap(s=>s[2]),nWo=all.filter(d=>!d[0]).length,nRo=all.filter(d=>!d[1]).length;
+ gf.innerHTML=`<button class="${F=="all"?"on":""}" data-f="all">Все документы · ${all.length}</button><button class="wo ${F=="wo"?"on":""}" data-f="wo">🌐 Есть в мире, нет в РФ · ${nWo}</button><button class="ro ${F=="ro"?"on":""}" data-f="ro">🇷🇺 Есть в РФ, нет в мире · ${nRo}</button>`;
+ dt.innerHTML=`<thead><tr><th>🇷🇺 Российский документ</th><th>🌐 Мировой аналог</th><th>Что фиксирует</th><th>Кто утверждает</th><th>Статус</th></tr></thead><tbody>`+
+  S.map(([n,en,docs],i)=>{const rows=docs.filter(d=>{const t=!d[0]?"wo":!d[1]?"ro":"";return F=="all"||t==F});
+   return rows.length?`<tr class="stg"><td colspan="5">${i+1}. ${n}<span>${en}</span></td></tr>`+rows.map(d=>{const t=!d[0]?"wo":!d[1]?"ro":"";
+    return `<tr class="${t}"><td class="ru">${d[0]||'<span class="no">🌐 нет российского аналога</span>'}</td><td class="en">${d[1]||'<span class="no">🇷🇺 нет мирового аналога</span>'}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td></tr>`}).join(""):""}).join("")+`</tbody>`;
+ sum.innerHTML=`<b>Вывод.</b> На уровне месторождения у каждого российского документа есть мировой аналог — отличается утверждающий орган (ЦКР Роснедр вместо регулятора и партнёров). Пробел в обратную сторону: мировые документы о качестве решений (${nWo} шт.) — независимые экспертизы, план реализации, готовность к эксплуатации, постинвестиционный анализ — в РФ официально не формируются.`;
+}
+gf.onclick=e=>{const b=e.target.closest("button");if(b){F=b.dataset.f;render()}};
+render();
+</script>

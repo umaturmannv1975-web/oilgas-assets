@@ -1,0 +1,292 @@
+<h2>Уровень 1 · Официальные документы: РФ ↔ мир</h2>
+<p class="subtitle">Для каждого направления — набор дизайнов, выполняемых на каждом этапе с разной глубиной, и официальные документы этапов. Черновик: глубины, софт и пометки ⚠ — для сверки.</p>
+
+<style>
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+.tabs button{padding:6px 12px;border-radius:6px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit}
+.tabs button.on{color:#fff;font-weight:600}
+.sub2{display:flex;gap:6px;margin:0 0 10px}
+.sub2 button{padding:4px 10px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:13px}
+.sub2 button.on{background:#8883;font-weight:600}
+.wrapx{overflow-x:auto}
+table.g0{border-collapse:collapse;width:100%;min-width:900px;font-size:12px}
+.g0 th,.g0 td{border:1px solid #8885;padding:6px;vertical-align:top;text-align:left}
+.g0 thead th{color:#fff;text-align:center;background:var(--c)}
+.g0 th.rh{width:180px}
+.g0 tr.meta th,.g0 tr.meta td{background:#8881;font-size:11.5px}
+.g0 tr.meta th{text-transform:uppercase;letter-spacing:.04em;font-size:11px}
+.g0 tr.doc td{font-weight:600;background:color-mix(in srgb,var(--c) 12%,transparent)}
+.cl{cursor:pointer;text-align:center!important;font-weight:600}
+.cl:hover{outline:2px solid var(--c);outline-offset:-2px}
+.cl.sel{outline:3px solid var(--c);outline-offset:-3px}
+.d0{opacity:.35}
+.d1{background:color-mix(in srgb,var(--c) 12%,transparent)}
+.d2{background:color-mix(in srgb,var(--c) 25%,transparent)}
+.d3{background:color-mix(in srgb,var(--c) 42%,transparent)}
+.d4{background:color-mix(in srgb,var(--c) 65%,transparent);color:#fff}
+.d5{background:var(--c);color:#fff}
+.leg{display:flex;gap:6px;flex-wrap:wrap;font-size:11.5px;margin:0 0 10px}
+.leg span{padding:2px 8px;border-radius:4px;border:1px solid #8884}
+.det{margin-top:12px;border:1px solid #8886;border-radius:8px;padding:12px 14px;font-size:13px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.det h4{margin:0 0 6px;font-size:14px}.det .full{grid-column:1/-1}
+.chip{display:inline-block;padding:2px 7px;border-radius:4px;margin:2px 3px 2px 0;border:1px solid #8885;font-size:12px}
+.agent{display:inline-block;padding:3px 9px;border-radius:999px;background:#8a6fd0;color:#fff;font-size:12px}
+table.dt{border-collapse:collapse;width:100%;min-width:900px;font-size:12.5px}
+.dt th,.dt td{border:1px solid #8885;padding:6px 8px;vertical-align:top;text-align:left}
+.dt thead th{color:#fff;background:var(--c)}
+.dt tr.stg td{background:color-mix(in srgb,var(--c) 15%,transparent);font-weight:700}
+.dt tr.sub td{background:color-mix(in srgb,var(--c) 6%,transparent);font-weight:600;padding-left:22px}
+.b{display:inline-block;font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid #8886;white-space:nowrap}
+.b.z{background:#0F6E6230}.b.k{background:#3D5A8A30}
+.en{opacity:.8;font-style:italic}
+.cdt td:nth-child(1){width:24%;font-weight:600}.cdt td:nth-child(2){width:24%}
+.cc{display:inline-flex;gap:4px;align-items:baseline;font-size:11px;padding:2px 6px;border-radius:4px;margin:2px 3px 2px 0;border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
+.cc code{font-family:ui-monospace,Consolas,monospace;font-size:10px;font-weight:700}
+.cc.miss{border:1.5px dashed #C77B0A;color:#C77B0A;font-weight:600}
+.nocalc{font-size:11.5px;opacity:.6;font-style:italic}
+.csum{margin-top:12px;display:grid;gap:6px;font-size:13px}
+.csum>div{padding:8px 12px;border-radius:8px;border:1px solid #8886}
+.csum .w{border:2px dashed #C77B0A}.csum .u{border:2px solid #A23B2A55}
+.csum code{font-family:ui-monospace,Consolas,monospace;font-size:11px}
+.gf{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.rleg{font-size:12.5px;opacity:.85;margin:0 0 6px}
+.rxs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.rg{flex:none;border:1px solid #8886;border-radius:8px;padding:0 0 6px;display:flex;flex-direction:column}
+.rgh{background:var(--c);color:#fff;font-weight:600;font-size:12px;padding:5px 8px;border-radius:7px 7px 0 0;margin-bottom:5px;text-align:center}
+.rgb{display:flex;gap:4px;padding:0 5px;align-items:stretch}
+.rgb button{width:150px;padding:7px 6px;border:1px solid #8886;border-radius:6px;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:11.5px;line-height:1.25;text-align:left;display:flex;flex-direction:column;gap:4px}
+.rgb button small{font-size:10.5px;font-style:italic;opacity:.75;border-top:1px dashed #8886;padding-top:3px}
+.rgb button.on{background:var(--c);color:#fff;font-weight:600;border-color:var(--c)}
+.rgb button.wo{border:2px dashed #C77B0A;background:repeating-linear-gradient(135deg,#C77B0A12 0 6px,transparent 6px 12px)}
+.rgb button.ro{border:2px solid #0E7C86;background:#0E7C8614}
+.rgb button .no{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.rgb button.wo .no{color:#C77B0A}.rgb button.ro .no{color:#0E7C86}
+.rgb button.wo.on{background:#C77B0A;color:#fff}.rgb button.ro.on{background:#0E7C86;color:#fff}.rgb button.on .no{color:#fff}
+.rdr{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:12px}
+.rcol{border:1px solid #8885;border-radius:8px;overflow:hidden;min-height:250px}
+.rcol.idle{opacity:.55}
+.rhd{background:var(--c);color:#fff;font-weight:600;font-size:12px;padding:6px 8px;line-height:1.2;min-height:46px;box-sizing:border-box}
+.rhd code{display:block;font-family:ui-monospace,Consolas,monospace;font-size:10.5px;opacity:.85}
+.rc{padding:7px 8px;border-bottom:1px solid #8883;font-size:11.5px;line-height:1.25;opacity:.4}
+.rc code{display:inline-block;font-family:ui-monospace,Consolas,monospace;font-size:10px;padding:1px 4px;border-radius:3px;border:1px solid var(--c);margin-right:4px}
+.rc.hit{opacity:1;box-shadow:inset 4px 0 0 var(--c)}
+.rc.hit code{background:var(--c);color:#fff}
+.rc small{display:block;font-size:10px;opacity:.75;margin-top:2px}
+.rno{padding:8px;font-size:11px;font-style:italic;opacity:.8;text-align:center}
+.rwhy{margin:10px 0 0;font-size:13px}
+@media (max-width:900px){.rdr{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.gf button{padding:5px 12px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px}
+.gf button.on{font-weight:700;border-width:2px;border-color:currentColor}
+.gf button.wo{color:#C77B0A}.gf button.ro{color:#0E7C86}
+.dt tr.wo td{background:repeating-linear-gradient(135deg,#C77B0A14 0 6px,transparent 6px 12px)}
+.dt tr.wo td:first-child{border-left:3px dashed #C77B0A}
+.dt tr.ro td{background:#0E7C8614}
+.dt tr.ro td:first-child{border-left:3px solid #0E7C86}
+.dt .no{font-style:normal;font-weight:700;font-size:11.5px}
+.dt tr.wo .no{color:#C77B0A}.dt tr.ro .no{color:#0E7C86}
+@media (max-width:700px){.det{grid-template-columns:1fr}}
+</style>
+
+<div class="tabs" id="tabs"></div>
+<div class="sub2"><button id="vd" class="on" onclick="view('d')">Официальные документы</button><button id="vc" onclick="view('c')">Расчёты в документах</button><button id="vr" onclick="view('r')">Барабаны расчётов</button><button id="vg" onclick="view('g')">Глубина дизайна по этапам</button></div>
+<div id="out"></div>
+
+<script>
+const ST=["Замысел","Концептуальный","Базовый дизайн (BoD)","Проектирование","5.1 Подготовка","5.2 Строительство","Эксплуатация","Ликвидация"];
+const DEPTH=["не выполняется","по аналогам","укрупнённый расчёт","инженерный расчёт","проектный (детальный)","рабочий / по факту"];
+const Z='<span class="b z">закон</span>',K='<span class="b k">корп.</span>';
+const D={
+w:{n:"Скважина",c:"#A23B2A",
+ data:["Аналоги","Сейсмика, поисковые скважины","Геомодель, ГДМ, керн, ГИС","Утверждённые модели, график давлений","Проект, данные соседних скважин","ГТИ, LWD/MWD","Промысловые данные","История скважины"],
+ who:["Центр компетенций","Инженер НИПИ","Проектная команда + НИПИ","Проектный институт","Технолог бурения, супервайзер","Подрядчик, центр сопровождения","Технолог ЦДНГ, КРС","Инженер КРС, проектировщик"],
+ comp:[
+  ["Конструкция",[1,2,3,4,5,5,2,2],["Совмещённый график давлений","Глубины спуска колонн","Прочность ОК","Цементирование"],"Landmark StressCheck, WellCat; SLB DrillPlan","Бурсофтпроект"],
+  ["Заканчивание",[1,1,3,4,5,5,3,1],["Узловой анализ","Дизайн ГРП/МГРП","Подбор ГНО"],"PROSPER, PIPESIM, FracPro, Kinetix","РН-ГРИД, Автотехнолог, tNavigator"],
+  ["Траектория",[1,2,3,4,5,5,1,1],["Профиль","Антиколлизия","Кустование","Геонавигация"],"Landmark Compass, Petrel, StarSteer","Бурсофтпроект"],
+  ["Буровая установка (грузоподъёмность)",[1,2,2,4,5,5,2,2],["Нагрузка на крюк","Torque & drag","Класс БУ"],"WellPlan, Drillbench","Бурсофтпроект"],
+  ["Технология строительства",[1,2,2,4,5,5,1,1],["Гидравлика","Растворы","КНБК","Цикл и стоимость"],"WellPlan, Drillbench, DrillPlan","Бурсофтпроект"],
+  ["Эксплуатация",[1,1,2,3,4,4,5,2],["Техрежим","Целостность","ГТМ"],"PROSPER, OFM","Автотехнолог"],
+  ["Ликвидация",[1,1,1,2,2,2,3,5],["Мосты и барьеры","Затраты"],"WellCat","Корп. методики"]],
+ docs:[
+  [["Паспорт идеи / заявка на скважину","Well Proposal","Цель, объект, ориентир по аналогам","Центр компетенций",K]],
+  [["Концепция скважины","Well Concept Select Report","Сравнение вариантов","Проектная команда, НИПИ",K],["Раздел фонда скважин в ТСР/ТПР/ППЭ","FDP — wells section","Число, тип, размещение","НИПИ → ЦКР Роснедр",Z]],
+  [["Базовый дизайн скважины","Basis of Well Design (ISO 16530-1)","Давления, риски, барьеры, принципиальные решения","Проектная команда → техсовет",K],["ТЗ на проектирование","Statement of Requirements","Требования заказчика","Недропользователь",K]],
+  [["Проектная документация на строительство скважины","Detailed Well Design","Конструкция, профиль, растворы, ОВОС, ПБ","Проектный институт",Z+" ⚠"]],
+  [["Акт о заложении скважины","Spud location approval","Координаты устья","Геолог, маркшейдер",Z+" ⚠"],["Программа бурения","Drilling Programme","Операции по интервалам","Технолог бурения",K],["ГТН","Geological prognosis / Well plan","Разрез, осложнения, режимы","Геолог + технолог",Z],["Программа заканчивания и освоения","Completion Programme","Хвостовик, ГРП, ГНО","Служба заканчивания",K],["Схема барьеров","Well Barrier Schematic (NORSOK D-010)","Барьеры по фазам","Инженер по целостности",K],["DWOP","Drill the Well on Paper","Риски, меры","Команда + подрядчики",K],["Уведомление надзора","Well Notification","Регистрация в ОПО","→ Ростехнадзор",Z+" ⚠"],["Акт готовности БУ к пуску","Rig acceptance","Готовность оборудования","Пусковая комиссия",Z]],
+  [["Суточный рапорт, буровой журнал","IADC DDR","Операции, параметры","Мастер, супервайзер",Z],["Акты на крепление и опрессовку","Casing & Cement reports","Качество крепи","Подрядчик",Z],["Разрешение на вскрытие пласта","Reservoir entry checklist","Готовность ПВО","Комиссия, ПФС",Z+" ⚠"],["Акт окончания бурения, акт испытания","Rig release, Well test","Итоги строительства","Подрядчик → заказчик",Z],["Дело и паспорт скважины","Well File, As-built","Вся история","Недропользователь",Z],["Акт передачи в эксплуатацию","Well Handover Package","Передача со статусом барьеров","Бурение → добыча",Z],["Отчёт по итогам строительства","End of Well Report","План/факт, уроки","Проектная команда",K]],
+  [["Техрежим скважины","Operating Envelope","Режимы, ограничения","Технолог ЦДНГ",K],["Планы КРС/ГТМ, акты","Intervention Programme","Ремонты, ГРП, ЗБС","Инженер КРС",Z],["Учёт целостности","Well Integrity records","Статус барьеров","Служба целостности",K]],
+  [["Проект ликвидации/консервации","Abandonment Programme","Мосты, барьеры, устье","Проектировщик",Z],["Заключение ЭПБ","Independent examination","Допуск к ликвидации","Экспертная организация",Z],["Акт ликвидации/консервации","Final Abandonment Report","Факт выполнения","Комиссия с надзором",Z]]]},
+
+g:{n:"Геология",c:"#9A5B1E",
+ data:["Региональная геология, аналоги","2D/3D сейсмика, поисковые скважины","Разведочные скважины, керн, ГИС, испытания","Полный набор + пробная эксплуатация","Проект, план бурения","ГИС/керн бурящихся скважин","История добычи, ГИС-контроль","Остаточные запасы"],
+ who:["Центр компетенций по ГРР","Геолог НИПИ, сейсмик","Команда подсчёта запасов","Геолог-модельер НИПИ","Геолог актива","Геолог сопровождения бурения","Геолог промысла, НИПИ","Геолог актива"],
+ comp:[
+  ["Структурная модель (сейсмика)",[1,3,4,4,4,5,4,1],["Интерпретация сейсмики","Скоростная модель","Структурные карты"],"Petrel, Kingdom, Paradigm","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Петрофизика",[1,2,4,4,3,5,4,1],["Интерпретация ГИС","Кп, Кн, Кпр","Граничные значения"],"Techlog, IP","Прайм, Соната ⚠"],
+  ["Седиментология, концепция",[1,3,4,4,2,3,3,1],["Фациальный анализ","Концептуальная модель"],"Petrel","tNavigator"],
+  ["3D геологическая модель",[0,2,4,5,3,5,5,2],["Литология","Распределение свойств","Реализации"],"Petrel, RMS, SKUA","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Подсчёт запасов",[1,2,5,4,2,3,5,4],["Объёмный метод","Категоризация","PRMS"],"Petrel, GeoX","tNavigator, РН-ГЕОСИМ ⚠"],
+  ["Неопределённости и риски",[2,3,4,3,2,2,3,1],["Pg","Монте-Карло","P90/P50/P10"],"GeoX, Crystal Ball","tNavigator AHM ⚠"],
+  ["Программа доизучения",[2,3,3,3,4,3,3,0],["Ценность информации","Программа ГИС/керна"],"Excel, корп. инструменты","Корп. инструменты"]],
+ docs:[
+  [["Программа ГРР, заявка/аукцион на лицензию","Exploration Strategy, Play assessment","Ресурсы, приоритеты","Центр ГРР",K],["Лицензия на пользование недрами","Licence / PSC","Право на участок","Роснедра",Z]],
+  [["Проект поисково-оценочных работ","Exploration / Appraisal Plan","Объём ГРР, скважины, сейсмика","НИПИ → экспертиза Роснедр",Z+" ⚠"],["Оперативный подсчёт запасов","Discovery report, Contingent resources","Постановка на госбаланс","НИПИ → ГКЗ/ТКЗ",Z]],
+  [["Отчёт о подсчёте запасов + протокол ГКЗ","Reserves Report (PRMS), Subsurface BoD","Запасы по категориям","НИПИ → ФБУ ГКЗ",Z]],
+  [["Геологическая модель (раздел ТСР/ТПР)","Static Model Report","Основа проекта разработки","НИПИ → ЦКР",Z]],
+  [["Геологическая часть ГТН, программа ГИС и керна","Formation Evaluation Programme","Что и где исследовать","Геолог актива",K]],
+  [["Заключения по ГИС, отчёт геонавигации","Well Evaluation Report","Фактический разрез","Геолог сопровождения",K],["Оперативное изменение запасов","Reserves update","Прирост/списание по бурению","→ ГКЗ/ТКЗ",Z]],
+  [["Пересчёт запасов, форма 6-гр","Annual Reserves Report (PRMS/SEC)","Госбаланс, аудит","НИПИ → ГКЗ",Z]],
+  [["Обоснование списания запасов","Reserves write-off","Остаточные запасы","→ ГКЗ",Z],["Сдача геологической информации","Data submission","В фонд геоинформации","→ Росгеолфонд",Z]]]},
+
+d:{n:"Разработка",c:"#0F6E62",
+ data:["Аналоги","Данные поисковых скважин, тесты","Керн, PVT, пробная эксплуатация","Геомодель, утверждённые запасы","Проект, график ввода","Фактические дебиты новых скважин","История добычи, исследования","Остаточные запасы, экономика"],
+ who:["Центр компетенций","Разработчик НИПИ","Команда проекта разработки","НИПИ","Геолог/разработчик актива","Разработчик актива","Разработчик промысла, НИПИ","Разработчик, экономист"],
+ comp:[
+  ["PVT и свойства флюидов",[1,2,4,4,2,3,3,0],["PVT-модель","Уравнение состояния"],"PVTsim, PVTi","tNavigator PVT ⚠"],
+  ["Вытеснение и КИН",[1,2,4,4,2,2,3,2],["ОФП","К_выт, К_охв","КИН"],"SCAL, Eclipse","tNavigator, РН-КИМ ⚠"],
+  ["Гидродинамическая модель",[0,2,4,5,3,4,5,3],["Апскейлинг","Адаптация","Прогноз"],"Eclipse, Intersect, CMG","tNavigator, РН-КИМ"],
+  ["Система разработки и сетка",[1,2,4,5,4,3,4,1],["Сетка","Размещение забоев","Тип скважин"],"Petrel, Eclipse","tNavigator"],
+  ["Профили добычи",[1,2,4,5,4,5,5,3],["Арпс","МБ","Профиль по фонду"],"OFM, MBAL","tNavigator, корп. ИС"],
+  ["Система ППД",[0,1,3,4,4,4,5,1],["Компенсация","Приёмистость"],"Eclipse, OFM","tNavigator"],
+  ["Мониторинг и ГТМ",[0,1,2,3,4,4,5,2],["Программа исследований","Подбор ГТМ"],"OFM, Petrel","корп. ИС ⚠"]],
+ docs:[
+  [["Концепция разработки по аналогам","Development Concept","Ориентир КИН, фонд","Центр компетенций",K]],
+  [["Проект пробной эксплуатации (ППЭ)","Appraisal / Early Production Plan","Пробная добыча, исследования","НИПИ → ЦКР Роснедр",Z]],
+  [["Технологическая схема разработки (ТСР)","Field Development Plan (FDP)","Система, фонд, профили, КИН","НИПИ → ЦКР Роснедр",Z]],
+  [["Технологический проект разработки (ТПР) / дополнение","Revised FDP","Уточнение под проект обустройства","НИПИ → ЦКР Роснедр",Z+" ⚠"]],
+  [["Программа ввода скважин и исследований","Start-up & Surveillance Plan","Очерёдность, исследования","Разработчик актива",K]],
+  [["Авторский надзор за реализацией проекта","Project follow-up / Lookback","Соответствие проекту","НИПИ",Z]],
+  [["Анализ разработки, дополнения к ТПР","Reservoir Management Plan","Мониторинг, ГТМ","НИПИ → ЦКР",Z]],
+  [["Обоснование завершения разработки","End-of-field-life plan","Предельная рентабельность","НИПИ → ЦКР",Z+" ⚠"]]]},
+
+i:{n:"Инфраструктура",c:"#3D5A8A",
+ data:["Аналоги, точки сдачи","Профили-варианты, карта","Профили ТСР, изыскания (предв.)","Инженерные изыскания, профили ТПР","ПД/РД, участок","РД, поставки","Режимы, диагностика","Состояние объектов"],
+ who:["Центр компетенций","Концептуальный инжиниринг","Проектная команда","Генпроектировщик","Заказчик-застройщик","EPC-подрядчик, стройконтроль","Служба эксплуатации","Проектировщик, подрядчик"],
+ comp:[
+  ["Нагрузки и мощности",[1,2,4,5,4,4,4,1],["Пиковые нагрузки","Поэтапный ввод"],"Excel, HYSYS","РН-СИМТЕП ⚠"],
+  ["Сбор и транспорт (трассы, гидравлика)",[1,2,4,5,5,5,4,2],["Трассировка","Многофазная гидравлика","Тепловой расчёт"],"PIPESIM, OLGA, Civil 3D","РН-СИМТЕП, Кредо ⚠"],
+  ["Подготовка продукции (УПН, газ)",[1,2,4,5,5,5,4,2],["Материальный баланс","Сепарация","Утилизация ПНГ"],"HYSYS, UniSim","РН-СИМТЕП ⚠"],
+  ["ППД (КНС, водоводы)",[1,2,3,5,5,5,4,2],["Гидравлика водоводов","Насосы"],"PIPESIM","РН-СИМТЕП ⚠"],
+  ["Энергоснабжение",[1,2,3,5,5,5,4,2],["Нагрузки","Схема: ГТЭС/сеть"],"ETAP","RastrWin"],
+  ["Генплан, площадки, дороги",[0,1,3,5,5,5,3,3],["Компоновка","Объёмы работ"],"AutoCAD Plant 3D, AVEVA","nanoCAD, Model Studio CS, Renga"],
+  ["Вывод из эксплуатации",[0,1,1,2,2,2,3,5],["Демонтаж","Рекультивация","Затраты"],"Excel","ГРАНД-Смета"]],
+ docs:[
+  [["Концепция обустройства по аналогам","Opportunity Framing","Точки сдачи, ориентир CAPEX","Центр компетенций",K]],
+  [["Предпроектное исследование, варианты схем","Concept Select / Pre-FEED","Сравнение схем обустройства","Концептуальный инжиниринг",K]],
+  [["Концепция обустройства / ОТР","FEED, Basis of Design","Выбранная схема, мощности","Проектная команда → техсовет",K]],
+  [["Проектная документация + экспертиза","Detailed Engineering","Разделы ПД, ОВОС, ПБ","Генпроектировщик → Главгосэкспертиза/ЭПБ",Z+" ГрК РФ ст. 48–49"],["Рабочая документация","IFC drawings","Чертежи для стройки","Генпроектировщик",Z]],
+  [["Разрешение на строительство, землеотвод","Permits","Право начать стройку","Заказчик → органы власти",Z+" ГрК ст. 51"],["ППР, план строительства","Construction Execution Plan","Как строим","EPC-подрядчик",K]],
+  [["Исполнительная документация, акты скрытых работ, общий журнал","As-built, QA/QC records","Факт строительства","Подрядчик, стройконтроль",Z],["Заключение о соответствии, разрешение на ввод","Mechanical Completion, RFSU, Handover","Ввод объекта","→ органы стройнадзора",Z+" ГрК ст. 55"],["Регистрация ОПО","—","Учёт в реестре","→ Ростехнадзор",Z]],
+  [["Регламенты, эксплуатационная документация","Operating Manuals","Как эксплуатировать","Служба эксплуатации",Z],["ЭПБ, диагностика, декларация ПБ","Asset Integrity Management","Безопасность объектов","Экспертная организация",Z]],
+  [["Проект ликвидации/консервации объектов","Decommissioning Plan","Демонтаж, рекультивация","Проектировщик",Z],["Исключение из реестра ОПО","—","Снятие с учёта","→ Ростехнадзор",Z]]]}
+};
+// Пробелы. Российские документы, у которых нет мирового аналога: стираем аналог.
+const RU_ONLY={
+ w:["Акт о заложении скважины","Разрешение на вскрытие пласта","Заключение ЭПБ"],
+ g:["Оперативное изменение запасов"],
+ d:["Авторский надзор за реализацией проекта"],
+ i:["Заключение о соответствии, разрешение на ввод","Регистрация ОПО","Исключение из реестра ОПО"]};
+// Мировые документы, которые в РФ ведутся только как корпоративная практика или не ведутся: стираем российское название.
+const WORLD_ONLY={w:["Паспорт идеи / заявка на скважину","Концепция скважины","Базовый дизайн скважины","Схема барьеров","DWOP","Отчёт по итогам строительства","Учёт целостности"]};
+// Анализ ранее построенных скважин — основа всех ранних дизайнов скважины, обновляется на каждом этапе.
+D.w.docs[0].push(["Анализ ранее построенных скважин","Offset Well Analysis (анализ соседних скважин)","Осложнения, сроки, NPT, удачные решения на скважинах-аналогах; обновляется на каждом этапе","Инженер по бурению",K]);
+// Мировые документы, которых в таблицах не было: [этап, мировой, что фиксирует, кто]
+const WORLD_ADD={
+ g:[[2,"Independent Reserves Audit (независимый аудит запасов)","Внешняя проверка запасов по PRMS/SEC","Независимый аудитор"],[3,"Subsurface Peer Review (экспертиза модели коллегами)","Проверка геомодели перед проектом","Сообщество экспертов"]],
+ d:[[2,"Reservoir Management Plan (план управления пластом)","Стратегия мониторинга и управления пластом","Команда актива"],[6,"Lookback Review (ретроспективный анализ прогноза)","Сравнение прогноза и факта добычи","Команда актива"]],
+ i:[[3,"HAZOP Close-out Report (отчёт о закрытии HAZOP)","Выполнение рекомендаций анализа опасностей","Проектная команда"],[4,"Operations Readiness Plan (план готовности к эксплуатации)","Люди, процедуры, запчасти до ввода","Служба эксплуатации"]],
+ w:[]};
+Object.entries(D).forEach(([k,x])=>x.docs.forEach(s=>s.forEach(d=>{
+ if((RU_ONLY[k]||[]).includes(d[0]))d[1]=null;
+ if((WORLD_ONLY[k]||[]).some(n=>d[0].startsWith(n))){d[1]=`${d[1]} (${d[0].toLowerCase()})`;d[0]=null}})));
+Object.entries(WORLD_ADD).forEach(([k,a])=>a.forEach(([j,w,t,who])=>D[k].docs[j].push([null,w,t,who,'<span class="b k">нет в РФ</span>'])));
+let gapF="all";
+let cur="g",mode="d",rSel=null;
+// Расчёты в документах. Основной (первый) документ этапа включает все расчёты этапа;
+// для остальных — явный перечень кодов; [] — документ без собственных расчётов (оформление, согласование).
+const KEY={g:"G",d:"R",w:"B",i:"I"};
+const isOn=(dep,m)=>dep>=Math.min(m+1,4);
+const CM={
+ w:{"раздел фонда":["B3.1","B3.3","B2.1","B5.4"],"тз на проектирование":[],"программа бурения":["B5.1","B5.2","B5.3","B4.2","B3.1"],"гтн":["B1.1","B1.2","B5.2"],
+    "программа заканчивания":["B2.1","B2.2","B2.3"],"схема барьеров":["B1.1","B1.3","B1.4","B7.1"],"dwop":["B5.4","B4.1"],"уведомление надзора":[],"акт готовности бу":["B4.1","B4.3"],
+    "акт о заложении":["B3.3"],"суточный рапорт":["B5.1","B5.4"],"акты на крепление":["B1.3","B1.4"],"разрешение на вскрытие":["B1.1"],"акт окончания бурения":["B2.1"],
+    "дело и паспорт":["B1.2","B3.1"],"акт передачи":["B6.2"],"отчёт по итогам строительства":["B5.4","B5.1","B1.4"],"техрежим":["B6.1"],"планы крс":["B6.3","B2.2"],
+    "учёт целостности":["B6.2"],"проект ликвидации":["B7.1","B7.2"],"заключение эпб":["B6.2","B7.1"],"акт ликвидации":[],"анализ ранее построенных":["NEW","B5.4","B1.1"]},
+ g:{"лицензия на пользование":[],"оперативный подсчёт":["G5.1","G5.2"],"independent reserves audit":["G5.1","G5.2","G5.3","G6.3"],"subsurface peer review":["G4.1","G4.2","G4.3","G1.3"],
+    "оперативное изменение":["G5.1","G5.2"],"сдача геологической":[]},
+ d:{"reservoir management plan":["R7.1","R6.1","R3.3"],"lookback review":["R5.1","R5.3","R3.2"]},
+ i:{"рабочая документация":["I2.1","I6.1","I6.2"],"hazop":["I3.2","I2.2"],"разрешение на строительство":[],"ппр":["I6.2"],"operations readiness":["I1.2","I5.1"],
+    "исполнительная":["I6.2"],"заключение о соответствии":[],"регистрация опо":[],"эпб, диагностика":["I2.2","I4.1"],"исключение из реестра":[]}
+};
+function calcName(k,code){const [r,m]=code.slice(1).split(".").map(Number);return D[k].comp[r-1][2][m-1]}
+function stageCalcs(k,j){const a=[];D[k].comp.forEach((c,r)=>c[2].forEach((s,m)=>{if(isOn(c[1][j],m))a.push({code:`${KEY[k]}${r+1}.${m+1}`,n:s,dep:c[1][j]})}));return a}
+function docCalcs(k,j,d,idx){const n=(d[0]||d[1]).toLowerCase(),all=stageCalcs(k,j);
+ const hit=Object.entries(CM[k]||{}).find(([s])=>n.includes(s));
+ if(hit)return hit[1].map(code=>code=="NEW"?{code:"нет",n:"Анализ скважин-аналогов — расчёта нет в перечне",dep:0,miss:1}:(all.find(c=>c.code==code)||{code,n:calcName(k,code),dep:D[k].comp[+code.slice(1).split(".")[0]-1][1][j]}));
+ return idx==0?all:[]}
+const ORDER=["g","d","w","i"];
+const tabs=document.getElementById("tabs");
+tabs.innerHTML=ORDER.map(k=>[k,D[k]]).map(([k,v])=>`<button data-k="${k}" style="border-color:${v.c}">${v.n}</button>`).join("");
+tabs.onclick=e=>{const b=e.target.closest("button");if(b){cur=b.dataset.k;render()}};
+function view(m){mode=m;vr.classList.toggle("on",m=="r");vc.classList.toggle("on",m=="c");vg.classList.toggle("on",m=="g");vd.classList.toggle("on",m=="d");render()}
+function render(){
+ const x=D[cur];document.getElementById("out").style.setProperty("--c",x.c);
+ [...tabs.children].forEach(b=>{const on=b.dataset.k==cur;b.classList.toggle("on",on);b.style.background=on?D[b.dataset.k].c:"transparent"});
+ const o=document.getElementById("out");
+ if(mode=="r"){
+  // лента документов по этапам → колонки дизайнов со списком расчётов; подсвечены расчёты выбранного документа
+  if(!rSel||rSel.k!==cur)rSel={k:cur,j:3,di:0};
+  let h=`<p class="rleg">Выберите документ — в колонках дизайнов подсветятся расчёты уровня 0, которые в него входят, с глубиной проработки на этапе документа.</p><div class="rxs">`+x.docs.map((st,j)=>`<div class="rg"><div class="rgh">${j+1}. ${ST[j]}</div><div class="rgb">${st.map((d,di)=>{const t=!d[0]?"wo":!d[1]?"ro":"",on=rSel.j==j&&rSel.di==di;
+   return `<button class="${t} ${on?"on":""}" data-j="${j}" data-di="${di}">${t=="wo"?`<span class="no">🌐 нет в РФ</span>${d[1]}`:t=="ro"?`<span class="no">🇷🇺 нет в мире</span>${d[0]}`:`${d[0]}<small>🌐 ${d[1]}</small>`}</button>`}).join("")}</div></div>`).join("")+`</div>`;
+  const d=x.docs[rSel.j][rSel.di],cs=docCalcs(cur,rSel.j,d,rSel.di),ok=cs.filter(c=>!c.miss),miss=cs.filter(c=>c.miss),codes=new Set(ok.map(c=>c.code));
+  h+=`<div class="rdr">`+x.comp.map((c,r)=>{const dep=c[1][rSel.j],any=c[2].some((_,m)=>codes.has(`${KEY[cur]}${r+1}.${m+1}`));
+   return `<div class="rcol ${any?"":"idle"}"><div class="rhd"><code>${KEY[cur]}${r+1}</code>${c[0]}</div>${c[2].map((nm,m)=>{const code=`${KEY[cur]}${r+1}.${m+1}`,hit=codes.has(code);
+    return `<div class="rc ${hit?"hit d"+dep:""}"><code>${code}</code>${nm}${hit?`<small>${DEPTH[dep]}</small>`:""}</div>`}).join("")}${any?"":'<div class="rno">не входит в документ</div>'}</div>`}).join("")+`</div>`;
+  h+=`<p class="rwhy"><b>${d[0]||d[1]}</b>${d[0]&&d[1]?` ↔ <i>${d[1]}</i>`:""} · этап «${ST[rSel.j]}» · ${ok.length?ok.length+" расчётов из "+x.comp.reduce((a,c)=>a+c[2].length,0):"без собственных расчётов — оформление, согласование"}${miss.length?` · <span style="color:#C77B0A">⚠ ${miss[0].n}</span>`:""}</p>`;
+  o.innerHTML=h;
+  o.querySelector(".rxs").onclick=e=>{const b=e.target.closest("button");if(b){rSel={k:cur,j:+b.dataset.j,di:+b.dataset.di};render()}};
+ } else if(mode=="c"){
+  const ruSet=new Set(),woSet=new Set(),allCodes=[];
+  x.comp.forEach((c,r)=>c[2].forEach((s,m)=>allCodes.push(`${KEY[cur]}${r+1}.${m+1}`)));
+  let h=`<div class="leg"><b>Глубина расчёта в документе:</b>${DEPTH.slice(1).map((d,i)=>`<span class="d${i+1}">${d}</span>`).join("")}</div>`;
+  h+=`<div class="wrapx"><table class="dt cdt"><thead><tr><th>🇷🇺 Российский документ</th><th>🌐 Мировой аналог</th><th>Расчёты в документе (коды уровня 0)</th></tr></thead><tbody>`;
+  x.docs.forEach((s,j)=>{
+   if(j==4)h+=`<tr class="stg"><td colspan="3">5. Реализация</td></tr>`;
+   h+=`<tr class="${j==4||j==5?"sub":"stg"}"><td colspan="3">${j<4?(j+1)+". ":j>5?(j)+". ":""}${ST[j]}</td></tr>`;
+   s.forEach((d,idx)=>{const t=!d[0]?"wo":!d[1]?"ro":"",cs=docCalcs(cur,j,d,idx);
+    cs.forEach(c=>{if(c.miss)return;(d[0]?ruSet:woSet).add(j+"|"+c.code)});
+    h+=`<tr class="${t}"><td>${d[0]||'<span class="no">🌐 нет российского аналога</span>'}</td><td class="en">${d[1]||'<span class="no">🇷🇺 нет мирового аналога</span>'}</td><td>${cs.length?cs.map(c=>c.miss?`<span class="cc miss">⚠ ${c.n}</span>`:`<span class="cc d${c.dep}" title="${DEPTH[c.dep]}"><code>${c.code}</code>${c.n}</span>`).join(""):'<span class="nocalc">без собственных расчётов — оформление, согласование</span>'}</td></tr>`})});
+  // по этапам: расчёт этапа, который фиксируется только в мировом документе этого этапа
+  const onlyWo=[...woSet].filter(c=>!ruSet.has(c)),byStage={};
+  onlyWo.forEach(p=>{const [j,c]=p.split("|");(byStage[j]=byStage[j]||[]).push(c)});
+  const everRu=new Set([...ruSet].map(p=>p.split("|")[1])),unused=allCodes.filter(c=>!everRu.has(c)&&![...woSet].some(p=>p.endsWith("|"+c)));
+  const wy=Object.keys(byStage).length;
+  h+=`</tbody></table></div><div class="csum"><div><b>${everRu.size}</b> из ${allCodes.length} расчётов попадают хотя бы в один российский документ — но важно, на каком этапе.</div>`+
+   `<div class="w"><b>${onlyWo.length}</b> пар «этап × расчёт» фиксируются только в мировых документах — в РФ на этом этапе расчёт не оформляется${wy?":<br>"+Object.entries(byStage).map(([j,cs])=>`<b>${ST[j]}</b>: ${cs.map(c=>`<code>${c}</code> ${calcName(cur,c)}`).join(", ")}`).join("<br>"):""}</div>`+
+   (unused.length?`<div class="u"><b>${unused.length}</b> не попадают ни в один документ: ${unused.map(c=>`<code>${c}</code> ${calcName(cur,c)}`).join(", ")}</div>`:"")+`</div>`;
+  o.innerHTML=h;
+ } else if(mode=="g"){
+  let h=`<div class="leg"><b>Глубина:</b>${DEPTH.map((d,i)=>`<span class="d${i}">${i} · ${d}</span>`).join("")}</div><div class="wrapx"><table class="g0"><thead><tr><th class="rh">Дизайн \\ Этап</th>${ST.map(s=>`<th>${s}</th>`).join("")}</tr></thead><tbody>`;
+  x.comp.forEach((c,r)=>h+=`<tr><th class="rh">${c[0]}</th>${c[1].map((d,j)=>`<td class="cl d${d}" data-r="${r}" data-j="${j}">${d}</td>`).join("")}</tr>`);
+  h+=`<tr class="doc"><th class="rh">Официальный документ</th>${x.docs.map(s=>`<td>${s.filter(d=>d[0]).map(d=>d[0]).slice(0,2).join("; ")}${s.length>2?" …":""}</td>`).join("")}</tr></tbody></table></div><div class="det" id="det"><div class="full">Нажмите на ячейку.</div></div>`;
+  o.innerHTML=h;
+  o.querySelector("table").onclick=e=>{const td=e.target.closest(".cl");if(!td)return;o.querySelectorAll(".sel").forEach(z=>z.classList.remove("sel"));td.classList.add("sel");
+   const c=x.comp[+td.dataset.r],j=+td.dataset.j,d=c[1][j];
+   document.getElementById("det").innerHTML=`<div class="full"><h4>${x.n} · ${c[0]} · ${ST[j]}</h4>Глубина ${d} — <b>${DEPTH[d]}</b></div>
+   <div><h4>Расчёты → скиллы ИИ</h4>${c[2].map(s=>`<span class="chip">${s}</span>`).join("")}</div>
+   <div><h4>Софт</h4><i>Зарубежный:</i> ${c[3]}<br><i>Отечественный:</i> ${c[4]}</div>
+   <div><h4>Агент этапа</h4><span class="agent">🤖 Агент «${ST[j]}» · ${x.n.toLowerCase()}</span><br><span style="font-size:12px;opacity:.8">→ ${x.docs[j].filter(z=>z[0]).map(z=>z[0]).join("; ")}</span></div>`};
+ } else {
+  const all=x.docs.flat(),nRu=all.filter(d=>!d[0]).length,nW=all.filter(d=>!d[1]).length;
+  let h=`<div class="gf"><button class="${gapF=="all"?"on":""}" onclick="gapF='all';render()">Все документы · ${all.length}</button><button class="wo ${gapF=="wo"?"on":""}" onclick="gapF='wo';render()">🌐 Есть в мире, нет в РФ · ${nRu}</button><button class="ro ${gapF=="ro"?"on":""}" onclick="gapF='ro';render()">🇷🇺 Есть в РФ, нет в мире · ${nW}</button></div>`;
+  h+=`<div class="wrapx"><table class="dt"><thead><tr><th>Документ (РФ)</th><th>Мировой аналог</th><th>Что фиксирует</th><th>Кто готовит / утверждает</th><th>Статус</th></tr></thead><tbody>`;
+  x.docs.forEach((s,j)=>{
+   if(j==4)h+=`<tr class="stg"><td colspan="5">5. Реализация</td></tr>`;
+   h+=`<tr class="${j==4||j==5?"sub":"stg"}"><td colspan="5">${j<4?(j+1)+". ":j>5?(j)+". ":""}${ST[j]}</td></tr>`;
+   s.forEach(d=>{const t=!d[0]?"wo":!d[1]?"ro":"";if(gapF!="all"&&t!=gapF)return;
+    h+=`<tr class="${t}"><td>${d[0]||'<span class="no">🌐 нет российского аналога</span>'}</td><td class="en">${d[1]||'<span class="no">🇷🇺 нет мирового аналога</span>'}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td></tr>`})});
+  o.innerHTML=h+`</tbody></table></div>`;
+ }
+}
+render();
+</script>

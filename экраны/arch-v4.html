@@ -1,0 +1,25 @@
+<h2>Архитектура · Вариант 4 · Подпроцессы функций под общими воротами проекта</h2>
+<p class="subtitle">Практика мейджоров: у каждой функции свой процесс (например, Well Delivery Process у скважин), но его стадии подогнаны под общий проектный процесс актива (Capital Value Process у BP и Statoil/Equinor, Opportunity Realisation Process у Shell). Ворота проекта — общие вертикальные линии, которые проходят через все функции: на каждых воротах функции сдают свои результаты одновременно.</p>
+<style>.av svg{width:100%;height:auto;display:block}.av text{fill:currentColor}.src{font-size:12px;opacity:.85;margin-top:8px}</style>
+<div class="av"><svg viewBox="0 0 1000 520" id="sv"></svg></div>
+<p class="src"><b>Источники:</b> <a href="https://pdfcoffee.com/spe-well-delivery-process-presentation-2-pdf-free.html">SPE: Well Delivery Process</a> — стадии WDP «обычно совпадают с Capital Value или Opportunity Realization process», главное — определения ворот; <a href="https://pdfcoffee.com/download/stage-gate-pdf-free.html">сравнение stage-gate мейджоров</a> (Shell ORP, Chevron CPDEP, ExxonMobil, Woodside); <a href="https://www.projectmanagement.com/discussion-topic/3826/capital-value-process---what-is-it-">BP Capital Value Process</a>. Названия подпроцессов недр и объектов — обобщение, ⚠.</p>
+<script>
+(()=>{const L=170,R=980,W=R-L;let h="";
+ const PH=["Identify / Assess","Select","Define","Execute","Operate"],G=["DG1","DG2","DG3 · FID","DG4"];
+ const cw=W/5;
+ // верхняя полоса — проектный процесс актива
+ h+=`<text x="20" y="46" font-size="13" font-weight="700" style="fill:#2F6B4F">Проект актива</text><text x="20" y="62" font-size="10.5" opacity=".7">CVP / ORP / CPDEP</text>`;
+ PH.forEach((p,i)=>h+=`<rect x="${L+i*cw+2}" y="30" width="${cw-4}" height="40" rx="6" fill="#2F6B4F" fill-opacity="${.55+i*.1}"/><text x="${L+i*cw+cw/2}" y="55" text-anchor="middle" font-size="12.5" font-weight="700" style="fill:#fff">${p}</text>`);
+ // функции — свои стадии, выровненные под ворота
+ const LN=[
+  ["Недра","геология + разработка","#9A5B1E",["Оценка ресурсов","Выбор концепции","План разработки (FDP)","Сопровождение бурения","Управление пластом"]],
+  ["Скважины","Well Delivery Process","#A23B2A",["Identify & Assess","Evaluation & Selection","Planning & Procurement","Execution · бурение","Handover · целостность"]],
+  ["Объекты","FEL 1–3, EPC","#3D5A8A",["FEL 1 · варианты","FEL 2 · базовый дизайн","FEL 3 · FEED","EPC · стройка, пуск","Целостность"]],
+  ["Экономика","бизнес-кейс","#5B4B8A",["Ориентир ценности","Сравнение вариантов","Бизнес-кейс, FID","Контроль бюджета","План/факт, PIR"]]];
+ LN.forEach(([n,s,c,st],r)=>{const y=100+r*86;h+=`<text x="20" y="${y+24}" font-size="13" font-weight="700" style="fill:${c}">${n}</text><text x="20" y="${y+40}" font-size="10.5" opacity=".7">${s}</text>`;
+  st.forEach((t,i)=>h+=`<rect x="${L+i*cw+6}" y="${y}" width="${cw-12}" height="56" rx="7" fill="${c}" fill-opacity=".14" stroke="${c}"/><text x="${L+i*cw+cw/2}" y="${y+33}" text-anchor="middle" font-size="11.5" font-weight="600">${t}</text>`)});
+ // ворота — общие линии через все функции
+ G.forEach((g,i)=>{const x=L+(i+1)*cw;h+=`<line x1="${x}" y1="24" x2="${x}" y2="452" stroke="#C77B0A" stroke-width="2.5" stroke-dasharray="6 4"/><path d="M${x},458 l9,10 l-9,10 l-9,-10z" fill="#C77B0A"/><text x="${x}" y="496" text-anchor="middle" font-size="11.5" font-weight="700" style="fill:#C77B0A">${g}</text>`});
+ h+=`<text x="${(L+R)/2}" y="516" text-anchor="middle" font-size="11.5" opacity=".8">на каждых воротах все функции сдают результаты одновременно — так документы направлений собираются в документ актива</text>`;
+ sv.innerHTML=h;})();
+</script>

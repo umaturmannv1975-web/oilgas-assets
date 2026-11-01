@@ -1,0 +1,122 @@
+<h2>Этапы жизни актива · от открытия до ликвидации</h2>
+<p class="subtitle">Физическая жизнь месторождения: от открытия через стадии разработки (I–IV) до ликвидации. На каждой стадии — свои официальные документы: российские ↔ мировые, пробелы в обе стороны. Сроки типовые, шкала условная. Черновик, ⚠ — сверить.</p>
+
+<style>
+.pf svg{width:100%;height:auto;display:block}
+.pf text{fill:currentColor}
+.pf .st{cursor:pointer}
+.gf{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 10px}
+.gf button{padding:5px 12px;border-radius:999px;border:1px solid #8886;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:12.5px}
+.gf button.on{font-weight:700;border-width:2px;border-color:currentColor}
+.gf button.wo{color:#C77B0A}.gf button.ro{color:#0E7C86}
+.dt{overflow-x:auto}
+.dt table{border-collapse:collapse;width:100%;min-width:940px;font-size:12.5px}
+.dt th,.dt td{border:1px solid #8885;padding:7px 9px;vertical-align:top;text-align:left}
+.dt thead th{background:#2F6B4F;color:#fff}
+.dt tr.stg td{background:#2F6B4F1c;font-weight:700;font-size:13.5px}
+.dt tr.stg td span{font-weight:400;opacity:.75;font-size:12px;margin-left:6px}
+.dt tr.stg td em{float:right;font-style:normal;font-weight:400;font-size:11.5px;opacity:.8}
+.dt tr.stg.sel td{background:#2F6B4F44}
+.dt td.ru{font-weight:600;width:25%}
+.dt td.en{font-style:italic;width:27%}
+.dt tr.wo td{background:repeating-linear-gradient(135deg,#C77B0A14 0 6px,transparent 6px 12px)}
+.dt tr.wo td:first-child{border-left:3px dashed #C77B0A}
+.dt tr.ro td{background:#0E7C8614}
+.dt tr.ro td:first-child{border-left:3px solid #0E7C86}
+.no{font-style:normal;font-weight:700;font-size:11.5px}
+tr.wo .no{color:#C77B0A}tr.ro .no{color:#0E7C86}
+.b{display:inline-block;font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid #8886;white-space:nowrap}
+.b.z{background:#0F6E6230}.b.k{background:#3D5A8A30}
+.sum{margin-top:12px;font-size:13px;max-width:100ch}
+</style>
+
+<div class="pf"><svg viewBox="0 0 1000 300" id="pf"></svg></div>
+<div class="gf" id="gf"></div>
+<div class="dt"><table id="dt"></table></div>
+<p class="sum" id="sum"></p>
+
+<script>
+const Z='<span class="b z">закон</span>',K='<span class="b k">корп.</span>',W='<span class="b k">нет в РФ</span>';
+// [стадия, англ., срок, что происходит, x-ширина на шкале, [[РФ|null, мир|null, что фиксирует, кто, статус]]]
+const S=[
+ ["Поиски и открытие","Exploration & Discovery","2–5 лет","Сейсмика, поисковое бурение, открытие залежи",9,[
+  ["Лицензия на геологическое изучение (совмещённая лицензия)","Exploration Licence (лицензия на разведку)","Право на поиск и оценку","Роснедра",Z],
+  ["Проект поисковых работ","Exploration Work Programme (программа геологоразведочных работ)","Сейсмика, поисковые скважины","Недропользователь → экспертиза",Z],
+  ["Свидетельство об установлении факта открытия месторождения",null,"Государственная регистрация открытия","Роснедра",Z],
+  ["Оперативный подсчёт, постановка запасов на госбаланс","Discovery Report (отчёт об открытии)","Первые запасы категорий C1/C2","ГКЗ / ТКЗ",Z]]],
+ ["Разведка и оценка","Appraisal","2–5 лет","Разведочные скважины, пробная эксплуатация, подсчёт запасов",9,[
+  ["Проект разведки (дополнение к проекту ГРР)","Appraisal Programme (программа доразведки)","Разведочное бурение, испытания","Недропользователь → экспертиза",Z],
+  ["Проект пробной эксплуатации (ППЭ)","Extended Well Test (расширенные испытания скважин)","Пробная добыча, исследования","ЦКР Роснедр",Z],
+  ["Подсчёт запасов + протокол ГКЗ","Reserves Booking PRMS / SEC (постановка запасов на учёт)","Утверждённые запасы","ФБУ ГКЗ",Z],
+  [null,"Declaration of Commerciality (декларация коммерческой ценности)","Решение недропользователя и партнёров, что открытие рентабельно","Недропользователь, партнёры, регулятор",W]]],
+ ["Подготовка к разработке","Development Planning","2–4 года","Проектирование, инвестиционное решение, обустройство",10,[
+  ["Технологическая схема разработки (ТСР)","Field Development Plan (план разработки месторождения)","Система разработки, фонд, профили","ЦКР Роснедр",Z],
+  ["Лицензия на добычу / переоформление совмещённой","Production Licence / Development Consent (лицензия на добычу / согласие на разработку)","Право на добычу","Роснедра",Z],
+  ["КПРА, бизнес-кейсы, инвестиционное решение","Integrated FDP, FID (комплексный план разработки, окончательное инвестиционное решение)","Согласованные решения и финансирование","Инвест. комитет, совет директоров",K],
+  ["Проектная документация обустройства + экспертиза","FEED, Detailed Engineering (базовое и детальное проектирование)","Объекты обустройства","Главгосэкспертиза / ЭПБ",Z]]],
+ ["I стадия · освоение, рост добычи","Ramp-up","1–3 года","Ввод скважин и объектов, выход на проектный уровень",9,[
+  ["Ввод месторождения в промышленную разработку","First Oil / Start-up Notification (уведомление о начале добычи)","Начало промышленной добычи","Недропользователь → Роснедра",Z+" ⚠"],
+  ["Разрешения на ввод объектов, акты передачи скважин","Handover Certificates (акты передачи в эксплуатацию)","Ввод построенного","Стройнадзор, комиссии",Z],
+  ["Бизнес-план на год","Annual Work Programme & Budget (годовая программа работ и бюджет)","Программа и бюджет","Совет директоров",K],
+  [null,"Post-Investment Review (постинвестиционный анализ)","План/факт через 1–3 года после ввода","Инвест. комитет",W]]],
+ ["II стадия · стабильная добыча","Plateau","3–8 лет","Максимальный уровень добычи, поддержание давления",14,[
+  ["Технологический проект разработки (ТПР) и дополнения","Revised FDP (обновлённый план разработки)","Актуальные проектные показатели","ЦКР Роснедр",Z],
+  ["Авторский надзор",null,"Контроль соответствия разработки проекту силами проектировщика","НИПИ",Z],
+  ["Пересчёт запасов, форма 6-гр","Annual Reserves Report (годовой отчёт о запасах)","Госбаланс / аудит запасов","ГКЗ / аудитор",Z],
+  [null,"Reservoir Management Plan (план управления пластом)","Стратегия мониторинга и управления пластом","Команда актива",W]]],
+ ["III стадия · падающая добыча","Decline","10–20 лет","Уплотняющее бурение, ГТМ, МУН, рост обводнённости",18,[
+  ["Дополнения к ТПР: уплотнение сетки, МУН","IOR / EOR Project (проект повышения нефтеотдачи)","Новые скважины и методы увеличения нефтеотдачи","ЦКР Роснедр",Z],
+  ["Бизнес-кейсы на бурение, ГТМ, реконструкцию","Business Case / AFE (бизнес-кейс / разрешение на расходы)","Экономика мероприятий","Инвест. комитет",K],
+  ["Обоснование льгот по НДПИ (выработанность запасов)",null,"Налоговые стимулы для выработанных месторождений","ФНС / Минэнерго",Z+" ⚠"],
+  [null,"Late-Life Strategy (стратегия поздней стадии)","Как продлить жизнь актива и когда остановиться","Команда актива",W]]],
+ ["IV стадия · завершающая","Late Life / Tail-end","5–15 лет","Низкие дебиты, высокая обводнённость, предел рентабельности",14,[
+  ["Проект доразработки / проект на завершение","Late-life FDP Addendum (дополнение к плану разработки на позднюю стадию)","Последние мероприятия по добыче","ЦКР Роснедр",Z+" ⚠"],
+  ["Обоснование списания запасов","Reserves De-booking (снятие запасов с учёта)","Нерентабельные запасы","ГКЗ",Z],
+  [null,"Cessation of Production Application (заявка на прекращение добычи)","Обоснование и согласование остановки добычи","Регулятор (UK NSTA и др.)",W],
+  [null,"Decommissioning Security Agreement (финансовое обеспечение ликвидации)","Гарантии, что на ликвидацию хватит средств","Недропользователь, партнёры, государство",W+" ⚠"]]],
+ ["Ликвидация","Decommissioning & Abandonment","2–5 лет","Ликвидация скважин и объектов, рекультивация, возврат участка",9,[
+  ["Проект ликвидации / консервации скважин и объектов","Decommissioning Programme (программа вывода из эксплуатации)","Мосты, демонтаж, сроки","Недропользователь → ЭПБ",Z],
+  ["Заключение ЭПБ на ликвидацию","Independent Well Examination (независимая экспертиза скважины)","Допуск к работам","Экспертная организация → Ростехнадзор",Z],
+  ["Акты ликвидации, исключение из реестра ОПО","Close-out Report (отчёт о завершении вывода)","Факт выполнения","Комиссия, Ростехнадзор",Z],
+  ["Проект рекультивации, прекращение права пользования недрами","Site Restoration, Licence Relinquishment (восстановление территории, возврат лицензии)","Возврат участка","Роснедра, Росприроднадзор",Z],
+  [null,"Post-Decommissioning Monitoring Plan (мониторинг после ликвидации)","Наблюдение за ликвидированными скважинами и территорией","Недропользователь, регулятор",W]]]
+];
+let F="all",SEL=-1;
+// профиль добычи
+(()=>{const L=40,R=985,T=40,B=210,tot=S.reduce((s,x)=>s+x[4],0);let x0=L,h="";
+ const col=["#7A6A55","#8a6fd0","#3D5A8A","#2F6B4F","#2F6B4F","#2F6B4F","#2F6B4F","#5A6662"];
+ S.forEach((s,i)=>{const w=(R-L)*s[4]/tot;
+  h+=`<g class="st" data-i="${i}"><rect x="${x0}" y="${T}" width="${w-2}" height="${B-T}" fill="${col[i]}" fill-opacity="${i>=3&&i<=6?.08+.05*(i-3):.1}" rx="3"/>`+
+   `<text x="${x0+w/2}" y="${T-22}" text-anchor="middle" font-size="11.5" font-weight="600">${s[0].split(" · ")[0]}</text>`+
+   `<text x="${x0+w/2}" y="${T-8}" text-anchor="middle" font-size="10.5" opacity=".75">${(s[0].split(" · ")[1]||"")}</text>`+
+   `<text x="${x0+w/2}" y="${B+16}" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Consolas,monospace">${s[2]}</text></g>`;
+  x0+=w});
+ // кривая добычи: 0 до подготовки, рост, полка, падение, хвост
+ const xs=[];x0=L;S.forEach(s=>{xs.push(x0);x0+=(R-L)*s[4]/tot});xs.push(R);
+ const y=v=>B-v*(B-T-14);
+ const p=[[xs[0],y(0)],[xs[1]-20,y(.02)],[xs[2]+10,y(.04)],[xs[3],y(.04)],[xs[3]+15,y(.25)],[xs[4]-10,y(.92)],[xs[4]+10,y(1)],[xs[5]-15,y(1)],[xs[5]+30,y(.82)],[xs[6]-30,y(.38)],[xs[6]+40,y(.22)],[xs[7]-20,y(.06)],[xs[7]+5,y(0)],[R,y(0)]];
+ let d=`M${p[0]}`;for(let i=1;i<p.length;i++){const a=p[i-1],b=p[i],m=(a[0]+b[0])/2;d+=` C${m},${a[1]} ${m},${b[1]} ${b[0]},${b[1]}`}
+ h+=`<path d="${d} L${R},${B} L${L},${B}z" fill="#2F6B4F" fill-opacity=".16"/><path d="${d}" fill="none" stroke="#2F6B4F" stroke-width="3"/>`;
+ h+=`<text x="${xs[1]-20}" y="${y(.02)-8}" font-size="10.5" opacity=".8">пробная добыча</text>`;
+ h+=`<line x1="${xs[0]+20}" x2="${xs[0]+20}" y1="${T}" y2="${B}" stroke="#7A6A55" stroke-dasharray="3 3"/><text x="${xs[0]+24}" y="${T+14}" font-size="10.5">открытие</text>`;
+ h+=`<line x1="${xs[3]}" x2="${xs[3]}" y1="${T}" y2="${B}" stroke="#A23B2A" stroke-width="1.5"/><text x="${xs[3]+4}" y="${T+14}" font-size="10.5" style="fill:#A23B2A">первая нефть</text>`;
+ h+=`<text x="${L}" y="${T+4}" font-size="10.5" opacity=".7" transform="rotate(-90 ${L-14} ${T+60})">добыча</text>`;
+ // проектные этапы (stage-gate) снизу для сравнения
+ const PJ=[["Идентификация — Оценка",0,2],["Выбор — Определение",2,3],["Реализация",3,4],["Эксплуатация",4,7],["",7,8]];
+ PJ.forEach(([n,a,b])=>{if(!n)return;h+=`<rect x="${xs[a]}" y="${B+26}" width="${xs[b]-xs[a]-2}" height="20" rx="4" fill="#8a6fd0" fill-opacity=".25"/><text x="${(xs[a]+xs[b])/2}" y="${B+40}" text-anchor="middle" font-size="10.5">${n}</text>`});
+ h+=`<text x="${L}" y="${B+64}" font-size="10.5" opacity=".75">▲ проектные этапы (блок «Этапы жизни месторождения») для сравнения: вся «Эксплуатация» здесь раскрывается в стадии I–IV, а ликвидация — отдельная стадия</text>`;
+ pf.innerHTML=h;
+ pf.onclick=e=>{const g=e.target.closest(".st");if(!g)return;SEL=+g.dataset.i;render();const r=dt.querySelector(".stg.sel");if(r)r.scrollIntoView({behavior:"smooth",block:"nearest"})};
+})();
+function render(){
+ const all=S.flatMap(s=>s[5]),nWo=all.filter(d=>!d[0]).length,nRo=all.filter(d=>!d[1]).length;
+ gf.innerHTML=`<button class="${F=="all"?"on":""}" data-f="all">Все документы · ${all.length}</button><button class="wo ${F=="wo"?"on":""}" data-f="wo">🌐 Есть в мире, нет в РФ · ${nWo}</button><button class="ro ${F=="ro"?"on":""}" data-f="ro">🇷🇺 Есть в РФ, нет в мире · ${nRo}</button>`;
+ dt.innerHTML=`<thead><tr><th>🇷🇺 Российский документ</th><th>🌐 Мировой аналог</th><th>Что фиксирует</th><th>Кто утверждает</th><th>Статус</th></tr></thead><tbody>`+
+  S.map((s,i)=>{const rows=s[5].filter(d=>{const t=!d[0]?"wo":!d[1]?"ro":"";return F=="all"||t==F});
+   return rows.length?`<tr class="stg ${i==SEL?"sel":""}"><td colspan="5">${i+1}. ${s[0]}<span>${s[1]} · ${s[3]}</span><em>${s[2]}</em></td></tr>`+rows.map(d=>{const t=!d[0]?"wo":!d[1]?"ro":"";
+    return `<tr class="${t}"><td class="ru">${d[0]||'<span class="no">🌐 нет российского аналога</span>'}</td><td class="en">${d[1]||'<span class="no">🇷🇺 нет мирового аналога</span>'}</td><td>${d[2]}</td><td>${d[3]}</td><td>${d[4]}</td></tr>`}).join(""):""}).join("")+`</tbody>`;
+ sum.innerHTML=`<b>Вывод.</b> Российская система сильна в государственной фиксации: открытие, запасы, проекты разработки, ликвидация — всё через госорганы (${nRo} документа уникальны для РФ). Мировая практика добавляет документы управления ценностью на поздних стадиях: декларация коммерческой ценности, постинвестиционный анализ, план управления пластом, заявка на прекращение добычи, финансовое обеспечение ликвидации, мониторинг после ликвидации (${nWo} шт.).`;
+}
+gf.onclick=e=>{const b=e.target.closest("button");if(b){F=b.dataset.f;render()}};
+render();
+</script>

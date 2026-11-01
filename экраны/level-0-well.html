@@ -1,0 +1,88 @@
+<h2>Уровень 0 · Полный дизайн строительства скважины</h2>
+<p class="subtitle">Один и тот же набор из 7 дизайнов выполняется на каждом этапе уровня 1 — с разной глубиной, на разных данных, разными людьми. Нажмите на ячейку. Содержание — мой черновик для обсуждения.</p>
+
+<style>
+.l0{overflow-x:auto}
+.l0 table{border-collapse:collapse;width:100%;min-width:860px;font-size:12px}
+.l0 th,.l0 td{border:1px solid #8885;padding:6px;vertical-align:top;text-align:left}
+.l0 thead th{background:#A23B2A;color:#fff;text-align:center}
+.l0 th.rh{width:170px;font-weight:600}
+.l0 tr.meta th{background:#8881;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;opacity:.85}
+.l0 tr.meta td{font-size:11.5px;background:#8881}
+.l0 tr.doc td{font-weight:600;background:#A23B2A18}
+.c{cursor:pointer;text-align:center!important;font-weight:600;font-size:12px}
+.c:hover{outline:2px solid #A23B2A;outline-offset:-2px}
+.c.sel{outline:3px solid #A23B2A;outline-offset:-3px}
+.d0{background:transparent;opacity:.35}.d1{background:#A23B2A1a}.d2{background:#A23B2A38}.d3{background:#A23B2A60}.d4{background:#A23B2A90;color:#fff}.d5{background:#A23B2A;color:#fff}
+.leg{display:flex;gap:6px;flex-wrap:wrap;font-size:11.5px;margin:10px 0}
+.leg span{padding:2px 8px;border-radius:4px;border:1px solid #8884}
+.det{margin-top:14px;border:1px solid #8886;border-radius:8px;padding:12px 14px;font-size:13px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.det h4{margin:0 0 6px;font-size:14px}
+.det .full{grid-column:1/-1}
+.chip{display:inline-block;padding:2px 7px;border-radius:4px;margin:2px 3px 2px 0;border:1px solid #8885;font-size:12px}
+.sw{font-size:12px;line-height:1.6}
+.sw i{opacity:.7;font-style:normal}
+.agent{display:inline-block;padding:3px 9px;border-radius:999px;background:#8a6fd0;color:#fff;font-size:12px}
+@media (max-width:700px){.det{grid-template-columns:1fr}}
+</style>
+
+<div class="leg" id="leg"></div>
+<div class="l0"><table id="t0"></table></div>
+<div class="det" id="det"><div class="full">Нажмите на любую ячейку сетки.</div></div>
+
+<script>
+const ST=["Замысел","Концептуальный","Базовый дизайн (BoD)","Проектирование","Реализация","Эксплуатация","Ликвидация"];
+const DEPTH=["не выполняется","по аналогам","укрупнённый расчёт","инженерный расчёт","проектный (детальный)","рабочий / по факту"];
+const META={
+ data:["Аналоги, региональные данные","Сейсмика, первые поисковые скважины","Геомодель, ГДМ, керн, ГИС","Утверждённые модели, совмещённый график давлений","ГТИ, LWD/MWD, фактическая проводка","Промысловые данные, техрежим, ГИС-контроль","История скважины, состояние крепи"],
+ who:["Центр компетенций по бурению (концепт-инженер)","Инженер НИПИ, геолог","Проектная команда актива + НИПИ","Проектный институт, экспертиза","Супервайзер, подрядчик, центр сопровождения бурения","Технолог ЦДНГ, инженер КРС","Инженер КРС, проектировщик"],
+ doc:["Укрупнённая оценка стоимости и сроков","Групповой проект на поисковые скважины","Обоснование типовых конструкций (раздел ТСР)","Проектная документация на строительство","Программа бурения, ГТН, дело скважины, акт ввода","Паспорт скважины, планы КРС/ГТМ","Проект и акт ликвидации/консервации"]
+};
+const COMP=[
+ {n:"Конструкция",dep:[1,2,3,4,5,2,2],
+  w:["","Типовая конструкция с аналога","Число колонн по градиентам, укрупнённо","Глубины спуска по совмещённому графику давлений","Прочностной расчёт ОК, цементирование, коэффициенты запаса","Корректировка по факту осложнений, крепление","Контроль целостности, межколонные давления","Оценка состояния колонн для ликвидации"],
+  sk:["Совмещённый график давлений","Глубины спуска колонн","Прочность обсадных труб","Расчёт цементирования"],
+  f:"Landmark StressCheck, WellCat; SLB DrillPlan",r:"Бурсофтпроект; корпоративные методики"},
+ {n:"Заканчивание",dep:[1,1,3,4,5,3,1],
+  w:["","Тип заканчивания с аналога","—","Выбор: ННС/ГС/МГРП/МЗС, узловой анализ","Дизайн хвостовика, ГРП, подбор ГНО","Освоение, фактический ГРП","Оптимизация ГНО, повторные ГРП","—"],
+  sk:["Узловой анализ (приток–лифт)","Дизайн ГРП/МГРП","Подбор ЭЦН/ШГН"],
+  f:"PROSPER, PIPESIM, FracPro, Kinetix",r:"РН-ГРИД, Автотехнолог, tNavigator"},
+ {n:"Траектория",dep:[1,2,3,4,5,1,1],
+  w:["","Отход и тип профиля по аналогу","Укрупнённые профили по точкам","Кустование, профили по сетке","Траектории с антиколлизией","Геонавигация, фактическая проводка","—","—"],
+  sk:["Профиль (минимальная кривизна)","Антиколлизия","Кустование","Геонавигация"],
+  f:"Landmark Compass, Petrel, StarSteer",r:"Бурсофтпроект; корпоративные решения"},
+ {n:"Буровая установка (грузоподъёмность)",dep:[1,2,2,4,5,2,2],
+  w:["","Класс БУ с аналога","Класс по глубине","Класс по макс. весу колонны","Нагрузка на крюк с запасом, тип БУ, мобилизация","Фактическая БУ, график станков","Подъёмник для КРС","Подъёмник для ликвидации"],
+  sk:["Нагрузка на крюк","Torque & drag","Подбор класса БУ"],
+  f:"Landmark WellPlan, SLB Drillbench",r:"Бурсофтпроект; методики подрядчиков"},
+ {n:"Технология строительства",dep:[1,2,2,4,5,1,1],
+  w:["","Сроки и стоимость с аналога","Укрупнённые сутки/скв.","Сроки по интервалам","Растворы, гидравлика, КНБК, нормы времени","Оперативная корректировка режимов","—","—"],
+  sk:["Гидравлика промывки","Буровые растворы","КНБК","Цикл строительства и стоимость"],
+  f:"WellPlan, Drillbench, DrillPlan",r:"Бурсофтпроект; ЕНиР/корпоративные нормы"},
+ {n:"Эксплуатация",dep:[1,1,2,3,4,5,2],
+  w:["","Дебит с аналога","Стартовый дебит","Режим работы, ГНО","Регламент эксплуатации","Режим при вводе","Техрежим, ГТМ, мониторинг","Обоснование вывода из фонда"],
+  sk:["Техрежим","Целостность скважины","Подбор ГТМ"],
+  f:"PROSPER, OFM",r:"Автотехнолог, корпоративные ИС"},
+ {n:"Ликвидация",dep:[1,1,1,2,2,3,5],
+  w:["","Резерв затрат с аналога","Резерв затрат","Принципиальная схема","Раздел ликвидации в ПД","—","Уточнение схемы по состоянию","План работ, мосты, изоляция, акт"],
+  sk:["Схема мостов и барьеров","Затраты на ликвидацию"],
+  f:"WellCat (барьеры)",r:"Корпоративные методики"}
+];
+const leg=document.getElementById("leg");leg.innerHTML="<b>Глубина:</b>"+DEPTH.map((d,i)=>`<span class="d${i}">${i} · ${d}</span>`).join("");
+let h=`<thead><tr><th class="rh">Дизайн \\ Этап</th>${ST.map((s,i)=>`<th>${i+1}. ${s}</th>`).join("")}</tr></thead><tbody>`;
+h+=`<tr class="meta"><th>Исходные данные</th>${META.data.map(x=>`<td>${x}</td>`).join("")}</tr>`;
+h+=`<tr class="meta"><th>Кто делает</th>${META.who.map(x=>`<td>${x}</td>`).join("")}</tr>`;
+COMP.forEach((c,r)=>{h+=`<tr><th class="rh">${c.n}</th>${c.dep.map((d,j)=>`<td class="c d${d}" data-r="${r}" data-j="${j}">${d}</td>`).join("")}</tr>`});
+h+=`<tr class="doc"><th class="rh">Официальный документ</th>${META.doc.map(x=>`<td>${x}</td>`).join("")}</tr></tbody>`;
+const t=document.getElementById("t0");t.innerHTML=h;
+t.addEventListener("click",e=>{const td=e.target.closest(".c");if(!td)return;
+ t.querySelectorAll(".sel").forEach(x=>x.classList.remove("sel"));td.classList.add("sel");
+ const c=COMP[+td.dataset.r],j=+td.dataset.j,d=c.dep[j];
+ document.getElementById("det").innerHTML=`
+ <div class="full"><h4>${c.n} · ${ST[j]}</h4>Глубина ${d} — <b>${DEPTH[d]}</b>. ${c.w[j+1]||""}</div>
+ <div><h4>Расчёты → скиллы ИИ</h4>${c.sk.map(s=>`<span class="chip">${s}</span>`).join("")}</div>
+ <div><h4>Кто и на каких данных</h4>${META.who[j]}<br><span style="opacity:.75">${META.data[j]}</span></div>
+ <div class="sw"><h4>Софт</h4><i>Зарубежный:</i> ${c.f}<br><i>Отечественный:</i> ${c.r}</div>
+ <div><h4>Агент этапа</h4><span class="agent">🤖 Агент «${ST[j]}» · скважина</span><br><span style="font-size:12px;opacity:.8">собирает 7 дизайнов в документ: ${META.doc[j]}</span></div>`;
+});
+</script>

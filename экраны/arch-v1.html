@@ -1,0 +1,30 @@
+<h2>Архитектура · Матрёшка уровней</h2>
+<p class="subtitle">Каждый уровень вложен в уровень выше: в этапе актива идут циклы месторождения, в этапе месторождения — циклы объектов по четырём функциям, в этапе объекта — расчёты. Результаты (документы) собираются снизу вверх, решения ворот задают работу сверху вниз.</p>
+<style>.av svg{width:100%;height:auto;display:block}.av text{fill:currentColor}</style>
+<div class="av"><svg viewBox="0 0 1000 660" id="sv"></svg></div>
+<script>
+(()=>{const C3="#2F6B4F",C2="#8a6fd0",C1="#0F6E62",C0="#A23B2A";let h=`<defs><marker id="au" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#888"/></marker></defs>`;
+ const box=(x,y,w,hh,c,title,sub,agent)=>`<rect x="${x}" y="${y}" width="${w}" height="${hh}" rx="14" fill="${c}" fill-opacity=".07" stroke="${c}" stroke-width="2.5"/><text x="${x+16}" y="${y+26}" font-size="15" font-weight="700" style="fill:${c}">${title}</text><text x="${x+16}" y="${y+44}" font-size="11.5" opacity=".75">${sub}</text><text x="${x+w-14}" y="${y+26}" text-anchor="end" font-size="11.5" font-weight="600" style="fill:${c}">${agent}</text>`;
+ const chips=(x,y,w,c,arr)=>{const cw=w/arr.length;return arr.map((t,i)=>`<rect x="${x+i*cw+2}" y="${y}" width="${cw-4}" height="22" rx="5" fill="${c}" fill-opacity="${.55+i*.45/arr.length}"/><text x="${x+i*cw+cw/2}" y="${y+15}" text-anchor="middle" font-size="10.5" font-weight="600" style="fill:#fff">${t}</text>`).join("")};
+ // уровень 3
+ h+=box(140,20,720,620,C3,"Уровень 3 · Этапы жизни актива","8 этапов · ГРР → гринфилд → браунфилд → ликвидация · документы актива (FDP/PDO, FID, бизнес-план)","🤖 агент актива");
+ h+=chips(156,70,688,C3,["Вход","ГРР","Доразведка","Проект","Стройка","Добыча","Зрелый","Вывод"]);
+ // уровень 2
+ h+=box(170,106,660,514,C2,"Уровень 2 · Этапы жизни месторождения","в каждом этапе актива — полный или укороченный цикл · ТСР, КПРА, бизнес-кейсы, ТПР","🤖 агент месторождения");
+ h+=chips(186,162,628,C2,["Идентификация","Оценка","Выбор","Определение","Реализация","Эксплуатация"]);
+ // уровень 1
+ h+=box(200,202,600,398,C1,"Уровень 1 · Этапы формирования объекта","в каждом этапе месторождения — цикл объекта · геология → разработка → скважина → инфраструктура","🤖 агент объекта");
+ const F=[["Геология","#9A5B1E"],["Разработка","#0F6E62"],["Скважина","#A23B2A"],["Инфраструктура","#3D5A8A"]];
+ F.forEach(([n,c],k)=>{const x=216+k*146;h+=`<rect x="${x}" y="260" width="138" height="54" rx="7" fill="${c}" fill-opacity=".12" stroke="${c}"/><text x="${x+8}" y="276" font-size="11.5" font-weight="700" style="fill:${c}">${k+1}. ${n}</text>`;
+  for(let j=0;j<8;j++)h+=`<rect x="${x+8+j*15.5}" y="286" width="13" height="18" rx="3" fill="${c}" fill-opacity="${.3+j*.09}"/>`;
+  if(k<3)h+=`<text x="${x+142}" y="292" text-anchor="middle" font-size="14" opacity=".6">→</text>`});
+ h+=`<text x="216" y="332" font-size="10.5" opacity=".7">в каждой функции 8 этапов объекта: замысел → … → ликвидация</text>`;
+ // уровень 0
+ h+=box(230,346,540,234,C0,"Уровень 0 · Перечень расчётов дизайна","28 дизайнов · 77 расчётов = 77 скиллов ИИ","⚙ скилл = расчёт");
+ const N=[["G",19,"#9A5B1E"],["R",18,"#0F6E62"],["B",23,"#A23B2A"],["I",17,"#3D5A8A"]];
+ N.forEach(([k,n,c],r)=>{const y=400+r*42;h+=`<text x="246" y="${y+13}" font-size="11" font-weight="700" style="fill:${c}">${k}1–${k}7</text>`;for(let i=0;i<n;i++)h+=`<rect x="${300+i*20}" y="${y}" width="16" height="16" rx="3" fill="${c}" fill-opacity=".85"/>`;h+=`<text x="${300+n*20+6}" y="${y+13}" font-size="11" opacity=".75">${n}</text>`});
+ // стрелки
+ h+=`<line x1="80" y1="600" x2="80" y2="60" stroke="#888" stroke-width="3" marker-end="url(#au)"/><text transform="translate(66 330) rotate(-90)" text-anchor="middle" font-size="12.5" font-weight="600">результаты вверх: расчёт → документ объекта → документ месторождения → документ актива</text>`;
+ h+=`<line x1="920" y1="60" x2="920" y2="600" stroke="#888" stroke-width="3" stroke-dasharray="7 5" marker-end="url(#au)"/><text transform="translate(944 330) rotate(90)" text-anchor="middle" font-size="12.5" font-weight="600">решения вниз: ворота задают состав работ и глубину расчётов</text>`;
+ sv.innerHTML=h;})();
+</script>
