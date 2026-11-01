@@ -38,10 +38,42 @@
 .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;margin:1px 3px 1px 0;border:1px solid var(--c);background:color-mix(in srgb,var(--c) 12%,transparent)}
 .resp{margin-top:12px;border:2px dashed var(--ct);border-radius:10px;padding:10px 14px;font-size:13px;line-height:1.45}
 .resp b.h{color:var(--ct)}
+.big{border:1px solid #8885;border-radius:10px;padding:10px;margin-bottom:6px}
+.big svg{width:100%;height:auto;display:block;max-height:360px}
+.big text{font:600 13px system-ui,sans-serif;text-anchor:middle;fill:#fff}
+.big text.t{font-size:14.5px;font-weight:800;letter-spacing:.04em}
+.big .us rect{fill:var(--us)}
+.big .rg path,.big .rg ellipse{fill:color-mix(in srgb,currentColor 8%,transparent);stroke:currentColor;stroke-width:1.5}
+.big .rg text,.big .lb text,.big .fbt{fill:currentColor}
+.big .lb text{font-size:12px;font-weight:600;opacity:.75}
+.big .ln line,.big .ln path{stroke:currentColor;stroke-width:1.8;fill:none;opacity:.7}
+.big .ln .fb{stroke-dasharray:6 5;stroke:var(--bz);opacity:1}
+.big .fbt{text-anchor:start;font-size:12.5px;fill:var(--bz)}
+.big .ds rect{fill:none;stroke:var(--ct);stroke-width:2.5}
+.big .ds text{fill:currentColor}
 @media (max-width:900px){.flow,.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.st::after{display:none}.pp{grid-template-columns:1fr}}
 </style>
 <div class="sk">
 <div class="lg"><span style="--c:var(--bz)">Функция (бизнес, владелец расчёта)</span><span style="--c:var(--ai)">Центр компетенций ИИ</span><span style="--c:var(--ct)">Контроль: проверка и допуск</span><span style="--c:var(--us)">Пользователи</span></div>
+<h3>Общая схема</h3>
+<div class="big"><svg viewBox="0 0 1000 320" role="img" aria-label="Общая схема создания скилла">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:currentColor"/></marker></defs>
+<g class="bx"><rect x="10" y="45" width="175" height="90" rx="10" style="fill:var(--bz)"/><text x="97" y="72" class="t">ФУНКЦИЯ</text><text x="97" y="94">Владелец расчёта</text><text x="97" y="112">(роль «О»): методика</text></g>
+<g class="bx"><rect x="220" y="45" width="175" height="90" rx="10" style="fill:var(--ai)"/><text x="307" y="72" class="t">ЦЕНТР ИИ</text><text x="307" y="94">Данные</text><text x="307" y="112">и разработка скилла</text></g>
+<g class="bx"><rect x="430" y="45" width="175" height="90" rx="10" style="fill:var(--ct)"/><text x="517" y="72" class="t">КОНТРОЛЬ</text><text x="517" y="94">Независимая проверка</text><text x="517" y="112">и допуск комиссией</text></g>
+<g class="rg"><path d="M640,58 a65,13 0 0 0 130,0 v64 a65,13 0 0 1 -130,0z"/><ellipse cx="705" cy="58" rx="65" ry="13"/><text x="705" y="94" class="t">РЕЕСТР</text><text x="705" y="112">скиллов: 77 адресов</text></g>
+<g class="bx us"><rect x="810" y="14" width="180" height="36" rx="8"/><text x="900" y="37">Агент объекта · ур. 1</text>
+<rect x="810" y="56" width="180" height="36" rx="8"/><text x="900" y="79">Агент месторождения · ур. 2</text>
+<rect x="810" y="98" width="180" height="36" rx="8"/><text x="900" y="121">Агент актива · ур. 3</text>
+<rect x="810" y="140" width="180" height="36" rx="8"/><text x="900" y="163">Инженеры напрямую</text></g>
+<g class="ln"><line x1="185" y1="90" x2="218" y2="90" marker-end="url(#ar)"/><line x1="395" y1="90" x2="428" y2="90" marker-end="url(#ar)"/><line x1="605" y1="90" x2="638" y2="90" marker-end="url(#ar)"/>
+<line x1="770" y1="90" x2="806" y2="32" marker-end="url(#ar)"/><line x1="770" y1="90" x2="806" y2="74" marker-end="url(#ar)"/><line x1="770" y1="90" x2="806" y2="116" marker-end="url(#ar)"/><line x1="770" y1="90" x2="806" y2="158" marker-end="url(#ar)"/>
+<line x1="900" y1="178" x2="900" y2="228" marker-end="url(#ar)"/>
+<path d="M600,262 H97 V139" class="fb" marker-end="url(#ar)"/></g>
+<g class="lb"><text x="202" y="156">методика</text><text x="412" y="156">скилл v0</text><text x="622" y="156">допущен v1.0</text><text x="790" y="200" style="text-anchor:end">вызов по адресу</text></g>
+<g class="ds"><rect x="600" y="230" width="390" height="70" rx="10"/><text x="795" y="256" class="t">ДОКУМЕНТ → ПОДПИСЬ ЧЕЛОВЕКА</text><text x="795" y="280">отвечает роль «О», не ИИ · адрес, версия, данные</text></g>
+<text x="110" y="252" class="fbt">↺ сопровождение: план/факт → новая версия методики</text>
+</svg></div>
 <h3>1. Жизненный цикл скилла: 8 шагов</h3>
 <div class="flow" id="flow"></div>
 <p class="back">↺ Шаг 8 возвращает скилл на шаг 2, если меняется методика, стандарт, софт или факт расходится с расчётом. Каждая новая версия заново проходит проверку (5) и допуск (6).</p>

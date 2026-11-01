@@ -3210,10 +3210,42 @@ render();
 .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;margin:1px 3px 1px 0;border:1px solid var(--c);background:color-mix(in srgb,var(--c) 12%,transparent)}
 .resp{margin-top:12px;border:2px dashed var(--ct);border-radius:10px;padding:10px 14px;font-size:13px;line-height:1.45}
 .resp b.h{color:var(--ct)}
+.big{border:1px solid #8885;border-radius:10px;padding:10px;margin-bottom:6px}
+.big svg{width:100%;height:auto;display:block;max-height:360px}
+.big text{font:600 13px system-ui,sans-serif;text-anchor:middle;fill:#fff}
+.big text.t{font-size:14.5px;font-weight:800;letter-spacing:.04em}
+.big .us rect{fill:var(--us)}
+.big .rg path,.big .rg ellipse{fill:color-mix(in srgb,currentColor 8%,transparent);stroke:currentColor;stroke-width:1.5}
+.big .rg text,.big .lb text,.big .fbt{fill:currentColor}
+.big .lb text{font-size:12px;font-weight:600;opacity:.75}
+.big .ln line,.big .ln path{stroke:currentColor;stroke-width:1.8;fill:none;opacity:.7}
+.big .ln .fb{stroke-dasharray:6 5;stroke:var(--bz);opacity:1}
+.big .fbt{text-anchor:start;font-size:12.5px;fill:var(--bz)}
+.big .ds rect{fill:none;stroke:var(--ct);stroke-width:2.5}
+.big .ds text{fill:currentColor}
 @media (max-width:900px){.flow,.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.st::after{display:none}.pp{grid-template-columns:1fr}}
 </style>
 <div class=&quot;sk&quot;>
 <div class=&quot;lg&quot;><span style=&quot;--c:var(--bz)&quot;>Функция (бизнес, владелец расчёта)</span><span style=&quot;--c:var(--ai)&quot;>Центр компетенций ИИ</span><span style=&quot;--c:var(--ct)&quot;>Контроль: проверка и допуск</span><span style=&quot;--c:var(--us)&quot;>Пользователи</span></div>
+<h3>Общая схема</h3>
+<div class=&quot;big&quot;><svg viewBox=&quot;0 0 1000 320&quot; role=&quot;img&quot; aria-label=&quot;Общая схема создания скилла&quot;>
+<defs><marker id=&quot;ar&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;9&quot; refY=&quot;5&quot; markerWidth=&quot;7&quot; markerHeight=&quot;7&quot; orient=&quot;auto-start-reverse&quot;><path d=&quot;M0,0L10,5L0,10z&quot; style=&quot;fill:currentColor&quot;/></marker></defs>
+<g class=&quot;bx&quot;><rect x=&quot;10&quot; y=&quot;45&quot; width=&quot;175&quot; height=&quot;90&quot; rx=&quot;10&quot; style=&quot;fill:var(--bz)&quot;/><text x=&quot;97&quot; y=&quot;72&quot; class=&quot;t&quot;>ФУНКЦИЯ</text><text x=&quot;97&quot; y=&quot;94&quot;>Владелец расчёта</text><text x=&quot;97&quot; y=&quot;112&quot;>(роль «О»): методика</text></g>
+<g class=&quot;bx&quot;><rect x=&quot;220&quot; y=&quot;45&quot; width=&quot;175&quot; height=&quot;90&quot; rx=&quot;10&quot; style=&quot;fill:var(--ai)&quot;/><text x=&quot;307&quot; y=&quot;72&quot; class=&quot;t&quot;>ЦЕНТР ИИ</text><text x=&quot;307&quot; y=&quot;94&quot;>Данные</text><text x=&quot;307&quot; y=&quot;112&quot;>и разработка скилла</text></g>
+<g class=&quot;bx&quot;><rect x=&quot;430&quot; y=&quot;45&quot; width=&quot;175&quot; height=&quot;90&quot; rx=&quot;10&quot; style=&quot;fill:var(--ct)&quot;/><text x=&quot;517&quot; y=&quot;72&quot; class=&quot;t&quot;>КОНТРОЛЬ</text><text x=&quot;517&quot; y=&quot;94&quot;>Независимая проверка</text><text x=&quot;517&quot; y=&quot;112&quot;>и допуск комиссией</text></g>
+<g class=&quot;rg&quot;><path d=&quot;M640,58 a65,13 0 0 0 130,0 v64 a65,13 0 0 1 -130,0z&quot;/><ellipse cx=&quot;705&quot; cy=&quot;58&quot; rx=&quot;65&quot; ry=&quot;13&quot;/><text x=&quot;705&quot; y=&quot;94&quot; class=&quot;t&quot;>РЕЕСТР</text><text x=&quot;705&quot; y=&quot;112&quot;>скиллов: 77 адресов</text></g>
+<g class=&quot;bx us&quot;><rect x=&quot;810&quot; y=&quot;14&quot; width=&quot;180&quot; height=&quot;36&quot; rx=&quot;8&quot;/><text x=&quot;900&quot; y=&quot;37&quot;>Агент объекта · ур. 1</text>
+<rect x=&quot;810&quot; y=&quot;56&quot; width=&quot;180&quot; height=&quot;36&quot; rx=&quot;8&quot;/><text x=&quot;900&quot; y=&quot;79&quot;>Агент месторождения · ур. 2</text>
+<rect x=&quot;810&quot; y=&quot;98&quot; width=&quot;180&quot; height=&quot;36&quot; rx=&quot;8&quot;/><text x=&quot;900&quot; y=&quot;121&quot;>Агент актива · ур. 3</text>
+<rect x=&quot;810&quot; y=&quot;140&quot; width=&quot;180&quot; height=&quot;36&quot; rx=&quot;8&quot;/><text x=&quot;900&quot; y=&quot;163&quot;>Инженеры напрямую</text></g>
+<g class=&quot;ln&quot;><line x1=&quot;185&quot; y1=&quot;90&quot; x2=&quot;218&quot; y2=&quot;90&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;395&quot; y1=&quot;90&quot; x2=&quot;428&quot; y2=&quot;90&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;605&quot; y1=&quot;90&quot; x2=&quot;638&quot; y2=&quot;90&quot; marker-end=&quot;url(#ar)&quot;/>
+<line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;32&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;74&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;116&quot; marker-end=&quot;url(#ar)&quot;/><line x1=&quot;770&quot; y1=&quot;90&quot; x2=&quot;806&quot; y2=&quot;158&quot; marker-end=&quot;url(#ar)&quot;/>
+<line x1=&quot;900&quot; y1=&quot;178&quot; x2=&quot;900&quot; y2=&quot;228&quot; marker-end=&quot;url(#ar)&quot;/>
+<path d=&quot;M600,262 H97 V139&quot; class=&quot;fb&quot; marker-end=&quot;url(#ar)&quot;/></g>
+<g class=&quot;lb&quot;><text x=&quot;202&quot; y=&quot;156&quot;>методика</text><text x=&quot;412&quot; y=&quot;156&quot;>скилл v0</text><text x=&quot;622&quot; y=&quot;156&quot;>допущен v1.0</text><text x=&quot;790&quot; y=&quot;200&quot; style=&quot;text-anchor:end&quot;>вызов по адресу</text></g>
+<g class=&quot;ds&quot;><rect x=&quot;600&quot; y=&quot;230&quot; width=&quot;390&quot; height=&quot;70&quot; rx=&quot;10&quot;/><text x=&quot;795&quot; y=&quot;256&quot; class=&quot;t&quot;>ДОКУМЕНТ → ПОДПИСЬ ЧЕЛОВЕКА</text><text x=&quot;795&quot; y=&quot;280&quot;>отвечает роль «О», не ИИ · адрес, версия, данные</text></g>
+<text x=&quot;110&quot; y=&quot;252&quot; class=&quot;fbt&quot;>↺ сопровождение: план/факт → новая версия методики</text>
+</svg></div>
 <h3>1. Жизненный цикл скилла: 8 шагов</h3>
 <div class=&quot;flow&quot; id=&quot;flow&quot;></div>
 <p class=&quot;back&quot;>↺ Шаг 8 возвращает скилл на шаг 2, если меняется методика, стандарт, софт или факт расходится с расчётом. Каждая новая версия заново проходит проверку (5) и допуск (6).</p>
