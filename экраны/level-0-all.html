@@ -1,4 +1,4 @@
-<h2>Уровень 1 · Официальные документы: РФ ↔ мир</h2>
+<h2>Уровень 2 · Официальные документы: РФ ↔ мир</h2>
 <p class="subtitle">Для каждого направления — набор дизайнов, выполняемых на каждом этапе с разной глубиной, и официальные документы этапов. Черновик: глубины, софт и пометки ⚠ — для сверки.</p>
 
 <style>
@@ -236,7 +236,7 @@ function render(){
  if(mode=="r"){
   // лента документов по этапам → колонки дизайнов со списком расчётов; подсвечены расчёты выбранного документа
   if(!rSel||rSel.k!==cur)rSel={k:cur,j:3,di:0};
-  let h=`<p class="rleg">Выберите документ — в колонках дизайнов подсветятся расчёты уровня 0, которые в него входят, с глубиной проработки на этапе документа.</p><div class="rxs">`+x.docs.map((st,j)=>`<div class="rg"><div class="rgh">${j+1}. ${ST[j]}</div><div class="rgb">${st.map((d,di)=>{const t=!d[0]?"wo":!d[1]?"ro":"",on=rSel.j==j&&rSel.di==di;
+  let h=`<p class="rleg">Выберите документ — в колонках дизайнов подсветятся расчёты уровня 3, которые в него входят, с глубиной проработки на этапе документа.</p><div class="rxs">`+x.docs.map((st,j)=>`<div class="rg"><div class="rgh">${j+1}. ${ST[j]}</div><div class="rgb">${st.map((d,di)=>{const t=!d[0]?"wo":!d[1]?"ro":"",on=rSel.j==j&&rSel.di==di;
    return `<button class="${t} ${on?"on":""}" data-j="${j}" data-di="${di}">${t=="wo"?`<span class="no">🌐 нет в РФ</span>${d[1]}`:t=="ro"?`<span class="no">🇷🇺 нет в мире</span>${d[0]}`:`${d[0]}<small>🌐 ${d[1]}</small>`}</button>`}).join("")}</div></div>`).join("")+`</div>`;
   const d=x.docs[rSel.j][rSel.di],cs=docCalcs(cur,rSel.j,d,rSel.di),ok=cs.filter(c=>!c.miss),miss=cs.filter(c=>c.miss),codes=new Set(ok.map(c=>c.code));
   h+=`<div class="rdr">`+x.comp.map((c,r)=>{const dep=c[1][rSel.j],any=c[2].some((_,m)=>codes.has(`${KEY[cur]}${r+1}.${m+1}`));
@@ -249,7 +249,7 @@ function render(){
   const ruSet=new Set(),woSet=new Set(),allCodes=[];
   x.comp.forEach((c,r)=>c[2].forEach((s,m)=>allCodes.push(`${KEY[cur]}${r+1}.${m+1}`)));
   let h=`<div class="leg"><b>Глубина расчёта в документе:</b>${DEPTH.slice(1).map((d,i)=>`<span class="d${i+1}">${d}</span>`).join("")}</div>`;
-  h+=`<div class="wrapx"><table class="dt cdt"><thead><tr><th>🇷🇺 Российский документ</th><th>🌐 Мировой аналог</th><th>Расчёты в документе (коды уровня 0)</th></tr></thead><tbody>`;
+  h+=`<div class="wrapx"><table class="dt cdt"><thead><tr><th>🇷🇺 Российский документ</th><th>🌐 Мировой аналог</th><th>Расчёты в документе (коды уровня 3)</th></tr></thead><tbody>`;
   x.docs.forEach((s,j)=>{
    if(j==4)h+=`<tr class="stg"><td colspan="3">5. Реализация</td></tr>`;
    h+=`<tr class="${j==4||j==5?"sub":"stg"}"><td colspan="3">${j<4?(j+1)+". ":j>5?(j)+". ":""}${ST[j]}</td></tr>`;

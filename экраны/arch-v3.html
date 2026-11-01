@@ -1,5 +1,5 @@
 <h2>Архитектура · Интерактивный каскад</h2>
-<p class="subtitle">Выберите этап жизни актива → на уровне 2 подсветятся этапы месторождения, которые в нём выполняются. Выберите этап месторождения → на уровне 1 подсветятся этапы объекта. Выберите этап объекта → на уровне 0 появятся все четыре направления: какие дизайны и расчёты выполняются и с какой глубиной.</p>
+<p class="subtitle">Выберите этап жизни актива → на уровне 1 подсветятся этапы месторождения, которые в нём выполняются. Выберите этап месторождения → на уровне 2 подсветятся этапы объекта. Выберите этап объекта → на уровне 3 появятся все четыре направления: какие дизайны и расчёты выполняются и с какой глубиной.</p>
 <style>
 .cz{--l3:#2F6B4F;--l2:#8a6fd0;--l1:#0F6E62;--l0:#A23B2A}
 .lv{margin:0 0 6px}
@@ -33,13 +33,13 @@
 @media (max-width:900px){.l0{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <div class="cz">
- <div class="lv" style="--c:var(--l3)"><div class="lh"><b style="color:var(--l3)">Уровень 3 · Этапы жизни актива</b><span>нажмите на этап</span></div><div class="ph" id="ph"></div><div class="row" id="r3" style="grid-template-columns:repeat(8,1fr)"></div></div>
+ <div class="lv" style="--c:var(--l3)"><div class="lh"><b style="color:var(--l3)">Уровень 0 · Этапы жизни актива</b><span>нажмите на этап</span></div><div class="ph" id="ph"></div><div class="row" id="r3" style="grid-template-columns:repeat(8,1fr)"></div></div>
  <div class="zoom" id="z3" style="--c:var(--l3)"></div>
- <div class="lv" style="--c:var(--l2)"><div class="lh"><b style="color:var(--l2)">Уровень 2 · Этапы жизни месторождения</b><span id="s2"></span></div><div class="row" id="r2" style="grid-template-columns:repeat(6,1fr)"></div></div>
+ <div class="lv" style="--c:var(--l2)"><div class="lh"><b style="color:var(--l2)">Уровень 1 · Этапы жизни месторождения</b><span id="s2"></span></div><div class="row" id="r2" style="grid-template-columns:repeat(6,1fr)"></div></div>
  <div class="zoom" id="z2" style="--c:var(--l2)"></div>
- <div class="lv" style="--c:var(--l1)"><div class="lh"><b style="color:var(--l1)">Уровень 1 · Этапы формирования объекта</b><span id="s1"></span></div><div class="row" id="r1" style="grid-template-columns:repeat(8,1fr)"></div></div>
+ <div class="lv" style="--c:var(--l1)"><div class="lh"><b style="color:var(--l1)">Уровень 2 · Этапы формирования объекта</b><span id="s1"></span></div><div class="row" id="r1" style="grid-template-columns:repeat(8,1fr)"></div></div>
  <div class="zoom" id="z1" style="--c:var(--l1)"></div>
- <div class="lv"><div class="lh"><b style="color:var(--l0)">Уровень 0 · Расчёты по направлениям</b><span id="s0"></span></div><div class="l0" id="r0"></div></div>
+ <div class="lv"><div class="lh"><b style="color:var(--l0)">Уровень 3 · Расчёты по направлениям</b><span id="s0"></span></div><div class="l0" id="r0"></div></div>
  <p class="path" id="path"></p>
 </div>
 <script>
@@ -166,7 +166,7 @@ const AS=[["Вход в актив","Access"],["Геологоразведка",
 const GRP=[["ГРР",3,"#7A6A55"],["Гринфилд",2,"#3D5A8A"],["Браунфилд",2,"#2F6B4F"],["Ликвидация",1,"#5A6662"]];
 const FS=[["Поиск возможности","Identify"],["Оценка ценности","Assess"],["Выбор концепции","Select"],["Проект и инвестиционное решение","Define"],["Строительство и ввод","Execute"],["Эксплуатация","Operate"]];
 const OS=["Замысел","Концепт","Базовый дизайн","Проектирование","Подготовка","Строительство","Эксплуатация","Ликвидация"];
-// этапы месторождения внутри этапа актива — как на уровне 3
+// этапы месторождения внутри этапа актива — как на уровне 0
 const AF=[[1,1,1,0,1,0],[1,1,1,1,1,0],[1,1,1,1,1,1],[1,1,1,1,0,0],[0,0,0,0,1,0],[1,1,1,1,1,1],[1,0,1,0,1,1],[1,1,1,1,1,0]];
 let a=3,f=3,o=3;
 ph.innerHTML=GRP.map(([n,k,c])=>`<div style="background:${c}">${n}</div>`).join("");
