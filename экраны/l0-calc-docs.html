@@ -17,17 +17,26 @@
 .ct td.nm{width:190px}
 .ct td.n{text-align:center;font-weight:700;width:44px}
 .ct td.n.z{opacity:.35}
-.ch{display:inline-block;margin:1px 3px 2px 0;padding:1px 6px;border-radius:4px;font-size:11px;line-height:1.35;border:1px solid var(--cc);color:inherit;background:color-mix(in srgb,var(--cc) 10%,transparent);cursor:default}
+.ch{display:inline-block;vertical-align:top;margin:1px 3px 3px 0;padding:2px 7px;border-radius:4px;font-size:11px;line-height:1.3;border:1px solid var(--cc);border-left-width:4px;color:inherit;background:color-mix(in srgb,var(--cc) 8%,transparent);cursor:default;max-width:340px}
 .ch b{font-size:9.5px;color:var(--cc);margin-right:4px}
-.ch.x{border-width:1.5px;font-weight:600}
-.ch i{font-style:normal;opacity:.6;font-size:10px;margin-left:3px}
-.ch.wo{border-style:dashed}
+.ch.x{border-width:1.5px;border-left-width:4px}
+.ch i{font-style:normal;opacity:.6;font-size:10px}
+.ch .ru{display:block;font-weight:600}
+.ch .en{display:block;font-style:italic;opacity:.85}
+.ch.wo{background:repeating-linear-gradient(135deg,#C77B0A1f 0 6px,transparent 6px 12px);border-left-color:#C77B0A;border-left-style:dashed}
+.ch.ro{background:#0E7C861f;border-left-color:#0E7C86}
+.no{font-style:normal;font-weight:700}
+.ch.wo .no{color:#C77B0A}.ch.ro .no{color:#0E7C86}
+.gp{font-size:9.5px;font-weight:700;white-space:nowrap;margin-top:3px}
+.gp.wo{color:#C77B0A}.gp.ro{color:#0E7C86}
+.ct td.n{width:70px}
 .ty{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10.5px;font-weight:700;color:#fff;background:var(--cc)}
 .sum{margin-top:10px;font-size:13px;max-width:100ch}
 </style>
 <div class="cf">
 <div class="tb" id="fl"></div>
-<div class="lg"><span><span class="ch" style="--cc:#9A5B1E"><b>Ф</b>документ направления</span> функциональный · только одно направление</span><span><span class="ch x" style="--cc:var(--kf2)"><b>КФ·2</b>документ месторождения</span> кросс-функциональный, уровень 2</span><span><span class="ch x" style="--cc:var(--kf3)"><b>КФ·3</b>документ актива</span> кросс-функциональный, уровень 3</span><span><span class="ch wo" style="--cc:#C77B0A"><b>·</b>пунктир</span> — нет в РФ (только мировая практика)</span></div>
+<div class="lg"><span><span class="ch" style="--cc:#9A5B1E"><b>Ф</b>документ направления</span> функциональный · только одно направление</span><span><span class="ch x" style="--cc:var(--kf2)"><b>КФ·2</b>документ месторождения</span> кросс-функциональный, уровень 2</span><span><span class="ch x" style="--cc:var(--kf3)"><b>КФ·3</b>документ актива</span> кросс-функциональный, уровень 3</span></div>
+<div class="lg"><b>В каждом документе:</b> верхняя строка — документ РФ, нижняя — мировой аналог. Несоответствие: <span class="ch wo" style="--cc:#C77B0A"><span class="ru"><em class="no">✕ нет в РФ</em></span><span class="en">есть только в мире</span></span> <span class="ch ro" style="--cc:#0E7C86"><span class="ru">есть только в РФ</span><span class="en"><em class="no">✕ нет в мире</em></span></span></div>
 <div class="ct"><table id="ct"></table></div>
 <p class="sum" id="sum"></p>
 </div>
@@ -287,21 +296,29 @@ ORDER.forEach(k=>D[k].docs.forEach((st,j)=>st.forEach((d,idx)=>docCalcs(k,j,d,id
 const XDOCS=[];
 [[S2,2,s=>s[2],s=>s[0]],[S3,3,s=>s[6],s=>s[0]]].forEach(([S,lv,docs,sn])=>S.forEach((s,j)=>docs(s).forEach(d=>{const cs=xfCodes(d);XDOCS.push({d,lv,st:`${j+1}. ${sn(s)}`,cs});(cs||[]).forEach(c=>USE[c]&&USE[c].x.push({d,lv,st:`${j+1}. ${sn(s)}`}))})));
 const esc=s=>String(s).replace(/<[^>]+>/g,"").replace(/"/g,"&quot;");
-const chipF=u=>`<span class="ch ${u.d[0]?"":"wo"}" style="--cc:${D[u.k].c}" title="${esc(`Функциональный · ${D[u.k].n} · этап объекта ${u.st}\nРФ: ${u.d[0]||"нет"}\nМир: ${u.d[1]||"нет"}`)}"><b>Ф</b>${nm(u.d)}<i>${u.st.split(".")[0]}</i></span>`;
-const chipX=u=>`<span class="ch x ${u.d[0]?"":"wo"}" style="--cc:var(--kf${u.lv})" title="${esc(`Кросс-функциональный · уровень ${u.lv} · этап ${u.st}\nРФ: ${u.d[0]||"нет"}\nМир: ${u.d[1]||"нет"}`)}"><b>КФ·${u.lv}</b>${nm(u.d)}<i>${u.st.split(".")[0]}</i></span>`;
+// документ: РФ ↔ мир; gap — несоответствие: wo — нет в РФ, ro — нет в мире
+const gap=d=>!d[0]?"wo":(!d[1]||d[1]=="—")?"ro":"";
+const pair=d=>{const g=gap(d);return `<span class="ru">${g=="wo"?'<em class="no">✕ нет в РФ</em>':d[0]}</span><span class="en">${g=="ro"?'<em class="no">✕ нет в мире</em>':d[1]}</span>`};
+const chip=(cls,cc,tag,u,t)=>`<span class="ch ${cls} ${gap(u.d)}" style="--cc:${cc}" title="${esc(t)}"><b>${tag}</b><i>эт. ${u.st.split(".")[0]}</i>${pair(u.d)}</span>`;
+const chipF=u=>chip("",D[u.k].c,"Ф",u,`Функциональный · ${D[u.k].n} · этап объекта ${u.st}`);
+const chipX=u=>chip("x",`var(--kf${u.lv})`,`КФ·${u.lv}`,u,`Кросс-функциональный · уровень ${u.lv} · этап ${u.st}`);
+const gaps=a=>{const w=a.filter(u=>gap(u.d)=="wo").length,r=a.filter(u=>gap(u.d)=="ro").length;return (w?`<div class="gp wo">${w} нет в РФ</div>`:"")+(r?`<div class="gp ro">${r} нет в мире</div>`:"")};
 let fk="all",fv="all";
-const FV=[["all","Все документы"],["f","Только Ф"],["x","Только КФ"]];
+const FV=[["all","Все документы"],["f","Только Ф"],["x","Только КФ"],["g","Только несоответствия РФ ↔ мир"]];
 function render(){
  fl.innerHTML=`<button data-k="all" class="${fk=="all"?"on":""}">Все направления</button>`+ORDER.map(k=>`<button data-k="${k}" style="--bc:${D[k].c}" class="${fk==k?"on":""}">${KEY[k]} · ${D[k].n}</button>`).join("")+`<span class="sp"></span>`+FV.map(([v,t])=>`<button data-v="${v}" class="${fv==v?"on":""}">${t}</button>`).join("");
  let html=`<thead><tr><th>Код</th><th>Расчёт</th>${fv!="x"?'<th class="f">Ф</th><th class="f">Функциональные документы (только своё направление)</th>':""}${fv!="f"?'<th class="x">КФ</th><th class="x">Кросс-функциональные документы (несколько направлений)</th>':""}</tr></thead><tbody>`;
  let prev="",nf=0,nx=0,only=0,none=0,cnt=0;
- ALLC.filter(c=>fk=="all"||c.k==fk).forEach(c=>{const u=USE[c.code],x=D[c.k];cnt++;
+ const flt=a=>fv=="g"?a.filter(o=>gap(o.d)):a;
+ ALLC.filter(c=>fk=="all"||c.k==fk).forEach(c=>{const u0=USE[c.code],u={f:flt(u0.f),x:flt(u0.x)},x=D[c.k];if(fv=="g"&&!u.f.length&&!u.x.length)return;cnt++;
   if(prev!==c.k+c.r){prev=c.k+c.r;html+=`<tr class="dg" style="--fc:${x.c}"><td colspan="6">${KEY[c.k]}${c.r+1} · ${c.dz} <span style="font-weight:400;opacity:.75">— ${x.n}</span></td></tr>`}
   if(u.f.length)nf++;if(u.x.length)nx++;if(u.f.length&&!u.x.length)only++;if(!u.f.length&&!u.x.length)none++;
-  html+=`<tr style="--fc:${x.c}"><td class="cd">${c.code}</td><td class="nm">${c.n}</td>${fv!="x"?`<td class="n ${u.f.length?"":"z"}">${u.f.length}</td><td>${u.f.map(chipF).join("")||"—"}</td>`:""}${fv!="f"?`<td class="n ${u.x.length?"":"z"}">${u.x.length}</td><td>${u.x.map(chipX).join("")||"—"}</td>`:""}</tr>`});
+  html+=`<tr style="--fc:${x.c}"><td class="cd">${c.code}</td><td class="nm">${c.n}</td>${fv!="x"?`<td class="n ${u.f.length?"":"z"}">${u.f.length}${gaps(u.f)}</td><td>${u.f.map(chipF).join("")||"—"}</td>`:""}${fv!="f"?`<td class="n ${u.x.length?"":"z"}">${u.x.length}${gaps(u.x)}</td><td>${u.x.map(chipX).join("")||"—"}</td>`:""}</tr>`});
  ct.innerHTML=html+"</tbody>";
  const xd=XDOCS.filter(o=>o.cs&&o.cs.length).length;
- sum.innerHTML=`Показано расчётов: <b>${cnt}</b>. В функциональных документах — <b>${nf}</b>, в кросс-функциональных — <b>${nx}</b>; только в функциональных (не доходят до документов месторождения и актива) — <b>${only}</b>; ни в одном документе — <b>${none}</b>. Кросс-функциональных документов с расчётами: ${xd} из ${XDOCS.length}; остальные — правовые и организационные (лицензии, соглашения, акты) без собственных расчётов. Число справа от названия документа — номер этапа. Наведите на документ, чтобы увидеть РФ ↔ мир.`;
+ const FD=ORDER.flatMap(k=>D[k].docs.flat()),gw=a=>a.filter(d=>gap(d)=="wo").length,gr=a=>a.filter(d=>gap(d)=="ro").length,XD=XDOCS.map(o=>o.d);
+ sum.dataset.g=`Несоответствия РФ ↔ мир. Функциональные документы: ${FD.length}, из них нет в РФ — <b>${gw(FD)}</b>, нет в мире — <b>${gr(FD)}</b>. Кросс-функциональные: ${XD.length}, нет в РФ — <b>${gw(XD)}</b>, нет в мире — <b>${gr(XD)}</b>.<br>`;
+ sum.innerHTML=sum.dataset.g+`Показано расчётов: <b>${cnt}</b>. В функциональных документах — <b>${nf}</b>, в кросс-функциональных — <b>${nx}</b>; только в функциональных (не доходят до документов месторождения и актива) — <b>${only}</b>; ни в одном документе — <b>${none}</b>. Кросс-функциональных документов с расчётами: ${xd} из ${XDOCS.length}; остальные — правовые и организационные (лицензии, соглашения, акты) без собственных расчётов. «эт. N» — номер этапа, на котором выпускается документ.`;
 }
 fl.onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.k)fk=b.dataset.k;if(b.dataset.v)fv=b.dataset.v;render()};
 render();
