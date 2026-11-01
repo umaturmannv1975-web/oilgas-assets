@@ -5,14 +5,14 @@
 @media (prefers-color-scheme:dark){:root{--bg:#121615;--ink:#E6ECE9;--muted:#9AA6A1;--line:#2E3734;--paper:#1A201E}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",system-ui,sans-serif}
-header{padding:20px 20px 0;max-width:1400px;margin:0 auto}
+header{padding:20px 20px 0}
 h1{margin:0 0 4px;font-size:24px}
 .lead{color:var(--muted);margin:0 0 14px;max-width:95ch}
 nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px;display:flex;gap:6px;flex-wrap:wrap}
 nav button{padding:7px 14px;border-radius:8px;border:1.5px solid var(--c);background:transparent;color:var(--ink);cursor:pointer;font:inherit;font-weight:600}
 nav button small{display:block;font-weight:400;font-size:11px;color:var(--muted)}
 nav button.on{background:var(--c);color:#fff}nav button.on small{color:#fffc}
-main{max-width:1400px;margin:0 auto;padding:12px 20px 40px}
+main{padding:12px 20px 40px}
 .sub{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 10px}
 .sub button{padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font:inherit;font-size:13px}
 .sub button.on{border-color:var(--ink);font-weight:600}
@@ -6947,7 +6947,8 @@ window.go=(p,f)=>{show(p);if(f){const b=document.querySelector('[data-f="'+f+'"]
 document.getElementById('nav').onclick=e=>{const b=e.target.closest('button');if(b)show(b.dataset.p)};
 document.getElementById('ov').onclick=e=>{const d=e.target.closest('.lv,.nest');if(d)show(d.dataset.p)};
 document.querySelectorAll('.sub').forEach(s=>s.onclick=e=>{const b=e.target.closest('button');if(!b)return;s.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));s.parentElement.querySelectorAll('iframe,.ovp').forEach(f=>f.hidden=f.id!==b.dataset.f);fit()});
-function fit(){document.querySelectorAll('iframe').forEach(f=>{try{const d=f.contentDocument;if(d&&d.body&&!f.hidden)f.style.height=(d.documentElement.scrollHeight+4)+'px'}catch(e){}})}
+function fit(){document.querySelectorAll('iframe').forEach(f=>{try{const d=f.contentDocument;if(!d||!d.body||f.hidden)return;const r=d.documentElement,old=r.style.zoom;r.style.zoom='';const w=r.scrollWidth,h=r.scrollHeight,z=w>f.clientWidth?f.clientWidth/w:1,nz=z<1?String(z):'';r.style.zoom=nz;const nh=Math.ceil(h*z)+4+'px';if(f.style.height!==nh)f.style.height=nh}catch(e){}})}
+addEventListener('resize',fit);
 document.querySelectorAll('iframe').forEach(f=>f.addEventListener('load',()=>{fit();try{new ResizeObserver(fit).observe(f.contentDocument.body)}catch(e){}}));
 setInterval(fit,1500);
 </script></body></html>
